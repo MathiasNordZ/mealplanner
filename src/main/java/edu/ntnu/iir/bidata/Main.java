@@ -5,4 +5,5 @@ package edu.ntnu.iir.bidata;
  * instance of your main-class that starts your application.
  */
 public class Main {
+
 }
