@@ -14,12 +14,15 @@ public class Grocery {
   /**
    * This is the constructor for the grocery class.
    *
-   * @param quantity This is the quanity of the grocery.
-   * @param name This is the name of the grocery
-   * @param unitOfMeasurement This is the unit of measurement used.
-   * @param year This is the year of expiration for the grocery.
-   * @param month This is the month of expiration for the grocery.
-   * @param day This is the day of expiration for the grocery.
+   * @param quantity This is the quanity of the grocery. It is of the type float,
+   *                 because quantity can be a float number and use of the type double,
+   *                 is not necessary when it comes to food measurement.
+   * @param name This is the name of the grocery. It is of the type String, because a name usually consists of multiple characters.
+   * @param unitOfMeasurement This is the unit of measurement used. It is of the type String, because it fits the use of "kg, g, mg, dl, liter" etc.
+   * @param year This is the year of expiration for the grocery. It is of the type int, because a year is a whole number.
+   * @param month This is the month of expiration for the grocery. It is of the type int, because month is a whole number.
+   * @param day This is the day of expiration for the grocery. It is of the type int, because day is a whole number. I have purposely chosen int,
+   *            because it is easier to work with than a String, when it comes to calculating dates.
    *
    */
   public Grocery(float quantity, String name, String unitOfMeasurement, int year, int month, int day) {
