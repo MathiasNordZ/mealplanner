@@ -1,6 +1,5 @@
-package edu.ntnu.iir.bidata;
+package edu.ntnu.idi.bidata;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

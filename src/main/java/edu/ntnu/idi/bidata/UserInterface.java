@@ -1,6 +1,4 @@
-package edu.ntnu.iir.bidata;
-
-import java.util.Date;
+package edu.ntnu.idi.bidata;
 
 public class UserInterface {
 
