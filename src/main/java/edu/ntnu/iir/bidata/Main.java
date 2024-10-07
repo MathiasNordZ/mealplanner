@@ -5,5 +5,10 @@ package edu.ntnu.iir.bidata;
  * instance of your main-class that starts your application.
  */
 public class Main {
+  public static void main(String[] args) {
+    UserInterface ui = new UserInterface();
+
+    ui.start();
+  }
 
 }

@@ -3,6 +3,9 @@ package edu.ntnu.iir.bidata;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is a storage for groceries.
+ */
 public class FoodStorage {
   private Map<String, Grocery> groceries;
 

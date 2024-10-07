@@ -2,6 +2,9 @@ package edu.ntnu.iir.bidata;
 
 import java.util.List;
 
+/**
+ * This is a cookbook class that contains a set of recipes.
+ */
 public class CookBook {
   private List<Recipe> recipes;
 
