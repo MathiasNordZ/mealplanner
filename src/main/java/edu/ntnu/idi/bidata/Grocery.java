@@ -7,6 +7,7 @@ import java.time.LocalDate;
  */
 public class Grocery {
   private float quantity;
+  private float price;
   private String name;
   private LocalDate expirationDate;
   private String unitOfMeasurement;
@@ -25,22 +26,12 @@ public class Grocery {
    *            because it is easier to work with than a String, when it comes to calculating dates.
    *
    */
-  public Grocery(float quantity, String name, String unitOfMeasurement, int year, int month, int day) {
-    this.quantity = quantity;
-    this.name = name;
-    this.expirationDate = LocalDate.of(year, month, day);
-    this.unitOfMeasurement = unitOfMeasurement;
-  }
-
-
-  /**
-   * This is a default constructor for grocery class. Will force set all fields to empty or null.
-   */
-  public Grocery() {
-    this.quantity = 0;
-    this.name = "";
-    this.expirationDate = null;
-    this.unitOfMeasurement = "";
+  public Grocery(float quantity, String name, String unitOfMeasurement, float price, int year, int month, int day) {
+    setQuantity(quantity);
+    setName(name);
+    setExpirationDate(LocalDate.of(year, month, day));
+    setUnitOfMeasurement(unitOfMeasurement);
+    setPrice(price);
   }
 
   /**
@@ -58,6 +49,9 @@ public class Grocery {
    * @param quantity Takes in a parameter float quantity, and passes it to the field, quantity.
    */
   public void setQuantity(float quantity) {
+    if (quantity < 0) {
+      throw new IllegalArgumentException("Quantity can not have a negative value.");
+    }
     this.quantity = quantity;
   }
 
@@ -83,6 +77,9 @@ public class Grocery {
    * @param name Takes in parameter String name, and passes it to the field, name.
    */
   public void setName(String name) {
+    if (name.isBlank() || name.isEmpty()) {
+      throw new IllegalArgumentException("Name can not be blank or empty.");
+    }
     this.name = name;
   }
 
@@ -108,6 +105,9 @@ public class Grocery {
    * @param expirationDate Takes in parameter LocalDate expirationDate, and passes it to the field, expirationDate.
    */
   public void setExpirationDate(LocalDate expirationDate) {
+    if (expirationDate.isBefore(LocalDate.now())) {
+      throw new IllegalArgumentException("You can not set an expiration date of the past.");
+    }
     this.expirationDate = expirationDate;
   }
 
@@ -134,6 +134,9 @@ public class Grocery {
    * @param unitOfMeasurement Takes in parameter String unitOfMeasurement and passes it to the field, unitOfMeasurement.
    */
   public void setUnitOfMeasurement(String unitOfMeasurement) {
+    if (unitOfMeasurement.isBlank() || unitOfMeasurement.isEmpty()) {
+      throw new IllegalArgumentException("UnitOfMeasurement can not be blank or empty.");
+    }
     this.unitOfMeasurement = unitOfMeasurement;
   }
 
@@ -142,5 +145,33 @@ public class Grocery {
    */
   public void printUnitOfMeasurement() {
     System.out.println("The unit of measurement: " + this.getUnitOfMeasurement());
+  }
+
+  /**
+   * Get method for price of a Grocery.
+   *
+   * @return Returns the field price.
+   */
+  public float getPrice() {
+    return price;
+  }
+
+  /**
+   * Set method for price of a Grocery.
+   *
+   * @param price Takes in parameter float price and passes it to the field, price.
+   */
+  public void setPrice(float price) {
+    if (price < 0) {
+      throw new IllegalArgumentException("The price can not be less than zero.");
+    }
+    this.price = price;
+  }
+
+  /**
+   * Print method for price, will print the price of a Grocery.
+   */
+  public void printPrice() {
+    System.out.println("Price of grocery: " + this.getPrice());
   }
 }
