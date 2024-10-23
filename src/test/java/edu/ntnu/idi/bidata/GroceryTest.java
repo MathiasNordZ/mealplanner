@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 16.10.2024
  *
  * This is the test class for the class Grocery. The test class is supposed to test certain methods of the Grocery class, both with positive and negative values.
- * The test class doess follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
+ * The test class does follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
  *
  */
 

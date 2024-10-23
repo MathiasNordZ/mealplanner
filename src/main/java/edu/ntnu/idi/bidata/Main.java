@@ -6,7 +6,8 @@ package edu.ntnu.idi.bidata;
  */
 public class Main {
   public static void main(String[] args) {
-    Userinterface ui = new Userinterface();
+    UserInterface ui = new UserInterface();
 
+    ui.start();
   }
 }

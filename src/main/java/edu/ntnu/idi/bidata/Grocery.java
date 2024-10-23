@@ -7,7 +7,8 @@ import java.time.LocalDate;
  * @author Mathias Erik Nord
  * @since 16.10.2024
  *
- * This class is representing an entinity class. The entinity/grocery has a given quantity, price, name, expiry date and unit of measurement.
+ * This class is representing an entinity class.
+ * * The entinity/grocery has a given quantity, price, name, expiry date and unit of measurement.
  *
  * The role of this class is to represent an entinity, more specificly a grocery. The class is holding the quantity, price,
  * name, expiration date and unit of measurement of a grocery.
@@ -23,11 +24,11 @@ import java.time.LocalDate;
  * The field name is of the datatype String, because a name is usually multiple characters.
  *
  * The field expirationDate is of the type LocalDate. LocalDate is a Class that is used for implementing dates. It contains a lot of useful methods
- * for manipulating dates, comparing dates, setting dates etc. Using LocalDate rather than a String is better, because it gives more room for
- * comparing dates, and manipulating dates.
+ *    for manipulating dates, comparing dates, setting dates etc. Using LocalDate rather than a String is better, because it gives more room for
+ *    comparing dates, and manipulating dates.
  *
  * The field unitOfMeasurement is of the type String. This is because you can choose units such as "kg, g, dl" Units can be more than one character,
- * hence why it does make more sense to use datatype String than datatype char.
+ *    hence why it does make more sense to use datatype String than datatype char.
  */
 public class Grocery {
   private float quantity;
@@ -53,7 +54,8 @@ public class Grocery {
    * @param day This is the day of expiration for the grocery.
    *
    */
-  public Grocery(float quantity, String name, String unitOfMeasurement, float price, int year, int month, int day) {
+  public Grocery(float quantity, String name, String unitOfMeasurement,
+                 float price, int year, int month, int day) {
     setQuantity(quantity);
     setName(name);
     setExpirationDate(LocalDate.of(year, month, day));
@@ -72,8 +74,9 @@ public class Grocery {
 
   /**
    * Set method to set quantity of a Grocery.
-   * If the provided parameter is less than zero, an IllegalArgumentException will be thrown.
-   * This is th prevent the field quantity to be negative, because a negative quantity should not be possible.
+   * If the provided parameter is less than zero,
+   * an IllegalArgumentException will be thrown.
+   * This is to prevent the field quantity to be negative, because a negative quantity should not be possible.
    *
    * @param quantity Takes in a parameter float quantity, and passes it to the field, quantity.
    */
@@ -194,7 +197,7 @@ public class Grocery {
   /**
    * Set method for price of a Grocery.
    * If the provided parameter is less than zero, an IllegalArgumentException will be thrown.
-   * This is to prevent a negative price, because a negatvie price is not possible.
+   * This is to prevent a negative price, because a negative price is not possible.
    *
    * @param price Takes in parameter float price and passes it to the field, price.
    */
