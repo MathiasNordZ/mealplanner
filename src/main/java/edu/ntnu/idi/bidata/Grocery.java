@@ -1,34 +1,14 @@
 package edu.ntnu.idi.bidata;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
 /**
+ * This class represents a grocery with the attributes quantity, price, name,
+ *    expiration date and unit of measurement.
  *
  * @author Mathias Erik Nord
  * @since 16.10.2024
- *
- * This class is representing an entinity class.
- * * The entinity/grocery has a given quantity, price, name, expiry date and unit of measurement.
- *
- * The role of this class is to represent an entinity, more specificly a grocery. The class is holding the quantity, price,
- * name, expiration date and unit of measurement of a grocery.
- *
- * The field quantity is of the datatype float, because the quantity
- * of a grocery does not necessarily have to be a whole number. It is neither necessary to use the datatype double, because you do not
- * need the extra precision of double, in this usecase.
- *
- * The field price is of the datatype float, because the price
- * of a grocery does not necessarily have to be a whole number. It is neither necessary to use the datatype double, because you do not
- * need the extra precision of double, in this usecase.
- *
- * The field name is of the datatype String, because a name is usually multiple characters.
- *
- * The field expirationDate is of the type LocalDate. LocalDate is a Class that is used for implementing dates. It contains a lot of useful methods
- *    for manipulating dates, comparing dates, setting dates etc. Using LocalDate rather than a String is better, because it gives more room for
- *    comparing dates, and manipulating dates.
- *
- * The field unitOfMeasurement is of the type String. This is because you can choose units such as "kg, g, dl" Units can be more than one character,
- *    hence why it does make more sense to use datatype String than datatype char.
  */
 public class Grocery {
   private float quantity;
@@ -38,11 +18,13 @@ public class Grocery {
   private String unitOfMeasurement;
 
   /**
-   * This is the constructor for the grocery class. When creating an instance of the class, you are required to initally set the values,
-   * quantity, name, unitOfMeasurement, price, and expriy date. All these fields are fundamental for the program to work as intended
-   * according to the project requirements. All values are set initially, but it is possible to use the
+   * This is the constructor for the grocery class.
+   * When creating an instance of the class, you are required to initally set the values,
+   * quantity, name, unitOfMeasurement, price, and expriy date.
+   * All these fields are fundamental for the program to work as intended
+   * according to the project requirements.
+   * All values are set initially, but it is possible to use the
    * provided getters and setters to adjust the value of the fields after the instanciation.
-   *
    * The error handling when setting the fields in the constructor is handled by the set methods.
    * Please refer to the setters for more information about error handling.
    *
@@ -63,6 +45,8 @@ public class Grocery {
     setPrice(price);
   }
 
+  Logger logger = Logger.getLogger(getClass().getName());
+
   /**
    * Get method for quantity.
    *
@@ -76,7 +60,8 @@ public class Grocery {
    * Set method to set quantity of a Grocery.
    * If the provided parameter is less than zero,
    * an IllegalArgumentException will be thrown.
-   * This is to prevent the field quantity to be negative, because a negative quantity should not be possible.
+   * This is to prevent the field quantity to be negative,
+   * because a negative quantity should not be possible.
    *
    * @param quantity Takes in a parameter float quantity, and passes it to the field, quantity.
    */
@@ -91,7 +76,7 @@ public class Grocery {
    * Print method for quantity, will print the quantity of a Grocery.
    */
   public void printQuantity() {
-    System.out.println("The quantity is: " + this.getQuantity());
+    logger.info("The quantity is: " + this.getQuantity());
   }
 
   /**
@@ -121,7 +106,7 @@ public class Grocery {
    * Print method for name, will print the name of a Grocery.
    */
   public void printName() {
-    System.out.println("Name of the grocery is: " + this.getName());
+    logger.info("Name of the grocery is: " + this.getName());
   }
 
   /**
@@ -138,7 +123,8 @@ public class Grocery {
    * If the provided parameter contains a date that is in the past, an IllegalArgumentException.
    * This is because you should not be able to add expired products to your storage.
    *
-   * @param expirationDate Takes in parameter LocalDate expirationDate, and passes it to the field, expirationDate.
+   * @param expirationDate Takes in parameter LocalDate expirationDate,
+   *                       and passes it to the field, expirationDate.
    */
   public void setExpirationDate(LocalDate expirationDate) {
     if (expirationDate.isBefore(LocalDate.now())) {
@@ -151,7 +137,7 @@ public class Grocery {
    * Print method for expirationDate, will print the expiration date of a Grocery.
    */
   public void printExpirationDate() {
-    System.out.println("The expiration date is: " + this.getExpirationDate());
+    logger.info("The expiration date is: " + this.getExpirationDate());
   }
 
   /**
@@ -169,7 +155,8 @@ public class Grocery {
    * If the provided parameter is blank or empty, and IllegalArgumentException will be thrown.
    * This is to prevent the field unitOfMeasurement to be invalid or empty.
    *
-   * @param unitOfMeasurement Takes in parameter String unitOfMeasurement and passes it to the field, unitOfMeasurement.
+   * @param unitOfMeasurement Takes in parameter String unitOfMeasurement and
+   *                          passes it to the field, unitOfMeasurement.
    */
   public void setUnitOfMeasurement(String unitOfMeasurement) {
     if (unitOfMeasurement.isBlank() || unitOfMeasurement.isEmpty()) {
@@ -182,7 +169,7 @@ public class Grocery {
    * Print method for unit of measurement, will print the unit of measurement of a Grocery.
    */
   public void printUnitOfMeasurement() {
-    System.out.println("The unit of measurement: " + this.getUnitOfMeasurement());
+    logger.info("The unit of measurement: " + this.getUnitOfMeasurement());
   }
 
   /**
@@ -212,6 +199,6 @@ public class Grocery {
    * Print method for price, will print the price of a Grocery.
    */
   public void printPrice() {
-    System.out.println("Price of grocery: " + this.getPrice());
+    logger.info("Price of grocery: " + this.getPrice());
   }
 }

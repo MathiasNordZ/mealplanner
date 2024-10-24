@@ -84,7 +84,9 @@ class GroceryTest {
   void setExpirationDateNegativeTest() {
     Grocery grocery = new Grocery(3, "Beef", "kg", 750, 2024, 10, 25);
 
-    assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(LocalDate.now().minusDays(1)));
+    assertThrows(IllegalArgumentException.class, () -> {
+      grocery.setExpirationDate(LocalDate.now().minusDays(1));
+    });
   }
 
   /**
