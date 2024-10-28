@@ -15,7 +15,7 @@ public class Grocery {
   private float price;
   private String name;
   private LocalDate expirationDate;
-  private String unitOfMeasurement;
+  private String unitOfMeasurement; //Kg, L,
 
   /**
    * This is the constructor for the grocery class.
@@ -38,7 +38,7 @@ public class Grocery {
    */
   public Grocery(float quantity, String name, String unitOfMeasurement,
                  float price, int year, int month, int day) {
-    setQuantity(quantity);
+    this.setQuantity(quantity);
     setName(name);
     setExpirationDate(LocalDate.of(year, month, day));
     setUnitOfMeasurement(unitOfMeasurement);
