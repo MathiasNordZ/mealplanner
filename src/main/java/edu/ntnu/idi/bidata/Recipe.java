@@ -11,7 +11,7 @@ public class Recipe {
   private String cookingInstructions;
   private Map<String, Integer> ingredients;
 
-  FoodStorage foodStorage = new FoodStorage();
+  //FoodStorage foodStorage = new FoodStorage();
 
   /**
    * This is a constructor for the Recipe class.
