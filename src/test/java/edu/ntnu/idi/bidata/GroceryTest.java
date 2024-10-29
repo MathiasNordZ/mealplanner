@@ -28,9 +28,10 @@ class GroceryTest {
     String name = "Beef";
     String unitOfMeasurement = "kg";
     float price = 750f;
-    int year = 2024;
-    int month = 10;
-    int day = 30;
+    LocalDate today = LocalDate.now();
+    int year = today.getYear();
+    int month = today.getMonthValue();
+    int day = today.getDayOfMonth();
 
     grocery = new Grocery(quantity, name, unitOfMeasurement, price, year, month, day);
   }
@@ -49,8 +50,6 @@ class GroceryTest {
    */
   @Test
   void setQuantityNegativeTest() {
-    Grocery grocery = new Grocery(3, "Beef", "kg", 750, 2024, 10, 30);
-
     assertThrows(IllegalArgumentException.class, () -> grocery.setQuantity(-5));
   }
 
@@ -67,7 +66,7 @@ class GroceryTest {
 
   /**
    * This is a negative test for setName method.
-   * This test will set an invaldig input and is expected to throw an IllegalArgumentException.
+   * This test will set an invalid input and is expected to throw an IllegalArgumentException.
    */
   @Test
   void setNameNegativeTest() {
@@ -80,9 +79,11 @@ class GroceryTest {
    */
   @Test
   void setExpirationDatePositiveTest() {
-    grocery.setExpirationDate(LocalDate.of(2024, 12, 24));
+    LocalDate dateInFuture = LocalDate.now().plusDays(1);
 
-    assertEquals(LocalDate.of(2024, 12, 24), grocery.getExpirationDate());
+    grocery.setExpirationDate(dateInFuture);
+
+    assertEquals(dateInFuture, grocery.getExpirationDate());
   }
 
   /**
@@ -91,14 +92,14 @@ class GroceryTest {
    */
   @Test
   void setExpirationDateNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      grocery.setExpirationDate(LocalDate.now().minusDays(1));
-    });
+    LocalDate dateInPast = LocalDate.now().minusDays(1);
+
+    assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(dateInPast));
   }
 
   /**
    * This is a positive test for setUnitOfMeasurement method.
-   * Will set a valid input, and is excpected to return the correct value when calling getUnitOfMeasurement.
+   * Will set a valid input, and is expected to return the correct value when calling getUnitOfMeasurement.
    */
   @Test
   void setUnitOfMeasurementPositiveTest() {

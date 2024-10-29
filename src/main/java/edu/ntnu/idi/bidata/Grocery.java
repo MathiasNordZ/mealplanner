@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata;
 
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 /**
  * This class represents a grocery with the attributes quantity, price, name,
@@ -15,18 +14,12 @@ public class Grocery {
   private float price;
   private String name;
   private LocalDate expirationDate;
-  private String unitOfMeasurement; //Kg, L,
+  private String unitOfMeasurement; // kg, l, dl, pcs, g
 
   /**
-   * This is the constructor for the grocery class.
-   * When creating an instance of the class, you are required to initally set the values,
-   * quantity, name, unitOfMeasurement, price, and expriy date.
-   * All these fields are fundamental for the program to work as intended
-   * according to the project requirements.
-   * All values are set initially, but it is possible to use the
-   * provided getters and setters to adjust the value of the fields after the instanciation.
-   * The error handling when setting the fields in the constructor is handled by the set methods.
-   * Please refer to the setters for more information about error handling.
+   * Constructor for the Grocery class. Initializes the quantity, name, unitOfMeasurement,
+   * and expiry date.
+   * The constructor uses setters and getters for error handling.
    *
    * @param quantity This is the quantity of the grocery.
    * @param name This is the name of the grocery.
@@ -38,14 +31,12 @@ public class Grocery {
    */
   public Grocery(float quantity, String name, String unitOfMeasurement,
                  float price, int year, int month, int day) {
-    this.setQuantity(quantity);
+    setQuantity(quantity);
     setName(name);
     setExpirationDate(LocalDate.of(year, month, day));
     setUnitOfMeasurement(unitOfMeasurement);
     setPrice(price);
   }
-
-  Logger logger = Logger.getLogger(getClass().getName());
 
   /**
    * Get method for quantity.
@@ -73,13 +64,6 @@ public class Grocery {
   }
 
   /**
-   * Print method for quantity, will print the quantity of a Grocery.
-   */
-  public void printQuantity() {
-    logger.info("The quantity is: " + this.getQuantity());
-  }
-
-  /**
    * Get method for name of a Grocery.
    *
    * @return Returns the value of field, name.
@@ -100,13 +84,6 @@ public class Grocery {
       throw new IllegalArgumentException("Name can not be blank or empty.");
     }
     this.name = name;
-  }
-
-  /**
-   * Print method for name, will print the name of a Grocery.
-   */
-  public void printName() {
-    logger.info("Name of the grocery is: " + this.getName());
   }
 
   /**
@@ -134,13 +111,6 @@ public class Grocery {
   }
 
   /**
-   * Print method for expirationDate, will print the expiration date of a Grocery.
-   */
-  public void printExpirationDate() {
-    logger.info("The expiration date is: " + this.getExpirationDate());
-  }
-
-  /**
    * Get method for unit of measurement of a Grocery.
    *
    * @return Returns the field unitOfMeasurement.
@@ -148,7 +118,6 @@ public class Grocery {
   public String getUnitOfMeasurement() {
     return unitOfMeasurement;
   }
-
 
   /**
    * Set method for unit of measurement of a Grocery.
@@ -163,13 +132,6 @@ public class Grocery {
       throw new IllegalArgumentException("UnitOfMeasurement can not be blank or empty.");
     }
     this.unitOfMeasurement = unitOfMeasurement;
-  }
-
-  /**
-   * Print method for unit of measurement, will print the unit of measurement of a Grocery.
-   */
-  public void printUnitOfMeasurement() {
-    logger.info("The unit of measurement: " + this.getUnitOfMeasurement());
   }
 
   /**
@@ -193,12 +155,5 @@ public class Grocery {
       throw new IllegalArgumentException("The price can not be less than zero.");
     }
     this.price = price;
-  }
-
-  /**
-   * Print method for price, will print the price of a Grocery.
-   */
-  public void printPrice() {
-    logger.info("Price of grocery: " + this.getPrice());
   }
 }
