@@ -24,10 +24,10 @@ class GroceryTest {
 
   @BeforeEach
   void setUp() {
-    int quantity = 3;
+    float quantity = 3f;
     String name = "Beef";
     String unitOfMeasurement = "kg";
-    float price = 750;
+    float price = 750f;
     int year = 2024;
     int month = 10;
     int day = 30;
