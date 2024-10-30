@@ -67,12 +67,12 @@ public class FoodStorage {
     }
   }
 
-  public Grocery searchGrocery(String name, LocalDate expirationDate) {
+  public Grocery searchGrocery(String name) {
     List<Grocery> groceryList = groceries.get(name);
 
     if (groceryList != null) {
       for (Grocery g : groceryList) {
-        if (g.getExpirationDate().equals(expirationDate)) {
+        if (g.getName().equals(name)) {
           return g;
         }
       }
