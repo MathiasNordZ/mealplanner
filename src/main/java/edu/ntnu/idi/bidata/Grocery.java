@@ -130,7 +130,7 @@ public class Grocery {
   public void setUnitOfMeasurement(String unitOfMeasurement) {
     if (unitOfMeasurement.isBlank() || unitOfMeasurement.isEmpty()) {
       throw new IllegalArgumentException("UnitOfMeasurement can not be blank or empty.");
-    } else if (!unitOfMeasurement.equalsIgnoreCase("liter") || !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
+    } else if (!unitOfMeasurement.equalsIgnoreCase("liter") && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
       throw new IllegalArgumentException("Unit of measurement must be liter or kilogram");
     }
     this.unitOfMeasurement = unitOfMeasurement;
