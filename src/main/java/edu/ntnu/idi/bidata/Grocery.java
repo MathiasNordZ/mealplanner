@@ -73,14 +73,13 @@ public class Grocery {
   }
 
   /**
-   * Set method to set name of a Grocery.
-   * If the provided parameter is blank or is empty, an IllegalArgumentException will be thrown.
-   * This is to prevent the field name to be invalid or empty.
+   * Mutates <code>name</code>
    *
-   * @param name Takes in parameter String name, and passes it to the field, name.
+   * @param name Represents the name of a Grocery.
+   * @throws IllegalArgumentException if name is blank or empty.
    */
   public void setName(String name) {
-    if (name.isBlank() || name.isEmpty()) {
+    if (name == null || name.isBlank() || name.isEmpty()) {
       throw new IllegalArgumentException("Name can not be blank or empty.");
     }
     this.name = name;
@@ -128,9 +127,7 @@ public class Grocery {
    *                          passes it to the field, unitOfMeasurement.
    */
   public void setUnitOfMeasurement(String unitOfMeasurement) {
-    if (unitOfMeasurement.isBlank() || unitOfMeasurement.isEmpty()) {
-      throw new IllegalArgumentException("UnitOfMeasurement can not be blank or empty.");
-    } else if (!unitOfMeasurement.equalsIgnoreCase("liter") && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
+    if (!unitOfMeasurement.equalsIgnoreCase("liter") && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
       throw new IllegalArgumentException("Unit of measurement must be liter or kilogram");
     }
     this.unitOfMeasurement = unitOfMeasurement;
