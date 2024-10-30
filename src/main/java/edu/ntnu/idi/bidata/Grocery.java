@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  * This class represents a grocery with the attributes quantity, price, name,
- *    expiration date and unit of measurement.
+ * expiration date and unit of measurement.
  *
  * @author Mathias Erik Nord
  * @since 16.10.2024
@@ -39,7 +39,7 @@ public class Grocery {
   }
 
   /**
-   * Get method for quantity.
+   * Accessor method for <code>quantity</code>
    *
    * @return Returns the value of the field, quantity.
    */
@@ -48,13 +48,12 @@ public class Grocery {
   }
 
   /**
-   * Set method to set quantity of a Grocery.
-   * If the provided parameter is less than zero,
-   * an IllegalArgumentException will be thrown.
-   * This is to prevent the field quantity to be negative,
-   * because a negative quantity should not be possible.
+   * Mutator method for <code>quantity</code>
    *
-   * @param quantity Takes in a parameter float quantity, and passes it to the field, quantity.
+   * @param quantity Represents the quantity as the datatype float.
+   *
+   * @throws IllegalArgumentException if quantity is less than zero,
+   *                                  because a negative quantity is not possible.
    */
   public void setQuantity(float quantity) {
     if (quantity < 0) {
@@ -64,7 +63,7 @@ public class Grocery {
   }
 
   /**
-   * Get method for name of a Grocery.
+   * Accessor method for <code>name</code>
    *
    * @return Returns the value of field, name.
    */
@@ -73,9 +72,10 @@ public class Grocery {
   }
 
   /**
-   * Mutates <code>name</code>
+   * Mutator method for <code>name</code>
    *
    * @param name Represents the name of a Grocery.
+   *
    * @throws IllegalArgumentException if name is blank or empty.
    */
   public void setName(String name) {
@@ -86,7 +86,7 @@ public class Grocery {
   }
 
   /**
-   * Get method for expiration date of a Grocery.
+   * Accessor method for <code>expirationDate</code>
    *
    * @return Returns the value of field, expirationDate.
    */
@@ -95,12 +95,13 @@ public class Grocery {
   }
 
   /**
-   * Set method for expiration date of a Grocery.
-   * If the provided parameter contains a date that is in the past, an IllegalArgumentException.
-   * This is because you should not be able to add expired products to your storage.
+   * Mutator method for <code>expirationDate</code>
    *
    * @param expirationDate Takes in parameter LocalDate expirationDate,
    *                       and passes it to the field, expirationDate.
+   *
+   * @throws IllegalArgumentException if expiration date is a date in the past.
+   *                                  This is because you should not create an expired grocery.
    */
   public void setExpirationDate(LocalDate expirationDate) {
     if (expirationDate.isBefore(LocalDate.now())) {
@@ -110,7 +111,7 @@ public class Grocery {
   }
 
   /**
-   * Get method for unit of measurement of a Grocery.
+   * Accessor method for <code>unitOfMeasurement</code>
    *
    * @return Returns the field unitOfMeasurement.
    */
@@ -119,12 +120,13 @@ public class Grocery {
   }
 
   /**
-   * Set method for unit of measurement of a Grocery.
-   * If the provided parameter is blank or empty, and IllegalArgumentException will be thrown.
-   * This is to prevent the field unitOfMeasurement to be invalid or empty.
+   * Mutator method for <code>unitOfMeasurement</code>
    *
-   * @param unitOfMeasurement Takes in parameter String unitOfMeasurement and
-   *                          passes it to the field, unitOfMeasurement.
+   * @param unitOfMeasurement Represents the unitOfMeasurement that the quantity is measured in.
+   *                          Either liter or kilogram.
+   *
+   * @throws IllegalArgumentException if provided parameter does not match the string value "liter" or "kilogram".
+   *                                  Case of the parameter does not matter.
    */
   public void setUnitOfMeasurement(String unitOfMeasurement) {
     if (!unitOfMeasurement.equalsIgnoreCase("liter") && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
@@ -134,7 +136,7 @@ public class Grocery {
   }
 
   /**
-   * Get method for price of a Grocery.
+   * Accessor method for <code>price</code>
    *
    * @return Returns the field price.
    */
@@ -143,11 +145,12 @@ public class Grocery {
   }
 
   /**
-   * Set method for price of a Grocery.
-   * If the provided parameter is less than zero, an IllegalArgumentException will be thrown.
-   * This is to prevent a negative price, because a negative price is not possible.
+   * Mutator method for <code>price</code>
    *
    * @param price Takes in parameter float price and passes it to the field, price.
+   *
+   * @throws IllegalArgumentException if the provided parameter is less than zero.
+   *                                  This is to prevent a negative price.
    */
   public void setPrice(float price) {
     if (price < 0) {
