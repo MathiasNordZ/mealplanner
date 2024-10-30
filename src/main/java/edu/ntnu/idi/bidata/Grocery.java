@@ -14,7 +14,7 @@ public class Grocery {
   private float price;
   private String name;
   private LocalDate expirationDate;
-  private String unitOfMeasurement; // kg, l
+  private String unitOfMeasurement; // kilogram, liter
 
   /**
    * Constructor for the Grocery class. Initializes the quantity, name, unitOfMeasurement,
