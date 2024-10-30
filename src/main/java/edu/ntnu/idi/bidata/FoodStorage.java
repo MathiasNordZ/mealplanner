@@ -1,10 +1,7 @@
 package edu.ntnu.idi.bidata;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is a storage for groceries.
@@ -23,18 +20,17 @@ public class FoodStorage {
    */
   public void addGrocery(Grocery grocery) {
     List<Grocery> groceryList = groceries.getOrDefault(grocery.getName(), new ArrayList<>());
+    Iterator<Grocery> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
-    int i = 0;
-    while (i < groceryList.size() && !isFound) {
-      Grocery g = groceryList.get(i);
+    while (groceryIterator.hasNext() && !isFound) {
+      Grocery g = groceryIterator.next();
 
       if (g.getExpirationDate().equals(grocery.getExpirationDate())) {
         g.setQuantity(g.getQuantity() + grocery.getQuantity());
 
         isFound = true;
       }
-      i++;
     }
 
     if (!isFound) {
@@ -50,28 +46,24 @@ public class FoodStorage {
    */
   public void removeGrocery(Grocery grocery, float quantityToRemove) {
     List<Grocery> groceryList = groceries.get(grocery.getName());
+    Iterator<Grocery> groceryIterator = groceryList.iterator();
 
-    if (groceryList != null) {
-      int i = 0;
-      boolean isFound = false;
-      while (i < groceryList.size() && !isFound) {
-        Grocery g = groceryList.get(i);
+    boolean isFound = false;
+    while (groceryIterator.hasNext() && !isFound) {
+      Grocery g = groceryIterator.next();
 
-        if (g.getExpirationDate().equals(grocery.getExpirationDate())) {
-          float updatedQuantity = g.getQuantity() - quantityToRemove;
-          if (updatedQuantity <= 0) {
-            groceryList.remove(g);
-          } else {
-            g.setQuantity(updatedQuantity);
-          }
-          isFound = true;
+      if (g.getExpirationDate().equals(grocery.getExpirationDate())) {
+        float updatedQuantity = g.getQuantity() - quantityToRemove;
+        if (updatedQuantity <= 0) {
+          groceryList.remove(g);
+        } else {
+          g.setQuantity(updatedQuantity);
         }
-        i++;
+        isFound = true;
       }
-
-      if (groceryList.isEmpty()) {
-        groceries.remove(grocery.getName());
-      }
+    }
+    if (groceryList.isEmpty()) {
+      groceries.remove(grocery.getName());
     }
   }
 
