@@ -14,7 +14,7 @@ public class Grocery {
   private float price;
   private String name;
   private LocalDate expirationDate;
-  private String unitOfMeasurement; // kg, l, dl, pcs, g
+  private String unitOfMeasurement; // kg, l
 
   /**
    * Constructor for the Grocery class. Initializes the quantity, name, unitOfMeasurement,
@@ -130,6 +130,8 @@ public class Grocery {
   public void setUnitOfMeasurement(String unitOfMeasurement) {
     if (unitOfMeasurement.isBlank() || unitOfMeasurement.isEmpty()) {
       throw new IllegalArgumentException("UnitOfMeasurement can not be blank or empty.");
+    } else if (!unitOfMeasurement.equalsIgnoreCase("liter") || !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
+      throw new IllegalArgumentException("Unit of measurement must be liter or kilogram");
     }
     this.unitOfMeasurement = unitOfMeasurement;
   }
