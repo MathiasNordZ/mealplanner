@@ -4,7 +4,11 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
- * This class is a storage for groceries.
+ * This class represents a storage where instances of Grocery can be stored.
+ * The storage can represent a fridge, drawer, freezer etc.
+ *
+ * @author Mathias Erik Nord
+ * @since 30.10.2024
  */
 public class FoodStorage {
   private final Map<String, List<Grocery>> groceries = new HashMap<>();
@@ -14,9 +18,9 @@ public class FoodStorage {
   }
 
   /**
-   * Add method to add grocery to HashMap.
+   * Mutator method to add an instance of Grocery to FoodStorage.
    *
-   * @param grocery Instance of a Grocery.
+   * @param grocery Represents the instance of a Grocery.
    */
   public void addGrocery(Grocery grocery) {
     List<Grocery> groceryList = groceries.getOrDefault(grocery.getName(), new ArrayList<>());
@@ -40,9 +44,9 @@ public class FoodStorage {
   }
 
   /**
-   * Remove method to remove grocery from HashMap
+   * Mutator method to remove an instance of Grocery from FoodStorage.
    *
-   * @param grocery Instance of a Grocery.
+   * @param grocery Represents the instance of a Grocery.
    */
   public void removeGrocery(Grocery grocery, float quantityToRemove) {
     List<Grocery> groceryList = groceries.get(grocery.getName());
@@ -67,6 +71,11 @@ public class FoodStorage {
     }
   }
 
+  /**
+   * Accessor method to search for an instance of Grocery in FoodStorage.
+   * @param name Represents the name of the grocery to search for.
+   * @return Will return the instance that is searched for.
+   */
   public Grocery searchGrocery(String name) {
     List<Grocery> groceryList = groceries.get(name);
 
@@ -80,6 +89,10 @@ public class FoodStorage {
     return null;
   }
 
+  /**
+   * Accessor method to access the value of expired groceries.
+   * @return Will return the total value of expired groceries.
+   */
   public float valueOfExpiredGroceries() {
     float totalValue = 0;
     for (List<Grocery> groceryList : groceries.values()) {
@@ -92,6 +105,10 @@ public class FoodStorage {
     return totalValue;
   }
 
+  /**
+   * Accessor method to access the value of all groceries.
+   * @return Will return the total value of all groceries.
+   */
   public float valueOfAllGroceries() {
     float totalValue = 0;
     for (List<Grocery> groceryList : groceries.values()) {
