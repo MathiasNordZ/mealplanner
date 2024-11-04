@@ -165,7 +165,7 @@ public class Grocery {
    * @return Will return the price per quantity.
    *
    */
-  public float getPricePerUnit() {
+  public float getPricePerQuantity() {
     if (unitOfMeasurement.equalsIgnoreCase("kilogram") || unitOfMeasurement.equalsIgnoreCase("liter")) {
       return price / quantity;
     }
