@@ -110,6 +110,26 @@ public class FoodStorage {
   }
 
   /**
+   * Accessor method for expired groceries.
+   * Will return a list of groceries that expires before given date.
+   * @param year Year of expiration.
+   * @param month Month of expiration.
+   * @param day Day of expiration.
+   * @return Will return a list of expired groceries.
+   */
+  public List<Grocery> listOfExpiredGroceries(int year, int month, int day) {
+    List<Grocery> expiredGroceries = new ArrayList<>();
+    for (List<Grocery> groceryList : groceries.values()) {
+      for (Grocery grocery : groceryList) {
+        if (grocery.getExpirationDate().isBefore(LocalDate.of(year, month, day))) {
+          expiredGroceries.add(grocery);
+        }
+      }
+    }
+    return expiredGroceries;
+  }
+
+  /**
    * Accessor method to access the value of all groceries.
    * @return Will return the total value of all groceries.
    */
