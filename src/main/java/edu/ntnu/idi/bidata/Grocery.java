@@ -160,6 +160,17 @@ public class Grocery {
   }
 
   /**
+   * Accessor method that will get the price per quantity. Ex. price per kilogram or price per liter.
+   * @return Will return the price per quantity.
+   */
+  public float getPricePerUnit() {
+    if (unitOfMeasurement.equalsIgnoreCase("kilogram") || unitOfMeasurement.equalsIgnoreCase("liter")) {
+      return price / quantity;
+    }
+    throw new UnsupportedOperationException("Price per unit is not possible for " + unitOfMeasurement);
+  }
+
+  /**
    * This method will override, such that when you return an object, you will be returned the fields
    * of the object as a string. Instead of getting the memory id of the grocery. Ex. Grocery@5b2133b1
    *
