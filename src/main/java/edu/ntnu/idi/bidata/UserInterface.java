@@ -3,10 +3,9 @@ package edu.ntnu.idi.bidata;
 public class UserInterface {
   private FoodStorage fridge;
   public void init() {
-    Grocery chicken = new Grocery(1.5F, "Chicken Breast", "kilogram", 190, 2024, 11, 20);
     Grocery rice = new Grocery(2F, "Rice", "kilogram", 100, 2026, 11, 20);
-    Grocery riceTwo = new Grocery(2F, "Rice", "kilogram", 200, 2026, 11, 20);
-    Grocery broccoli = new Grocery(0.5F, "Broccoli", "kilogram", 25, 2024, 11, 30);
+    Grocery riceTwo = new Grocery(5F, "Rice", "kilogram", 300, 2026, 11, 20);
+    Grocery apple = new Grocery(1F, "Apple", "kilogram", 20, 2024, 11, 20);
     fridge = new FoodStorage();
 
     fridge.addGrocery(rice);
@@ -15,6 +14,6 @@ public class UserInterface {
 
   public void start() {
 
-    System.out.println(fridge.searchGrocery("Rice"));
+    System.out.println(fridge.searchGrocery("rice"));
   }
 }
