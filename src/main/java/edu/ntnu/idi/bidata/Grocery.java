@@ -158,4 +158,19 @@ public class Grocery {
     }
     this.price = price;
   }
+
+  /**
+   * This method will override, such that when you return an object, you will be returned the fields
+   * of the object as a string. Instead of getting the memory id of the grocery. Ex. Grocery@5b2133b1
+   *
+   * @return Will return fields of the object as a String.
+   */
+  @Override
+  public String toString() {
+    return "Name : " + name +
+            ", Price : " + price +
+            ", Quantity : " + quantity +
+            ", Unit of measurement : " + unitOfMeasurement +
+            ", Expiration date : " + expirationDate;
+  }
 }
