@@ -74,20 +74,21 @@ public class FoodStorage {
 
   /**
    * Accessor method to search for an instance of Grocery in FoodStorage.
+   * If there are two instances with different expiry dates, it will be returned as two instances in a list.
+   * If the two instances has the same expiry date, they will be combined.
    * @param name Represents the name of the grocery to search for.
-   * @return Will return the instance that is searched for.
+   * @return Will return the instance(s) that is searched for.
    */
-  public Grocery searchGrocery(String name) {
-    List<Grocery> groceryList = groceries.get(name);
-
-    if (groceryList != null) {
+  public List<Grocery> searchGrocery(String name) {
+    List<Grocery> searchedGrocery = new ArrayList<>();
+    for(List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
-        if (grocery.getName().equals(name)) {
-          return grocery;
+        if (grocery.getName().equalsIgnoreCase(name)) {
+          searchedGrocery.add(grocery);
         }
       }
     }
-    return null;
+    return searchedGrocery;
   }
 
   /**
