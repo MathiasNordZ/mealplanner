@@ -120,6 +120,12 @@ public class FoodStorage {
     return totalValue;
   }
 
+  /**
+   * Accessor method to get a sorted list of all groceries.
+   * The groceries are sorted alphabetically by their name.
+   *
+   * @return Will return a list of all groceries sorted by name.
+   */
   public List<Grocery> getSortedList() {
     return groceries.values().stream()
         .flatMap(List::stream)
