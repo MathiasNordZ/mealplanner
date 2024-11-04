@@ -32,6 +32,7 @@ public class FoodStorage {
 
       if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
         grocery.setQuantity(grocery.getQuantity() + providedGrocery.getQuantity());
+        grocery.setPrice(grocery.getPrice() + providedGrocery.getPrice());
 
         isFound = true;
       }
@@ -58,10 +59,12 @@ public class FoodStorage {
 
       if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
+        float updatedPrice = grocery.getPrice() * (updatedQuantity / grocery.getQuantity());
         if (updatedQuantity <= 0) {
           groceryList.remove(grocery);
         } else {
           grocery.setQuantity(updatedQuantity);
+          grocery.setPrice(updatedPrice);
         }
         isFound = true;
       }
