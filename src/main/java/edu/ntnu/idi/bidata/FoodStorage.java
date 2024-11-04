@@ -2,7 +2,6 @@ package edu.ntnu.idi.bidata;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class represents a storage where instances of Grocery can be stored.
@@ -122,7 +121,9 @@ public class FoodStorage {
   }
 
   public List<Grocery> getSortedList() {
-
-    return groceries.values().stream().flatMap(List::stream).sorted().collect(Collectors.toList());
+    return groceries.values().stream()
+        .flatMap(List::stream)
+        .sorted(Comparator.comparing(Grocery::getName))
+        .toList();
   }
 }
