@@ -2,6 +2,7 @@ package edu.ntnu.idi.bidata;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This class represents a storage where instances of Grocery can be stored.
@@ -20,54 +21,54 @@ public class FoodStorage {
   /**
    * Mutator method to add an instance of Grocery to FoodStorage.
    *
-   * @param grocery Represents the instance of a Grocery.
+   * @param providedGrocery Represents the instance of a Grocery.
    */
-  public void addGrocery(Grocery grocery) {
-    List<Grocery> groceryList = groceries.getOrDefault(grocery.getName(), new ArrayList<>());
+  public void addGrocery(Grocery providedGrocery) {
+    List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(), new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
     while (groceryIterator.hasNext() && !isFound) {
-      Grocery g = groceryIterator.next();
+      Grocery grocery = groceryIterator.next();
 
-      if (g.getExpirationDate().equals(grocery.getExpirationDate())) {
-        g.setQuantity(g.getQuantity() + grocery.getQuantity());
+      if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
+        grocery.setQuantity(grocery.getQuantity() + providedGrocery.getQuantity());
 
         isFound = true;
       }
     }
 
     if (!isFound) {
-      groceryList.add(grocery);
+      groceryList.add(providedGrocery);
     }
-    groceries.put(grocery.getName(), groceryList);
+    groceries.put(providedGrocery.getName(), groceryList);
   }
 
   /**
    * Mutator method to remove an instance of Grocery from FoodStorage.
    *
-   * @param grocery Represents the instance of a Grocery.
+   * @param providedGrocery Represents the instance of a Grocery.
    */
-  public void removeGrocery(Grocery grocery, float quantityToRemove) {
-    List<Grocery> groceryList = groceries.get(grocery.getName());
+  public void removeGrocery(Grocery providedGrocery, float quantityToRemove) {
+    List<Grocery> groceryList = groceries.get(providedGrocery.getName());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
     while (groceryIterator.hasNext() && !isFound) {
-      Grocery g = groceryIterator.next();
+      Grocery grocery = groceryIterator.next();
 
-      if (g.getExpirationDate().equals(grocery.getExpirationDate())) {
-        float updatedQuantity = g.getQuantity() - quantityToRemove;
+      if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
+        float updatedQuantity = grocery.getQuantity() - quantityToRemove;
         if (updatedQuantity <= 0) {
-          groceryList.remove(g);
+          groceryList.remove(grocery);
         } else {
-          g.setQuantity(updatedQuantity);
+          grocery.setQuantity(updatedQuantity);
         }
         isFound = true;
       }
     }
     if (groceryList.isEmpty()) {
-      groceries.remove(grocery.getName());
+      groceries.remove(providedGrocery.getName());
     }
   }
 
@@ -80,9 +81,9 @@ public class FoodStorage {
     List<Grocery> groceryList = groceries.get(name);
 
     if (groceryList != null) {
-      for (Grocery g : groceryList) {
-        if (g.getName().equals(name)) {
-          return g;
+      for (Grocery grocery : groceryList) {
+        if (grocery.getName().equals(name)) {
+          return grocery;
         }
       }
     }
@@ -117,5 +118,10 @@ public class FoodStorage {
       }
     }
     return totalValue;
+  }
+
+  public List<Grocery> getSortedList() {
+
+    return groceries.values().stream().flatMap(List::stream).sorted().collect(Collectors.toList());
   }
 }
