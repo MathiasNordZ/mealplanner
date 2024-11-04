@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 /**
  * This class represents a grocery with the attributes quantity, price, name,
@@ -162,6 +163,7 @@ public class Grocery {
   /**
    * Accessor method that will get the price per quantity. Ex. price per kilogram or price per liter.
    * @return Will return the price per quantity.
+   *
    */
   public float getPricePerUnit() {
     if (unitOfMeasurement.equalsIgnoreCase("kilogram") || unitOfMeasurement.equalsIgnoreCase("liter")) {
