@@ -1,4 +1,4 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.entity;
 
 import org.junit.jupiter.api.*;
 import java.time.LocalDate;
