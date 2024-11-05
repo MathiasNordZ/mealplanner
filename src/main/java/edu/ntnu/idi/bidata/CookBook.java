@@ -1,5 +1,7 @@
 package edu.ntnu.idi.bidata;
 
+import edu.ntnu.idi.bidata.register.FoodStorage;
+
 import java.util.List;
 
 /**
