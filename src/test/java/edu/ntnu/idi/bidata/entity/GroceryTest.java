@@ -15,11 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class GroceryTest {
-  /**
-   * This is a positive test for the setQuantity method.
-   * Will set a valid input and make getQuantity return a valid output.
-   */
-
   private Grocery grocery;
 
   @BeforeEach
@@ -36,6 +31,10 @@ class GroceryTest {
     grocery = new Grocery(quantity, name, unitOfMeasurement, price, year, month, day);
   }
 
+  /**
+   * This is a positive test for the <code>setQuantity</code> method.
+   * Will set a valid input and make <code>getQuantity</code> return a valid output.
+   */
   @Test
   void setQuantityPositiveTest() {
 
@@ -45,8 +44,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a negative test for the setQuantity method.
-   * This test will set an invalid input, and is expected to throw an IllegalArgumentException.
+   * This is a negative test for the <code>setQuantity</code> method.
+   * @throws IllegalArgumentException should be thrown, because this test will set a negative value as quantity.
    */
   @Test
   void setQuantityNegativeTest() {
@@ -54,8 +53,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a positive test for the setName method.
-   * This test will set a valid input, and is expected to return the correct output when calling getName.
+   * This is a positive test for the <code>setName</code> method.
+   * This test will set a valid input, and is expected to return the correct output when calling <code>getName</code>.
    */
   @Test
   void setNamePositiveTest() {
@@ -65,8 +64,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a negative test for setName method.
-   * This test will set an invalid input and is expected to throw an IllegalArgumentException.
+   * This is a negative test for <code>setName</code> method.
+   * @throws IllegalArgumentException should be thrown, because this test will set an empty string as name.
    */
   @Test
   void setNameNegativeTest() {
@@ -74,8 +73,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a positive test for setExpirationDate method.
-   * This test will set a valid input, and is expected to return the correct output when calling getName.
+   * This is a positive test for <code>setExpirationDate</code> method.
+   * This test will set a valid input, and is expected to return the correct output when calling <code>getName</code>.
    */
   @Test
   void setExpirationDatePositiveTest() {
@@ -87,8 +86,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a negative test for setExpirationDate method.
-   * Will set an invalid input, and is expected to throw an IllegalArgumentException.
+   * This is a negative test for <code>setExpirationDate</code> method.
+   * @throws IllegalArgumentException should be thrown, because this test will set a date in the past as expiration date.
    */
   @Test
   void setExpirationDateNegativeTest() {
@@ -98,8 +97,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a positive test for setUnitOfMeasurement method.
-   * Will set a valid input, and is expected to return the correct value when calling getUnitOfMeasurement.
+   * This is a positive test for <coded>setUnitOfMeasurement</coded> method.
+   * Will set a valid input, and is expected to return the correct value when calling <code>getUnitOfMeasurement</code>.
    */
   @Test
   void setUnitOfMeasurementPositiveTest() {
@@ -109,8 +108,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a negative test for setUnitOfMeasurement method.
-   * Will set an invalid input, and is expected to throw and IllegalArgumentException.
+   * This is a negative test for <code>setUnitOfMeasurement</code> method.
+   * @throws IllegalArgumentException should be thrown, because unit of measurement is set to empty.
    */
   @Test
   void setUnitOfMeasurementNegativeTest() {
@@ -118,8 +117,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a positive test for setPrice method.
-   * Will set a valid input, and is expected to return the correct value when calling getPrice.
+   * This is a positive test for <code>setPrice</code> method.
+   * Will set a valid input, and is expected to return the correct value when calling <code>getPrice</code>.
    */
   @Test
   void setPricePositiveTest() {
@@ -129,8 +128,8 @@ class GroceryTest {
   }
 
   /**
-   * This is a negative test for setPrice method.
-   * Will set an invalid input, and is expected to throw an IllegalArgumentException.
+   * This is a negative test for <code>setPrice</code> method.
+   * @throws IllegalArgumentException should be thrown, because the price is set to negative.
    */
   @Test
   void setPriceNegativeTest() {
