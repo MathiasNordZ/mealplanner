@@ -100,6 +100,11 @@ public class FoodStorage {
    * @return Will return the instance(s) that is searched for.
    */
   public List<Grocery> searchGrocery(String name) {
+    String errorMessage = "Provided name cannot be null, empty or blank.";
+    if (name == null || name.isBlank() || name.isEmpty()) {
+      throw new IllegalArgumentException(errorMessage);
+    }
+
     List<Grocery> searchedGrocery = new ArrayList<>();
     for(List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
@@ -136,6 +141,18 @@ public class FoodStorage {
    * @return Will return a list of expired groceries.
    */
   public List<Grocery> listOfExpiredGroceries(int year, int month, int day) {
+    String errorMessage;
+    if (year <= 2000 || month < 1 || day < 1) {
+      if (year <= 2000) {
+        errorMessage = "Year cannot be earlier than 2000.";
+      } else if (month < 1) {
+        errorMessage = "Month cannot be less than 1";
+      } else {
+        errorMessage = "Day cannot be less than 1";
+      }
+      throw new IllegalArgumentException(errorMessage);
+    }
+
     List<Grocery> expiredGroceries = new ArrayList<>();
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
