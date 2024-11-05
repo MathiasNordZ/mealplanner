@@ -1,7 +1,6 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.entity;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 
 /**
  * This class represents a grocery with the attributes quantity, price, name,
