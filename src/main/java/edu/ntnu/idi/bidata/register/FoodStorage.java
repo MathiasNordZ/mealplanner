@@ -1,4 +1,6 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.register;
+
+import edu.ntnu.idi.bidata.entity.Grocery;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -23,6 +25,12 @@ public class FoodStorage {
    * @param providedGrocery Represents the instance of a Grocery.
    */
   public void addGrocery(Grocery providedGrocery) {
+    String errorMessage;
+    if (providedGrocery == null) {
+      errorMessage = "The provided grocery cannot be null.";
+      throw new IllegalArgumentException(errorMessage);
+    }
+
     List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(), new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
@@ -50,6 +58,16 @@ public class FoodStorage {
    * @param providedGrocery Represents the instance of a Grocery.
    */
   public void removeGrocery(Grocery providedGrocery, float quantityToRemove) {
+    String errorMessage;
+    if (providedGrocery == null || quantityToRemove <= 0) {
+      if (providedGrocery == null) {
+        errorMessage = "The provided grocery cannot be null.";
+      } else {
+        errorMessage = "The quantity to remove cannot be less than or equal to zero.";
+      }
+      throw new IllegalArgumentException(errorMessage);
+    }
+
     List<Grocery> groceryList = groceries.get(providedGrocery.getName());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
