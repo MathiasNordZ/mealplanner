@@ -1,5 +1,8 @@
 package edu.ntnu.idi.bidata;
 
+import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.register.FoodStorage;
+
 public class UserInterface {
   private FoodStorage fridge;
   public void init() {
