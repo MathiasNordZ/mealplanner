@@ -56,8 +56,9 @@ public class Grocery {
    *                                  because a negative quantity is not possible.
    */
   public void setQuantity(float quantity) {
+    String errorMessage = "Quantity can not have a negative value.";
     if (quantity < 0) {
-      throw new IllegalArgumentException("Quantity can not have a negative value.");
+      throw new IllegalArgumentException(errorMessage);
     }
     this.quantity = quantity;
   }
@@ -79,8 +80,9 @@ public class Grocery {
    * @throws IllegalArgumentException if name is blank or empty.
    */
   public void setName(String name) {
+    String errorMessage = "Name can not be blank or empty.";
     if (name == null || name.isBlank() || name.isEmpty()) {
-      throw new IllegalArgumentException("Name can not be blank or empty.");
+      throw new IllegalArgumentException(errorMessage);
     }
     this.name = name;
   }
@@ -104,8 +106,9 @@ public class Grocery {
    *                                  This is because you should not create an expired grocery.
    */
   public void setExpirationDate(LocalDate expirationDate) {
+    String errorMessage = "You can not set an expiration date of the past.";
     if (expirationDate.isBefore(LocalDate.now())) {
-      throw new IllegalArgumentException("You can not set an expiration date of the past.");
+      throw new IllegalArgumentException(errorMessage);
     }
     this.expirationDate = expirationDate;
   }
@@ -129,8 +132,9 @@ public class Grocery {
    *                                  Case of the parameter does not matter.
    */
   public void setUnitOfMeasurement(String unitOfMeasurement) {
+    String errorMessage = "Unit of measurement must be liter or kilogram";
     if (!unitOfMeasurement.equalsIgnoreCase("liter") && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
-      throw new IllegalArgumentException("Unit of measurement must be liter or kilogram");
+      throw new IllegalArgumentException(errorMessage);
     }
     this.unitOfMeasurement = unitOfMeasurement;
   }
@@ -153,6 +157,7 @@ public class Grocery {
    *                                  This is to prevent a negative price.
    */
   public void setPrice(float price) {
+    String errorMessage = "The price can not be less than zero.";
     if (price < 0) {
       throw new IllegalArgumentException("The price can not be less than zero.");
     }
@@ -165,10 +170,11 @@ public class Grocery {
    *
    */
   public float getPricePerQuantity() {
+    String errorMessage = "Price per unit is not possible for ";
     if (unitOfMeasurement.equalsIgnoreCase("kilogram") || unitOfMeasurement.equalsIgnoreCase("liter")) {
       return price / quantity;
     }
-    throw new UnsupportedOperationException("Price per unit is not possible for " + unitOfMeasurement);
+    throw new UnsupportedOperationException(errorMessage + unitOfMeasurement);
   }
 
   /**
