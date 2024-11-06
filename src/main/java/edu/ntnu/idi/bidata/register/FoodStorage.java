@@ -1,9 +1,14 @@
 package edu.ntnu.idi.bidata.register;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
-
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * This class represents a storage where instances of Grocery can be stored.
@@ -15,12 +20,17 @@ import java.util.*;
 public class FoodStorage {
   private final Map<String, List<Grocery>> groceries = new HashMap<>();
 
+  /**
+   * Constructor for <code>FoodStorage</code>.
+   * Constructor is empty, because the idea is to have an empty storage,
+   * that will be filled with instances of Grocery, with the according methods.
+   */
   public FoodStorage() {
     // Currently empty
   }
 
   /**
-   * Mutator method to add an instance of Grocery to FoodStorage.
+   * Mutator method to add an instance of <code>Grocery</code> to <code>FoodStorage</code>.
    *
    * @param providedGrocery Represents the instance of a Grocery.
    */
@@ -31,7 +41,8 @@ public class FoodStorage {
       throw new IllegalArgumentException(errorMessage);
     }
 
-    List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(), new ArrayList<>());
+    List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(),
+        new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
@@ -53,11 +64,17 @@ public class FoodStorage {
   }
 
   /**
-   * Mutator method to remove an instance of Grocery from FoodStorage.
+   * Validation method for <code>removeGrocery</code>.
+   * Will validate the input, to check if the provided grocery is not null,
+   * and that the quantity to remove is not less than or equal to zero.
    *
-   * @param providedGrocery Represents the instance of a Grocery.
+   * @param providedGrocery The grocery that the quantity should be removed from.
+   * @param quantityToRemove The quantity that is going to be removed.
+   *
+   * @throws IllegalArgumentException if the quantityToRemove is less than or equal to zero,
+   *                                                          or the provided grocery is null.
    */
-  public void removeGrocery(Grocery providedGrocery, float quantityToRemove) {
+  private void validateInputs(Grocery providedGrocery, float quantityToRemove) {
     String errorMessage;
     if (providedGrocery == null || quantityToRemove <= 0) {
       if (providedGrocery == null) {
@@ -67,13 +84,34 @@ public class FoodStorage {
       }
       throw new IllegalArgumentException(errorMessage);
     }
+  }
 
-    List<Grocery> groceryList = groceries.get(providedGrocery.getName());
-    errorMessage = "There is no grocery with the specified name!";
+  /**
+   * Validation method for <code>removeGrocery</code>.
+   * Will validate the input to check if the groceryList is null or empty.
+   *
+   * @param groceryList List to check.
+   * @throws NoSuchElementException if there is no elements in the list.
+   */
+  private void validateGroceryList(List<Grocery> groceryList) {
+    String errorMessage = "The grocery list is empty.";
     if (groceryList == null || groceryList.isEmpty()) {
       throw new NoSuchElementException(errorMessage);
     }
+  }
 
+  /**
+   * Mutator method for <code>removeGrocery</code>.
+   * Will remove the specified quantity of the provided grocery, from the list.
+   *
+   * @param providedGrocery The grocery to remove.
+   * @param quantityToRemove The quantity to remove.
+   * @param groceryList The list of where the grocery lives.
+   * @throws IllegalArgumentException if the quantity to remove
+   *                                  is higher than the available quantity.
+   */
+  private void removeGroceryFromList(Grocery providedGrocery,
+                                     float quantityToRemove, List<Grocery> groceryList) {
     Iterator<Grocery> groceryIterator = groceryList.iterator();
     boolean isFound = false;
     while (groceryIterator.hasNext() && !isFound) {
@@ -83,7 +121,8 @@ public class FoodStorage {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
         float updatedPrice = grocery.getPrice() * (updatedQuantity / grocery.getQuantity());
         if (updatedQuantity < 0) {
-          errorMessage = "You are trying to remove a higher quantity, than what is available.";
+          String errorMessage =
+              "You are trying to remove a higher quantity, than what is available.";
           throw new IllegalArgumentException(errorMessage);
         } else if (updatedQuantity == 0) {
           groceryList.remove(grocery);
@@ -94,6 +133,22 @@ public class FoodStorage {
         isFound = true;
       }
     }
+  }
+
+  /**
+   * Mutator method that will remove a specified grocery from the groceries HashMap.
+   *
+   * @param providedGrocery The grocery to remove.
+   * @param quantityToRemove The quantity to remove.
+   */
+  public void removeGrocery(Grocery providedGrocery, float quantityToRemove) {
+    validateInputs(providedGrocery, quantityToRemove);
+
+    List<Grocery> groceryList = groceries.get(providedGrocery.getName());
+    validateGroceryList(groceryList);
+
+    removeGroceryFromList(providedGrocery, quantityToRemove, groceryList);
+
     if (groceryList.isEmpty()) {
       groceries.remove(providedGrocery.getName());
     }
@@ -101,8 +156,10 @@ public class FoodStorage {
 
   /**
    * Accessor method to search for an instance of Grocery in FoodStorage.
-   * If there are two instances with different expiry dates, it will be returned as two instances in a list.
+   * If there are two instances with different expiry dates,
+   *                                 it will be returned as two instances in a list.
    * If the two instances has the same expiry date, they will be combined.
+   *
    * @param name Represents the name of the grocery to search for.
    * @return Will return the instance(s) that is searched for.
    */
@@ -113,7 +170,7 @@ public class FoodStorage {
     }
 
     List<Grocery> searchedGrocery = new ArrayList<>();
-    for(List<Grocery> groceryList : groceries.values()) {
+    for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
         if (grocery.getName().equalsIgnoreCase(name)) {
           searchedGrocery.add(grocery);
@@ -125,6 +182,7 @@ public class FoodStorage {
 
   /**
    * Accessor method to access the value of expired groceries.
+   *
    * @return Will return the total value of expired groceries.
    */
   public float valueOfExpiredGroceries() {
@@ -142,6 +200,7 @@ public class FoodStorage {
   /**
    * Accessor method for expired groceries.
    * Will return a list of groceries that expires before given date.
+   *
    * @param year Year of expiration.
    * @param month Month of expiration.
    * @param day Day of expiration.
@@ -173,6 +232,7 @@ public class FoodStorage {
 
   /**
    * Accessor method to access the value of all groceries.
+   *
    * @return Will return the total value of all groceries.
    */
   public float valueOfAllGroceries() {
