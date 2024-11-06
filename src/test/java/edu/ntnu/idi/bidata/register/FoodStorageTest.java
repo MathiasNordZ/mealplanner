@@ -69,4 +69,18 @@ class FoodStorageTest {
   void addGroceryNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.addGrocery(null));
   }
+
+  @Test
+  void removeGroceryPositiveTest() {
+    foodStorage.removeGrocery(chicken, 1.2f);
+
+    List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
+    assertFalse(groceries.contains(chicken));
+  }
+
+  @Test
+  void removeGroceryNegativeTest() {
+    List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(chicken, 10f));
+  }
 }
