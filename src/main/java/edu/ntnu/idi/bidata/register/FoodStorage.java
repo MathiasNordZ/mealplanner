@@ -67,6 +67,8 @@ public class FoodStorage {
    * Validation method for <code>removeGrocery</code>.
    * Will validate the input, to check if the provided grocery is not null,
    * and that the quantity to remove is not less than or equal to zero.
+   * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
+   *                                                                SonarLint was throwing.
    *
    * @param providedGrocery The grocery that the quantity should be removed from.
    * @param quantityToRemove The quantity that is going to be removed.
@@ -89,6 +91,8 @@ public class FoodStorage {
   /**
    * Validation method for <code>removeGrocery</code>.
    * Will validate the input to check if the groceryList is null or empty.
+   * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
+   *                                                                SonarLint was throwing.
    *
    * @param groceryList List to check.
    * @throws NoSuchElementException if there is no elements in the list.
@@ -103,6 +107,8 @@ public class FoodStorage {
   /**
    * Mutator method for <code>removeGrocery</code>.
    * Will remove the specified quantity of the provided grocery, from the list.
+   * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
+   *                                                                SonarLint was throwing.
    *
    * @param providedGrocery The grocery to remove.
    * @param quantityToRemove The quantity to remove.
@@ -137,6 +143,8 @@ public class FoodStorage {
 
   /**
    * Mutator method that will remove a specified grocery from the groceries HashMap.
+   * This method has been broken into smaller methods to reduce the cognitive complexity.
+   * The concept was inspired by GitHub Copilot.
    *
    * @param providedGrocery The grocery to remove.
    * @param quantityToRemove The quantity to remove.
