@@ -69,8 +69,12 @@ public class FoodStorage {
     }
 
     List<Grocery> groceryList = groceries.get(providedGrocery.getName());
-    Iterator<Grocery> groceryIterator = groceryList.iterator();
+    errorMessage = "There is no grocery with the specified name!";
+    if (groceryList == null || groceryList.isEmpty()) {
+      throw new NoSuchElementException(errorMessage);
+    }
 
+    Iterator<Grocery> groceryIterator = groceryList.iterator();
     boolean isFound = false;
     while (groceryIterator.hasNext() && !isFound) {
       Grocery grocery = groceryIterator.next();
@@ -78,7 +82,10 @@ public class FoodStorage {
       if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
         float updatedPrice = grocery.getPrice() * (updatedQuantity / grocery.getQuantity());
-        if (updatedQuantity <= 0) {
+        if (updatedQuantity < 0) {
+          errorMessage = "You are trying to remove a higher quantity, than what is available.";
+          throw new IllegalArgumentException(errorMessage);
+        } else if (updatedQuantity == 0) {
           groceryList.remove(grocery);
         } else {
           grocery.setQuantity(updatedQuantity);
