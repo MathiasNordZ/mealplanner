@@ -70,6 +70,10 @@ class FoodStorageTest {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.addGrocery(null));
   }
 
+  /**
+   * Positive test for the method <code>removeGrocery</code>.
+   * Will remove a grocery that does exist in <code>foodStorage</code>
+   */
   @Test
   void removeGroceryPositiveTest() {
     foodStorage.removeGrocery(chicken, 1.2f);
@@ -78,9 +82,14 @@ class FoodStorageTest {
     assertFalse(groceries.contains(chicken));
   }
 
+  /**
+   * Negative test for the method <code>removeGrocery</code>.
+   * Will remove a bigger quantity than the available quantity.
+   * @throws IllegalArgumentException should be thrown,
+   * because the quantity to remove is bigger than existing quantity.
+   */
   @Test
   void removeGroceryNegativeTest() {
-    List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
     assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(chicken, 10f));
   }
 }
