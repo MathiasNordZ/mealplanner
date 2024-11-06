@@ -6,8 +6,8 @@ import java.time.LocalDate;
  * This class represents a grocery with the attributes quantity, price, name,
  * expiration date and unit of measurement.
  *
- * @author Mathias Erik Nord
- * @since 16.10.2024
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>16.10.2024</b>
  */
 public class Grocery {
   private float quantity;
