@@ -185,10 +185,10 @@ public class Grocery {
    */
   @Override
   public String toString() {
-    return "Name : " + name +
-            ", Price : " + price +
-            ", Quantity : " + quantity +
-            ", Unit of measurement : " + unitOfMeasurement +
-            ", Expiration date : " + expirationDate;
+    return "Name : " + getName() +
+            ", Price : " + getPrice() +
+            ", Quantity : " + getQuantity() +
+            ", Unit of measurement : " + getUnitOfMeasurement() +
+            ", Expiration date : " + getExpirationDate();
   }
 }
