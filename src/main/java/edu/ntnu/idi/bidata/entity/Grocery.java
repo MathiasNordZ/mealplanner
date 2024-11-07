@@ -159,7 +159,7 @@ public class Grocery {
   public void setPrice(float price) {
     String errorMessage = "The price can not be less than zero.";
     if (price < 0) {
-      throw new IllegalArgumentException("The price can not be less than zero.");
+      throw new IllegalArgumentException(errorMessage);
     }
     this.price = price;
   }
