@@ -22,8 +22,6 @@ class FoodStorageTest {
   private FoodStorage foodStorage;
   private Grocery milk;
   private Grocery chicken;
-  private Grocery cheese;
-  private Grocery soda;
 
   /**
    * The method <code>setUp</code> will be run before each test.
@@ -41,8 +39,6 @@ class FoodStorageTest {
     foodStorage = new FoodStorage();
     milk = new Grocery(1f, "Milk", LITER, 20, year, month, day);
     chicken = new Grocery(1.2f, "Chicken", KILOGRAM, 120, year, month, day);
-    cheese = new Grocery(0.75f, "Cheese", KILOGRAM, 85, year, month, day);
-    soda = new Grocery(0.33f, "Coca Cola", LITER, 18, year, month, day);
 
     foodStorage.addGrocery(chicken);
   }
@@ -91,5 +87,48 @@ class FoodStorageTest {
   @Test
   void removeGroceryNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(chicken, 10f));
+  }
+
+  @Test
+  void searchGroceryPositiveTest() {
+    List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
+
+    assertEquals("Chicken", groceries.getFirst().getName());
+  }
+
+  @Test
+  void searchGroceryNegativeTest() {
+  }
+
+  @Test
+  void valueOfExpiredGroceriesPositiveTest() {
+  }
+
+  @Test
+  void valueOfExpiredGroceriesNegativeTest() {
+  }
+
+  @Test
+  void listOfExpiredGroceriesPositiveTest() {
+  }
+
+  @Test
+  void listOfExpiredGroceriesNegativeTest() {
+  }
+
+  @Test
+  void valueOfAllGroceriesPositiveTest() {
+  }
+
+  @Test
+  void valueOfAllGroceriesNegativeTest() {
+  }
+
+  @Test
+  void getSortedListPositiveTest() {
+  }
+
+  @Test
+  void getSortedListNegativeTest() {
   }
 }
