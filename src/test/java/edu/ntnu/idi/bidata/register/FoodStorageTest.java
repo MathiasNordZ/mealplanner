@@ -21,7 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class FoodStorageTest {
   private FoodStorage foodStorage;
   private Grocery milk;
+  private Grocery expiredMilk;
   private Grocery chicken;
+
+  LocalDate today;
 
   /**
    * The method <code>setUp</code> will be run before each test.
@@ -29,10 +32,11 @@ class FoodStorageTest {
    */
   @BeforeEach
   void setUp() {
-    LocalDate today = LocalDate.now();
+    today = LocalDate.now();
     int year = today.getYear();
     int month = today.getMonthValue();
     int day = today.getDayOfMonth();
+
     String LITER = "liter";
     String KILOGRAM = "liter";
 
@@ -98,22 +102,24 @@ class FoodStorageTest {
 
   @Test
   void searchGroceryNegativeTest() {
-  }
-
-  @Test
-  void valueOfExpiredGroceriesPositiveTest() {
-  }
-
-  @Test
-  void valueOfExpiredGroceriesNegativeTest() {
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.searchGrocery(""));
   }
 
   @Test
   void listOfExpiredGroceriesPositiveTest() {
+    LocalDate expiredDate = today.minusDays(1);
+    expiredMilk = new Grocery(2f, "Milk", "liter", 40,
+        expiredDate.getYear(), expiredDate.getMonthValue(), expiredDate.getDayOfMonth());
+
+    foodStorage.addGrocery(expiredMilk);
+    List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(today.getYear(),
+        today.getMonthValue(), today.getDayOfMonth());
+    assertEquals("Milk", expiredGroceries.getFirst().getName());
   }
 
   @Test
   void listOfExpiredGroceriesNegativeTest() {
+
   }
 
   @Test
