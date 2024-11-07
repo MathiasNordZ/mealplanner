@@ -19,16 +19,16 @@ public class Recipe {
   /**
    * Constructor that will create a recipe.
    *
-   * @param dishName This is the name of the dish.
-   * @param descriptionOfDish This is a description of the dish.
+   * @param recipeName This is the name of the dish.
+   * @param recipeDescription This is a description of the dish.
    * @param cookingInstructions This is the instructions of how to cook the dish.
    * @param ingredients This is a map of the ingredients needed and the amount of ingredient.
    *
    */
-  public Recipe(String dishName, String descriptionOfDish, String cookingInstructions,
+  public Recipe(String recipeName, String recipeDescription, String cookingInstructions,
                 List<Grocery> ingredients, int amountOfServings) {
-    setRecipeName(dishName);
-    setRecipeDescription(descriptionOfDish);
+    setRecipeName(recipeName);
+    setRecipeDescription(recipeDescription);
     setCookingInstructions(cookingInstructions);
     setIngredients(ingredients);
     setAmountOfServings(amountOfServings);
@@ -102,6 +102,15 @@ public class Recipe {
       throw new IllegalArgumentException(errorMessage);
     }
     this.amountOfServings = amountOfServings;
+  }
+
+  @Override
+  public String toString() {
+    return "Name of recipe : " + getRecipeName() +
+        ", Description : " + getRecipeDescription() +
+        ", Cooking Instructions : " + getCookingInstructions() +
+        ", Amount of servings : " + getAmountOfServings() +
+        ", Ingredients : " + getIngredients();
   }
 
   /*
