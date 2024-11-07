@@ -3,24 +3,37 @@ package edu.ntnu.idi.bidata;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserInterface {
   private FoodStorage fridge;
+  private CookBook cookBook;
+  private Recipe recipe;
+  private Recipe recipeTwo;
+
   public void init() {
-    Grocery milk = new Grocery(2F, "Milk", "liter", 15, 2024, 11, 20);
-    Grocery milkTwo = new Grocery(1.75F, "Milk", "liter", 25, 2024, 11, 20);
-    Grocery milkThree = new Grocery(1F, "Milk", "liter", 25, 2024, 11, 30);
-    Grocery milkFour = new Grocery(1.75F, "Milk", "liter", 25, 2024, 11, 30);
+    Grocery chicken = new Grocery(2F, "Chicken", "kilogram", 150, 2024, 11, 20);
+    Grocery rice = new Grocery(1F, "Rice", "kilogram", 20, 2026, 11, 20);
 
     fridge = new FoodStorage();
+    cookBook = new CookBook();
 
-    fridge.addGrocery(milk);
-    fridge.addGrocery(milkTwo);
-    fridge.addGrocery(milkThree);
-    fridge.addGrocery(milkFour);
+    List<Grocery> ingredients = new ArrayList<>();
+    ingredients.add(chicken);
+    ingredients.add(rice);
+
+    recipe = new Recipe("Chicken & Rice", "Description", "Instructions", ingredients, 4);
+    recipeTwo = new Recipe("Chicken & Rice", "Description", "Instructions", ingredients, 4);
+
+    cookBook.addRecipe(recipe);
+    cookBook.addRecipe(recipeTwo);
+
   }
 
   public void start() {
 
     System.out.println(fridge.searchGrocery("milk"));
+    System.out.println(cookBook.getRecipes());
   }
 }
