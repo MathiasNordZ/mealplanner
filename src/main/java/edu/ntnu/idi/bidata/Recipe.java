@@ -1,20 +1,23 @@
 package edu.ntnu.idi.bidata;
 
+import edu.ntnu.idi.bidata.entity.Grocery;
+
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class is representing a recipe.
  */
 public class Recipe {
-  private String dishName;
-  private String descriptionOfDish;
+  private String recipeName;
+  private String recipeDescription;
   private String cookingInstructions;
-  private Map<String, Integer> ingredients;
-
-  //FoodStorage foodStorage = new FoodStorage();
+  private List<Grocery> ingredients;
+  private int amountOfServings;
 
   /**
-   * This is a constructor for the Recipe class.
+   * Constructor that will create a recipe.
    *
    * @param dishName This is the name of the dish.
    * @param descriptionOfDish This is a description of the dish.
@@ -23,37 +26,47 @@ public class Recipe {
    *
    */
   public Recipe(String dishName, String descriptionOfDish, String cookingInstructions,
-                Map<String, Integer> ingredients) {
-    this.dishName = dishName;
-    this.descriptionOfDish = descriptionOfDish;
-    this.cookingInstructions = cookingInstructions;
-    this.ingredients = ingredients;
+                List<Grocery> ingredients, int amountOfServings) {
+    setRecipeName(dishName);
+    setRecipeDescription(descriptionOfDish);
+    setCookingInstructions(cookingInstructions);
+    setIngredients(ingredients);
+    setAmountOfServings(amountOfServings);
+  }
+
+  public Recipe() {
+
   }
 
   /**
-   * This is the default constructor for the Recipe class.
+   * Validation method for <code>String</code> inputs.
+   *
+   * @param stringInput input that is passed from outer method.
+   * @throws IllegalArgumentException is thrown if string input is null, blank or empty.
    */
-  public Recipe() {
-    this.dishName = "";
-    this.descriptionOfDish = "";
-    this.cookingInstructions = "";
-    this.ingredients = null;
+  private void stringInputValidation(String stringInput) {
+    String errorMessage = "Provided input cannot be null, empty or blank.";
+    if (stringInput == null || stringInput.isBlank() || stringInput.isEmpty()) {
+      throw new IllegalArgumentException(errorMessage);
+    }
   }
 
-  public String getDishName() {
-    return dishName;
+  public String getRecipeName() {
+    return recipeName;
   }
 
-  public void setDishName(String dishName) {
-    this.dishName = dishName;
+  public void setRecipeName(String recipeName) {
+    stringInputValidation(recipeName);
+    this.recipeName = recipeName;
   }
 
-  public String getDescriptionOfDish() {
-    return descriptionOfDish;
+  public String getRecipeDescription() {
+    return recipeDescription;
   }
 
-  public void setDescriptionOfDish(String descriptionOfDish) {
-    this.descriptionOfDish = descriptionOfDish;
+  public void setRecipeDescription(String recipeDescription) {
+    stringInputValidation(recipeDescription);
+    this.recipeDescription = recipeDescription;
   }
 
   public String getCookingInstructions() {
@@ -61,16 +74,36 @@ public class Recipe {
   }
 
   public void setCookingInstructions(String cookingInstructions) {
+    stringInputValidation(cookingInstructions);
     this.cookingInstructions = cookingInstructions;
   }
 
-  public Map<String, Integer> getIngredients() {
+  public List<Grocery> getIngredients() {
     return ingredients;
   }
 
-  public void setIngredients(Map<String, Integer> ingredients) {
+  public void setIngredients(List<Grocery> ingredients) {
+    String errorMessage;
+    if (ingredients == null) {
+      errorMessage = "The inputted ingredients cannot be null";
+      throw new IllegalArgumentException(errorMessage);
+    }
     this.ingredients = ingredients;
   }
+
+  public int getAmountOfServings() {
+    return amountOfServings;
+  }
+
+  public void setAmountOfServings(int amountOfServings) {
+    String errorMessage;
+    if (amountOfServings <= 0) {
+      errorMessage = "The inputted amount of servings cannot be less than zero";
+      throw new IllegalArgumentException(errorMessage);
+    }
+    this.amountOfServings = amountOfServings;
+  }
+
   /*
   public boolean isPossibleToMake(FoodStorage foodStorage) {
 
