@@ -21,7 +21,7 @@ class GroceryTest {
   void setUp() {
     float quantity = 3f;
     String name = "Beef";
-    String unitOfMeasurement = "kg";
+    String unitOfMeasurement = "kilogram";
     float price = 750f;
     LocalDate today = LocalDate.now();
     int year = today.getYear();
@@ -102,9 +102,9 @@ class GroceryTest {
    */
   @Test
   void setUnitOfMeasurementPositiveTest() {
-    grocery.setUnitOfMeasurement("gram");
+    grocery.setUnitOfMeasurement("kilogram");
 
-    assertEquals("gram", grocery.getUnitOfMeasurement());
+    assertEquals("kilogram", grocery.getUnitOfMeasurement());
   }
 
   /**
