@@ -32,8 +32,6 @@ public class UserInterface {
   }
 
   public void start() {
-
-    System.out.println(fridge.searchGrocery("milk"));
-    System.out.println(cookBook.getRecipes());
+    System.out.println(cookBook.getAllRecipes());
   }
 }
