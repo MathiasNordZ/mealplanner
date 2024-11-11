@@ -45,6 +45,7 @@ class FoodStorageTest {
     chicken = new Grocery(1.2f, "Chicken", KILOGRAM, 120, year, month, day);
 
     foodStorage.addGrocery(chicken);
+    foodStorage.addGrocery(milk);
   }
 
   /**
@@ -93,6 +94,10 @@ class FoodStorageTest {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(chicken, 10f));
   }
 
+  /**
+   * Positive test for the method <code>searchGrocery</code>.
+   * Will search for a grocery that does exist in <code>foodStorage</code>.
+   */
   @Test
   void searchGroceryPositiveTest() {
     List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
@@ -100,6 +105,12 @@ class FoodStorageTest {
     assertEquals("Chicken", groceries.getFirst().getName());
   }
 
+  /**
+   * Negative test for the method <code>searchGrocery</code>.
+   * Will search for a grocery that does not exist in <code>foodStorage</code>.
+   * @throws IllegalArgumentException should be thrown,
+   * because the grocery searched for does not exist.
+   */
   @Test
   void searchGroceryNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.searchGrocery(""));
@@ -117,24 +128,26 @@ class FoodStorageTest {
     assertEquals("Milk", expiredGroceries.getFirst().getName());
   }
  */
+
+  /**
+   * Negative test for method <code>listOfExpiredGroceries</code>.
+   * Will test for invalid parameters of year, month and day.
+   * @throws IllegalArgumentException should be thrown,
+   * because the year, day and month is set to illegal values.
+   */
   @Test
   void listOfExpiredGroceriesNegativeTest() {
-
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries(1980, 10, 25)); // Test if invalid year throws correct exception.
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries(2023, -1, 25)); // Test if invalid month throws correct exception.
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries(2023, 10, -1)); // Test if invalid day throws correct exception.
   }
 
+  /**
+   * Positive test method for <code>valueOfAllGroceries</code>
+   * Will check that the expected value is equals the actual value.
+   */
   @Test
   void valueOfAllGroceriesPositiveTest() {
-  }
-
-  @Test
-  void valueOfAllGroceriesNegativeTest() {
-  }
-
-  @Test
-  void getSortedListPositiveTest() {
-  }
-
-  @Test
-  void getSortedListNegativeTest() {
+    assertEquals(140, foodStorage.valueOfAllGroceries());
   }
 }
