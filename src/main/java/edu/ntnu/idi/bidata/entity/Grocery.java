@@ -8,6 +8,7 @@ import java.time.LocalDate;
  *
  * @author <b>Mathias Erik Nord</b>
  * @since <b>16.10.2024</b>
+ * @version 0.1.1
  */
 public class Grocery {
   private float quantity;
