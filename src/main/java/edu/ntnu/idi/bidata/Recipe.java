@@ -1,10 +1,9 @@
 package edu.ntnu.idi.bidata;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.register.FoodStorage;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class is representing a recipe.
@@ -103,6 +102,24 @@ public class Recipe {
     }
     this.amountOfServings = amountOfServings;
   }
+
+  public boolean isPossibleToCook(FoodStorage foodStorage) {
+    Iterator<Grocery> ingredientIterator = ingredients.iterator();
+
+    boolean isFound = false;
+    while(ingredientIterator.hasNext()) {
+      Grocery ingredient = ingredientIterator.next();
+      for (Grocery storedGrocery : foodStorage.getSortedList()) {
+        if(storedGrocery.getName().equals(ingredient.getName()) && storedGrocery.getQuantity()
+                >= ingredient.getQuantity()) {
+          isFound = true;
+        }
+      }
+      if (!storedGroceries.contains(ingredientIterator))
+        isFound = false;
+      }
+    return isFound;
+    }
 
   @Override
   public String toString() {
