@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -13,8 +14,16 @@ public class CookBook {
     // Currently empty
   }
 
-  public Set<Recipe> getRecipes() {
+  public Set<Recipe> getAllRecipes() {
     return recipes;
+  }
+
+  public Recipe getRecipe(Recipe recipe) {
+    String errorMessage = "There is no such element.";
+    if(!recipes.contains(recipe)) {
+      throw new NoSuchElementException(errorMessage);
+    }
+    return recipe;
   }
 
   public void addRecipe(Recipe recipe) {
