@@ -217,15 +217,20 @@ public class Recipe {
   /**
    * This is a formatting method, that will format the object to a string when printing the object.
    * This is to make the object more readable, instead of getting an ID in return.
-   *
+   * The refactoring of this method was inspired by GitHub Copilot. Please refer to the report for more info.
    * @return Will return a formatted string, with information about the object.
    */
   @Override
   public String toString() {
-    return "Name of recipe : " + getRecipeName()
-            + ", Description : " + getRecipeDescription()
-            + ", Cooking Instructions : " + getCookingInstructions()
-            + ", Amount of servings : " + getAmountOfServings()
-            + ", Ingredients : " + getIngredients();
+    StringBuilder sb = new StringBuilder();
+    sb.append("Name of recipe: ").append(getRecipeName()).append("\n")
+            .append("Description: ").append(getRecipeDescription()).append("\n")
+            .append("Cooking Instructions: ").append(getCookingInstructions()).append("\n")
+            .append("Amount of servings: ").append(getAmountOfServings()).append("\n")
+            .append("Ingredients: \n");
+    for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
+      sb.append("  - ").append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+    }
+    return sb.toString();
   }
 }
