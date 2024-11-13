@@ -150,4 +150,28 @@ class FoodStorageTest {
   void valueOfAllGroceriesPositiveTest() {
     assertEquals(140, foodStorage.valueOfAllGroceries());
   }
+
+  /**
+   * Negative test method for <code>valueOfAllGroceries</code>
+   */
+  @Test
+  void valueOfAllGroceriesNegativeTest() {
+    Grocery ham = new Grocery(0.25f, "Ham", "kilogram", 25, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
+    foodStorage.addGrocery(ham);
+
+    assertNotEquals(140, foodStorage.valueOfAllGroceries());
+  }
+
+  /**
+   * Test to check if the sorted list will return a sorted list.
+   */
+  @Test
+  void getSortedListTest() {
+    List<Grocery> sortedGroceryList = foodStorage.getSortedList();
+
+    assertEquals(chicken, sortedGroceryList.getFirst()); // Check if first item is chicken.
+    assertEquals(milk, sortedGroceryList.get(1)); // Check if second item is milk.
+
+
+  }
 }
