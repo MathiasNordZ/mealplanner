@@ -1,4 +1,4 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;

@@ -1,4 +1,4 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.application;
 
 /**
  * The main starting point of your application. Let this class create the

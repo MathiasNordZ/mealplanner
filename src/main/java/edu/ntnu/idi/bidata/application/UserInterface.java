@@ -1,5 +1,7 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.application;
 
+import edu.ntnu.idi.bidata.recipe.CookBook;
+import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.ArrayList;

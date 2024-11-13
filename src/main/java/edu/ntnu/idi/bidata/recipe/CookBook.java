@@ -1,4 +1,4 @@
-package edu.ntnu.idi.bidata;
+package edu.ntnu.idi.bidata.recipe;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
