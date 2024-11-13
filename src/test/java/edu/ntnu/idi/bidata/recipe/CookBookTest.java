@@ -69,6 +69,10 @@ class CookBookTest {
         assertThrows(NoSuchElementException.class, () -> cookBook.getRecipe(invalidRecipe));
     }
 
+    /**
+     * Positive test for <code>addRecipe</code>.
+     * Will check that the addRecipe method, actually adds a new recipe.
+     */
     @Test
     void addRecipePositiveTest() {
         Map<String, Float> ingredients = new HashMap<>();
