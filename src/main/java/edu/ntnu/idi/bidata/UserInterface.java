@@ -8,19 +8,33 @@ import java.util.*;
  * This is the interface class, that will take all interaction with the user.
  */
 public class UserInterface {
-  private FoodStorage fridge;
   private CookBook cookBook;
+
+  private enum unitOfMeasurement {
+    LITER("liter"),
+    KILOGRAM("kilogram");
+
+    private final String unit;
+
+    unitOfMeasurement(String unit) {
+      this.unit = unit;
+    }
+
+    private String getUnit() {
+      return unit;
+    }
+  }
 
   private List<Grocery> createGroceries() {
     List<Grocery> groceries = new ArrayList<>();
 
-    groceries.add(new Grocery(1F, "Beef", "kilogram", 250F, 2024, 12, 10));
-    groceries.add(new Grocery(1.75F, "Potato", "kilogram", 53F, 2024, 12, 31));
-    groceries.add(new Grocery(0.2F, "Bernaise", "liter", 65F, 2024, 12, 20));
-    groceries.add(new Grocery(0.75F, "Salmon", "kilogram", 179F, 2024, 12, 12));
-    groceries.add(new Grocery(0.5F, "Pasta", "kilogram", 58F, 2025, 8, 10));
-    groceries.add(new Grocery(0.25F, "Spinach", "kilogram", 25F, 2024, 12, 10));
-    groceries.add(new Grocery(1F, "Milk", "liter", 35F, 2024, 12, 10));
+    groceries.add(new Grocery(1F, "Beef", unitOfMeasurement.KILOGRAM.getUnit(), 250F, 2024, 12, 10));
+    groceries.add(new Grocery(1.75F, "Potato", unitOfMeasurement.KILOGRAM.getUnit(), 53F, 2024, 12, 31));
+    groceries.add(new Grocery(0.2F, "Bernaise", unitOfMeasurement.LITER.getUnit(), 65F, 2024, 12, 20));
+    groceries.add(new Grocery(0.75F, "Salmon", unitOfMeasurement.KILOGRAM.getUnit(), 179F, 2024, 12, 12));
+    groceries.add(new Grocery(0.5F, "Pasta", unitOfMeasurement.KILOGRAM.getUnit(), 58F, 2025, 8, 10));
+    groceries.add(new Grocery(0.25F, "Spinach", unitOfMeasurement.KILOGRAM.getUnit(), 25F, 2024, 12, 10));
+    groceries.add(new Grocery(1F, "Milk", unitOfMeasurement.LITER.getUnit(), 35F, 2024, 12, 10));
 
     return groceries;
   }
@@ -60,6 +74,8 @@ public class UserInterface {
    * This is the method that initializes the program.
    */
   public void init() {
+    FoodStorage fridge;
+
     fridge = new FoodStorage();
     cookBook = new CookBook();
 
