@@ -12,7 +12,7 @@ public class Recipe {
   private String recipeName;
   private String recipeDescription;
   private String cookingInstructions;
-  private List<Grocery> ingredients;
+  private Map<String, Float> ingredients;
   private int amountOfServings;
 
   /**
@@ -25,7 +25,7 @@ public class Recipe {
    *
    */
   public Recipe(String recipeName, String recipeDescription, String cookingInstructions,
-                List<Grocery> ingredients, int amountOfServings) {
+                Map<String, Float> ingredients, int amountOfServings) {
     setRecipeName(recipeName);
     setRecipeDescription(recipeDescription);
     setCookingInstructions(cookingInstructions);
@@ -77,11 +77,11 @@ public class Recipe {
     this.cookingInstructions = cookingInstructions;
   }
 
-  public List<Grocery> getIngredients() {
+  public Map<String, Float> getIngredients() {
     return ingredients;
   }
 
-  public void setIngredients(List<Grocery> ingredients) {
+  public void setIngredients(Map<String, Float> ingredients) {
     String errorMessage;
     if (ingredients == null) {
       errorMessage = "The inputted ingredients cannot be null";
@@ -103,6 +103,7 @@ public class Recipe {
     this.amountOfServings = amountOfServings;
   }
 
+  /*
   public boolean isPossibleToCook(FoodStorage foodStorage) {
     Iterator<Grocery> ingredientIterator = ingredients.iterator();
 
@@ -120,6 +121,7 @@ public class Recipe {
       }
     return isFound;
     }
+  */
 
   @Override
   public String toString() {
@@ -129,10 +131,4 @@ public class Recipe {
         ", Amount of servings : " + getAmountOfServings() +
         ", Ingredients : " + getIngredients();
   }
-
-  /*
-  public boolean isPossibleToMake(FoodStorage foodStorage) {
-
-  }
-   */
 }
