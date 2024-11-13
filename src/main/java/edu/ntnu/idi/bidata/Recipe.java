@@ -194,6 +194,9 @@ public class Recipe {
    * @return Will return true if recipe is possible to make, if not it will return false.
    */
   public boolean isPossibleToCook(FoodStorage foodStorage) {
+    if (foodStorage == null) {
+      throw new IllegalArgumentException("The foodStorage cannot be null.");
+    }
     for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
       String ingredientName = entry.getKey();
       float requiredQuantity = entry.getValue();
