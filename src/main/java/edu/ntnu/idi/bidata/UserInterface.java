@@ -32,19 +32,26 @@ public class UserInterface {
     ingredientsOne.put("Beef", 0.75F);
     ingredientsOne.put("Potatoes", 0.5F);
     ingredientsOne.put("Bernaise", 0.20F);
-    recipes.add(new Recipe("Beef & Potato with Bernaise", "This is a dinner with grilled beef, mashed potatoes and bernaise sauce.", "1. Cook beef\n" +
-            "2. Cook potatoes.\n" +
-            "3. Make bernaise.\n" +
-            "4. Mash potatoes.", ingredientsOne, 4));
+    String cookingInstructions =
+              """
+              1. Cook beef.
+              2. Cook potatoes.
+              3. Make bernaise.
+              4. Mash potatoes.
+              """;
+    recipes.add(new Recipe("Beef & Potato with Bernaise", "This is a dinner with grilled beef, mashed potatoes and bernaise sauce.", cookingInstructions, ingredientsOne, 4));
 
+    String cookingInstructionsTwo =
+            """
+            1. Cook salmon.
+            2. Cook pasta.
+            3. Wash spinach.
+            """;
     Map<String, Float> ingredientsTwo = new HashMap<>();
     ingredientsTwo.put("Salmon", 0.50F);
     ingredientsTwo.put("Pasta", 0.5F);
     ingredientsTwo.put("Spinach", 0.20F);
-    recipes.add(new Recipe("Salmon with pasta and spinach", "This is a dinner with salmon, pasta and spinach.", "1. Cook salmon\n" +
-            "2. Cook pasta.\n" +
-            "3. Wash spinach.\n"
-            , ingredientsTwo, 4));
+    recipes.add(new Recipe("Salmon with pasta and spinach", "This is a dinner with salmon, pasta and spinach.", cookingInstructionsTwo, ingredientsTwo, 4));
 
     return recipes;
   }
