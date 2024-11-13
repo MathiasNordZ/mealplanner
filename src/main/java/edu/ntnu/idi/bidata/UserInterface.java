@@ -2,7 +2,6 @@ package edu.ntnu.idi.bidata;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,13 +13,13 @@ import java.util.Map;
 public class UserInterface {
   private CookBook cookBook;
 
-  private enum unitOfMeasurement {
+  private enum UnitOfMeasurement {
     LITER("liter"),
     KILOGRAM("kilogram");
 
     private final String unit;
 
-    unitOfMeasurement(String unit) {
+    UnitOfMeasurement(String unit) {
       this.unit = unit;
     }
 
@@ -32,19 +31,26 @@ public class UserInterface {
   private List<Grocery> createGroceries() {
     List<Grocery> groceries = new ArrayList<>();
 
-    groceries.add(new Grocery(1F, "Beef", unitOfMeasurement.KILOGRAM.getUnit(), 250F, 2024, 12, 10));
-    groceries.add(new Grocery(1.75F, "Potato", unitOfMeasurement.KILOGRAM.getUnit(), 53F, 2024, 12, 31));
-    groceries.add(new Grocery(0.2F, "Bernaise", unitOfMeasurement.LITER.getUnit(), 65F, 2024, 12, 20));
-    groceries.add(new Grocery(0.75F, "Salmon", unitOfMeasurement.KILOGRAM.getUnit(), 179F, 2024, 12, 12));
-    groceries.add(new Grocery(0.5F, "Pasta", unitOfMeasurement.KILOGRAM.getUnit(), 58F, 2025, 8, 10));
-    groceries.add(new Grocery(0.25F, "Spinach", unitOfMeasurement.KILOGRAM.getUnit(), 25F, 2024, 12, 10));
-    groceries.add(new Grocery(1F, "Milk", unitOfMeasurement.LITER.getUnit(), 35F, 2024, 12, 10));
+    groceries.add(new Grocery(1F, "Beef", UnitOfMeasurement.KILOGRAM.getUnit(),
+            250F, 2024, 12, 10));
+    groceries.add(new Grocery(1.75F, "Potato", UnitOfMeasurement.KILOGRAM.getUnit(),
+            53F, 2024, 12, 31));
+    groceries.add(new Grocery(0.2F, "Bernaise", UnitOfMeasurement.LITER.getUnit(),
+            65F, 2024, 12, 20));
+    groceries.add(new Grocery(0.75F, "Salmon", UnitOfMeasurement.KILOGRAM.getUnit(),
+            179F, 2024, 12, 12));
+    groceries.add(new Grocery(0.5F, "Pasta", UnitOfMeasurement.KILOGRAM.getUnit(),
+            58F, 2025, 8, 10));
+    groceries.add(new Grocery(0.25F, "Spinach", UnitOfMeasurement.KILOGRAM.getUnit(),
+            25F, 2024, 12, 10));
+    groceries.add(new Grocery(1F, "Milk", UnitOfMeasurement.LITER.getUnit(),
+            35F, 2024, 12, 10));
 
     return groceries;
   }
 
   private List<Recipe> createRecipes() {
-    List<Recipe> recipes = new ArrayList<>();
+    final List<Recipe> recipes = new ArrayList<>();
 
     Map<String, Float> ingredientsOne = new HashMap<>();
     ingredientsOne.put("Beef", 0.75F);
@@ -57,9 +63,11 @@ public class UserInterface {
               3. Make bernaise.
               4. Mash potatoes.
               """;
-    recipes.add(new Recipe("Beef & Potato with Bernaise", "This is a dinner with grilled beef, mashed potatoes and bernaise sauce.", cookingInstructions, ingredientsOne, 4));
+    recipes.add(new Recipe("Beef & Potato with Bernaise",
+            "This is a dinner with grilled beef, mashed potatoes and bernaise sauce.",
+            cookingInstructions, ingredientsOne, 4));
 
-    String cookingInstructionsTwo =
+    final String cookingInstructionsTwo =
             """
             1. Cook salmon.
             2. Cook pasta.
@@ -69,7 +77,9 @@ public class UserInterface {
     ingredientsTwo.put("Salmon", 0.50F);
     ingredientsTwo.put("Pasta", 0.5F);
     ingredientsTwo.put("Spinach", 0.20F);
-    recipes.add(new Recipe("Salmon with pasta and spinach", "This is a dinner with salmon, pasta and spinach.", cookingInstructionsTwo, ingredientsTwo, 4));
+    recipes.add(new Recipe("Salmon with pasta and spinach",
+            "This is a dinner with salmon, pasta and spinach.",
+            cookingInstructionsTwo, ingredientsTwo, 4));
 
     return recipes;
   }
