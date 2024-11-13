@@ -6,6 +6,9 @@ import java.util.Map;
 
 /**
  * This class is representing a recipe.
+ * @author Mathia Erik Nord
+ * @since 13.11.24
+ * @version 0.1.1
  */
 public class Recipe {
   private String recipeName;
