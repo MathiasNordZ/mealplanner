@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * This class is representing a recipe.
  *
- * @author Mathia Erik Nord
+ * @author Mathias Erik Nord
  * @since 13.11.24
  * @version 0.1.1
  */
