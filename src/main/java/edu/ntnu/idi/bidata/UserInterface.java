@@ -4,7 +4,9 @@ import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserInterface {
   private FoodStorage fridge;
@@ -19,9 +21,12 @@ public class UserInterface {
     fridge = new FoodStorage();
     cookBook = new CookBook();
 
-    List<Grocery> ingredients = new ArrayList<>();
-    ingredients.add(chicken);
-    ingredients.add(rice);
+    fridge.addGrocery(chicken);
+    fridge.addGrocery(rice);
+
+    Map<String, Float> ingredients = new HashMap<>();
+    ingredients.put("Chicken", 2.1F);
+    ingredients.put("Rice", 1F);
 
     recipe = new Recipe("Chicken & Rice", "Description", "Instructions", ingredients, 4);
     recipeTwo = new Recipe("Chicken & Rice", "Description", "Instructions", ingredients, 4);
@@ -32,6 +37,6 @@ public class UserInterface {
   }
 
   public void start() {
-    System.out.println(cookBook.getAllRecipes());
+    System.out.println(recipe.isPossibleToCook(fridge));
   }
 }
