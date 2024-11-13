@@ -2,8 +2,7 @@ package edu.ntnu.idi.bidata;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
-import java.util.*;
+import java.util.Map;
 
 /**
  * This class is representing a recipe.
@@ -33,10 +32,6 @@ public class Recipe {
     setAmountOfServings(amountOfServings);
   }
 
-  public Recipe() {
-
-  }
-
   /**
    * Validation method for <code>String</code> inputs.
    *
@@ -52,6 +47,7 @@ public class Recipe {
 
   /**
    * Accessor method for <code>recipeName</code>.
+   *
    * @return Will return name of the recipe.
    */
   public String getRecipeName() {
@@ -61,6 +57,7 @@ public class Recipe {
   /**
    * Mutator method for <code>recipeName</code>.
    * Will set the name of the recipe.
+   *
    * @param recipeName Name of recipe.
    */
   public void setRecipeName(String recipeName) {
@@ -70,6 +67,7 @@ public class Recipe {
 
   /**
    * Accessor method for <code>recipeDescription</code>.
+   *
    * @return Will return the description of the recipe.
    */
   public String getRecipeDescription() {
@@ -79,6 +77,7 @@ public class Recipe {
   /**
    * Mutator method for <code>recipeDescription</code>.
    * Will set the description of the recipe.
+   *
    * @param recipeDescription Description of recipe.
    */
   public void setRecipeDescription(String recipeDescription) {
@@ -88,6 +87,7 @@ public class Recipe {
 
   /**
    * Accessor method for <code>cookingInstructions</code>.
+   *
    * @return Will return the cooking instructions of the recipe.
    */
   public String getCookingInstructions() {
@@ -97,6 +97,7 @@ public class Recipe {
   /**
    * Mutator method for <code>cookingInstructions</code>.
    * This method will set the cooking instructions of the recipe.
+   *
    * @param cookingInstructions The cooking instructions of the recipe.
    */
   public void setCookingInstructions(String cookingInstructions) {
@@ -105,7 +106,8 @@ public class Recipe {
   }
 
   /**
-   * Accessor method for <code>getIngredients</code>
+   * Accessor method for <code>getIngredients</code>.
+   *
    * @return Will return a map of ingredients, with name as key and quantity as value.
    */
   public Map<String, Float> getIngredients() {
@@ -114,8 +116,10 @@ public class Recipe {
 
   /**
    * Mutator method for <code>ingredients</code>.
-   * Will set the ingredients for a recipe. Takes in the name of the ingredient as a <code>String</code>,
+   * Will set the ingredients for a recipe.
+   * Takes in the name of the ingredient as a <code>String</code>,
    * and the quantity of the ingredient as a <code>Float</code>.
+   *
    * @param ingredients The ingredients that are needed to make the recipe.
    */
   public void setIngredients(Map<String, Float> ingredients) {
@@ -129,6 +133,7 @@ public class Recipe {
 
   /**
    * Accessor method for <code>amountOfServings</code>.
+   *
    * @return Will return the amount of servings a recipe is intended for.
    */
   public int getAmountOfServings() {
@@ -138,6 +143,7 @@ public class Recipe {
   /**
    * This is a mutator method for <code>amountOfServings</code>.
    * Will set the amount of servings a recipe is intended for.
+   *
    * @param amountOfServings The amount of servings.
    */
   public void setAmountOfServings(int amountOfServings) {
@@ -150,7 +156,9 @@ public class Recipe {
   }
 
   /**
-   * This is a boolean method to check if a recipe is possible to make, with the groceries in a given food storage.
+   * This is a boolean method to check if a recipe is possible to make,
+   * with the groceries in a given food storage.
+   *
    * @param foodStorage The storage to check for available groceries. Ex. fridge, freezer etc.
    * @return Will return true if recipe is possible to make, if not it will return false.
    */
@@ -160,10 +168,10 @@ public class Recipe {
       float requiredQuantity = entry.getValue();
       boolean isFound = false;
       for (Grocery storedGrocery : foodStorage.getSortedList()) {
-          if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
-                  >= requiredQuantity) {
-              isFound = true;
-          }
+        if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
+                >= requiredQuantity) {
+          isFound = true;
+        }
       }
       if (!isFound) {
         return false;
@@ -175,14 +183,15 @@ public class Recipe {
   /**
    * This is a formatting method, that will format the object to a string when printing the object.
    * This is to make the object more readable, instead of getting an ID in return.
+   *
    * @return Will return a formatted string, with information about the object.
    */
   @Override
   public String toString() {
-    return "Name of recipe : " + getRecipeName() +
-        ", Description : " + getRecipeDescription() +
-        ", Cooking Instructions : " + getCookingInstructions() +
-        ", Amount of servings : " + getAmountOfServings() +
-        ", Ingredients : " + getIngredients();
+    return "Name of recipe : " + getRecipeName()
+            + ", Description : " + getRecipeDescription()
+            + ", Cooking Instructions : " + getCookingInstructions()
+            + ", Amount of servings : " + getAmountOfServings()
+            + ", Ingredients : " + getIngredients();
   }
 }
