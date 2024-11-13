@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * This class is representing a recipe.
+ *
  * @author Mathia Erik Nord
  * @since 13.11.24
  * @version 0.1.1
@@ -118,19 +119,46 @@ public class Recipe {
   }
 
   /**
+   * Error handling method for the method<code>setIngredients</code>.
+   *
+   * @param ingredients The Map to validate.
+   * @throws IllegalArgumentException if the <code>ingredients</code> is null,
+   *                                  if <code>ingredientName</code> is null or blank,
+   *                               or if <code>quantity</code> is null, less than or equal to zero.
+   */
+  public void mapInputValidation(Map<String, Float> ingredients) {
+    StringBuilder errorMessage = new StringBuilder();
+    if (ingredients == null) {
+      errorMessage.append("The inputted ingredients cannot be null\n");
+    } else {
+      for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
+        String ingredientName = entry.getKey();
+        Float quantity = entry.getValue();
+
+        if (ingredientName == null || ingredientName.isBlank()) {
+          errorMessage.append("Ingredient name cannot be null or blank.\n");
+        }
+        if (quantity == null || quantity <= 0) {
+          errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
+        }
+      }
+    }
+    if (!errorMessage.isEmpty()) {
+      throw new IllegalArgumentException(errorMessage.toString());
+    }
+  }
+
+  /**
    * Mutator method for <code>ingredients</code>.
    * Will set the ingredients for a recipe.
    * Takes in the name of the ingredient as a <code>String</code>,
    * and the quantity of the ingredient as a <code>Float</code>.
+   * Error handling is handled by <code>mapInputValidation</code>.
    *
    * @param ingredients The ingredients that are needed to make the recipe.
    */
   public void setIngredients(Map<String, Float> ingredients) {
-    String errorMessage;
-    if (ingredients == null) {
-      errorMessage = "The inputted ingredients cannot be null";
-      throw new IllegalArgumentException(errorMessage);
-    }
+    mapInputValidation(ingredients);
     this.ingredients = ingredients;
   }
 
