@@ -5,37 +5,48 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecipeTest {
-
     @Test
-    void getRecipeName() {
+    void setRecipeNamePositiveTest() {
     }
 
     @Test
-    void setRecipeName() {
+    void setRecipeNameNegativeTest() {
     }
 
     @Test
-    void getRecipeDescription() {
+    void getRecipeDescriptionPositiveTest() {
     }
 
     @Test
-    void setRecipeDescription() {
+    void setRecipeDescriptionPositiveTest() {
     }
 
     @Test
-    void getCookingInstructions() {
+    void setRecipeDescriptionNegativeTest() {
     }
 
     @Test
-    void setCookingInstructions() {
+    void getCookingInstructionsPositiveTest() {
     }
 
     @Test
-    void getIngredients() {
+    void setCookingInstructionsPositiveTest() {
     }
 
     @Test
-    void mapInputValidation() {
+    void setCookingInstructionsNegativeTest() {
+    }
+
+    @Test
+    void getIngredientsPositiveTest() {
+    }
+
+    @Test
+    void mapInputValidationPositiveTest() {
+    }
+
+    @Test
+    void mapInputValidationNegativeTest() {
     }
 
     @Test

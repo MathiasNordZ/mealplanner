@@ -77,9 +77,7 @@ class CookBookTest {
     void addRecipePositiveTest() {
         Map<String, Float> ingredients = new HashMap<>();
         ingredients.put("rice", 0.2f);
-
         Recipe friedRice = new Recipe("Fried rice", "This is a fried rice recipe", "1. Fry rice", ingredients, 1);
-        CookBook riceRecipeBook = new CookBook();
 
         cookBook.addRecipe(friedRice);
 
