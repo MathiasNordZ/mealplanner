@@ -19,18 +19,23 @@ public class CookBook {
   }
 
   public Recipe getRecipe(Recipe recipe) {
-    String errorMessage = "There is no such element.";
-    if(!recipes.contains(recipe)) {
-      throw new NoSuchElementException(errorMessage);
+    if (!recipes.contains(recipe)) {
+      throw new NoSuchElementException("There is no such element.");
     }
     return recipe;
   }
 
   public void addRecipe(Recipe recipe) {
+    if (recipe == null) {
+      throw new IllegalArgumentException("Recipe to add cannot be null.");
+    }
     recipes.add(recipe);
   }
 
   public void removeRecipe(Recipe recipe) {
+    if (recipe == null) {
+      throw new IllegalArgumentException("Recipe to remove cannot be null.");
+    }
     recipes.remove(recipe);
   }
 }
