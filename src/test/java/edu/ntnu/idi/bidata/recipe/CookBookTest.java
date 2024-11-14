@@ -86,7 +86,33 @@ class CookBookTest {
         assertEquals(1, riceRecipeBook.getAllRecipes().size());
     }
 
+    /**
+     * Negative test for <code>addRecipe</code>.
+     * Will check that the <code>addRecipe</code> method throws an exception,
+     * when the recipe to add is null.
+     */
     @Test
-    void removeRecipe() {
+    void addRecipeNegativeTest() {
+        assertThrows(IllegalArgumentException.class, () -> cookBook.addRecipe(null));
+    }
+
+    /**
+     * Positive test for <code>removeRecipe</code>.
+     * Will check that <code>removeRecipe</code> does remove the given grocery
+     */
+    @Test
+    void removeRecipePositiveTest() {
+        cookBook.removeRecipe(chickenAndRice);
+        assertEquals(0, cookBook.getAllRecipes().size());
+    }
+
+    /**
+     * Negative test for <code>removeGrocery</code>.
+     * Will check that the <code>removeRecipe</code> throws an exception,
+     * when the recipe to remove is null.
+     */
+    @Test
+    void removeRecipeNegativeTest() {
+        assertThrows(IllegalArgumentException.class, () -> cookBook.removeRecipe(null));
     }
 }
