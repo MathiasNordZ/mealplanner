@@ -83,7 +83,7 @@ class CookBookTest {
 
         cookBook.addRecipe(friedRice);
 
-        assertEquals(1, riceRecipeBook.getAllRecipes().size());
+        assertEquals(2, cookBook.getAllRecipes().size());
     }
 
     /**
