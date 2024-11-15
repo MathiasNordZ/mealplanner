@@ -152,7 +152,8 @@ class RecipeTest {
     }
 
     /**
-     *
+     * Positive test method for <code>setIngredients</code>.
+     * Will check the ingredients are set correctly.
      */
     @Test
     void setIngredientsPositiveTest() {
@@ -163,6 +164,10 @@ class RecipeTest {
         assertEquals(testIngredients, recipe.getIngredients());
     }
 
+    /**
+     * Negative test method for <code>setIngredients</code>.
+     * Will check that an exception is thrown when the ingredient to set is invalid.
+     */
     @Test
     void setIngredientsNegativeTest() {
         Map<String, Float> testIngredients = new HashMap<>();
@@ -171,6 +176,10 @@ class RecipeTest {
         assertThrows(IllegalArgumentException.class, () -> recipe.setIngredients(testIngredients));
     }
 
+    /**
+     * Positive test method for <code>getAmountOfServings</code>.
+     * Will set the amount, and check that the returned amount is correct.
+     */
     @Test
     void getAmountOfServingsPositiveTest() {
         recipe.setAmountOfServings(4);
@@ -178,6 +187,10 @@ class RecipeTest {
         assertEquals(4, recipe.getAmountOfServings());
     }
 
+    /**
+     * Positive test method for <code>setAmountOfServings</code>.
+     * Will set a valid parameter, and check that the correct value is set.
+     */
     @Test
     void setAmountOfServingsPositiveTest() {
         recipe.setAmountOfServings(1);
@@ -185,11 +198,19 @@ class RecipeTest {
         assertEquals(1, recipe.getAmountOfServings());
     }
 
+    /**
+     * Negative test method for <code>setAmountOfServings</code>.
+     * Will set an invalid amount of servings, and check that an exception is thrown.
+     */
     @Test
     void setAmountOfServingsNegativeTest() {
         assertThrows(IllegalArgumentException.class, () -> recipe.setAmountOfServings(-1));
     }
 
+    /**
+     * Positive test method for <code>isPossibleToCook</code>.
+     * Will check that the method does return correct boolean value.
+     */
     @Test
     void isPossibleToCookPositiveTest() {
         FoodStorage foodStorage = new FoodStorage();
@@ -197,6 +218,10 @@ class RecipeTest {
         assertTrue(recipe.isPossibleToCook(foodStorage));
     }
 
+    /**
+     * Negative test method for <code>isPossibleToCook</code>.
+     * Will check that an exception is thrown when an illegal parameter is passed.
+     */
     @Test
     void isPossibleToCookNegativeTest() {
         assertThrows(IllegalArgumentException.class, () -> recipe.isPossibleToCook(null));
