@@ -265,4 +265,27 @@ public class FoodStorage {
         .sorted(Comparator.comparing(Grocery::getName))
         .toList();
   }
+
+  /**
+   * Accessor method to check if there is enough quantity of a specified grocery.
+   *
+   * @param nameOfIngredient Name of ingredient to check for.
+   * @param requiredQuantity The required quantity of ingredient.
+   * @return Will return a boolean, true if available and false if not.
+   */
+  public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity) {
+    List<Grocery> groceryList = groceries.get(nameOfIngredient);
+
+    if (groceryList == null) {
+      return false;
+    }
+    float totalQuantity = 0;
+    for (Grocery grocery : groceryList) {
+      totalQuantity += grocery.getQuantity();
+      if (totalQuantity >= requiredQuantity) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

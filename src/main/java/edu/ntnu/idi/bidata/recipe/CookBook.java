@@ -1,6 +1,9 @@
 package edu.ntnu.idi.bidata.recipe;
 
+import edu.ntnu.idi.bidata.register.FoodStorage;
+
 import java.util.HashSet;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -66,5 +69,26 @@ public class CookBook {
       throw new IllegalArgumentException("Recipe to remove cannot be null.");
     }
     recipes.remove(recipe);
+  }
+
+  /**
+   * Accessor method that will recommend a recipe, based on what is already in the given foodStorage.
+   *
+   * @param foodStorage storage to check for groceries.
+   * @return Will return a recipe, if there are enough groceries.
+   */
+  public Recipe recipeRecommendation(FoodStorage foodStorage) {
+    for (Recipe recipe : recipes) {
+      boolean isPossibleToCook = true;
+      for (Map.Entry<String, Float> ingredient : recipe.getIngredients().entrySet()) {
+        if (!foodStorage.isGroceryAvailable(ingredient.getKey(), ingredient.getValue())) {
+          isPossibleToCook = false;
+        }
+      }
+      if (isPossibleToCook) {
+        return recipe;
+      }
+    }
+    throw new NoSuchElementException("There is no recipes that can be made with your groceries.");
   }
 }
