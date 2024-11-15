@@ -40,7 +40,7 @@ public class Grocery {
   }
 
   /**
-   * Accessor method for <code>quantity</code>
+   * Accessor method for <code>quantity</code>.
    *
    * @return Returns the value of the field, quantity.
    */
@@ -49,7 +49,7 @@ public class Grocery {
   }
 
   /**
-   * Mutator method for <code>quantity</code>
+   * Mutator method for <code>quantity</code>.
    *
    * @param quantity Represents the quantity as the datatype float.
    *
@@ -65,7 +65,7 @@ public class Grocery {
   }
 
   /**
-   * Accessor method for <code>name</code>
+   * Accessor method for <code>name</code>.
    *
    * @return Returns the value of field, name.
    */
@@ -74,7 +74,7 @@ public class Grocery {
   }
 
   /**
-   * Mutator method for <code>name</code>
+   * Mutator method for <code>name</code>.
    *
    * @param name Represents the name of a Grocery.
    *
@@ -89,7 +89,7 @@ public class Grocery {
   }
 
   /**
-   * Accessor method for <code>expirationDate</code>
+   * Accessor method for <code>expirationDate</code>.
    *
    * @return Returns the value of field, expirationDate.
    */
@@ -98,7 +98,7 @@ public class Grocery {
   }
 
   /**
-   * Mutator method for <code>expirationDate</code>
+   * Mutator method for <code>expirationDate</code>.
    *
    * @param expirationDate Takes in parameter LocalDate expirationDate,
    *                       and passes it to the field, expirationDate.
@@ -115,7 +115,7 @@ public class Grocery {
   }
 
   /**
-   * Accessor method for <code>unitOfMeasurement</code>
+   * Accessor method for <code>unitOfMeasurement</code>.
    *
    * @return Returns the field unitOfMeasurement.
    */
@@ -124,24 +124,25 @@ public class Grocery {
   }
 
   /**
-   * Mutator method for <code>unitOfMeasurement</code>
+   * Mutator method for <code>unitOfMeasurement</code>.
    *
    * @param unitOfMeasurement Represents the unitOfMeasurement that the quantity is measured in.
    *                          Either liter or kilogram.
    *
-   * @throws IllegalArgumentException if provided parameter does not match the string value "liter" or "kilogram".
-   *                                  Case of the parameter does not matter.
+   * @throws IllegalArgumentException if provided parameter does not match
+   *                                     the string value "liter" or "kilogram".
    */
   public void setUnitOfMeasurement(String unitOfMeasurement) {
     String errorMessage = "Unit of measurement must be liter or kilogram";
-    if (!unitOfMeasurement.equalsIgnoreCase("liter") && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
+    if (!unitOfMeasurement.equalsIgnoreCase("liter")
+            && !unitOfMeasurement.equalsIgnoreCase("kilogram")) {
       throw new IllegalArgumentException(errorMessage);
     }
     this.unitOfMeasurement = unitOfMeasurement;
   }
 
   /**
-   * Accessor method for <code>price</code>
+   * Accessor method for <code>price</code>.
    *
    * @return Returns the field price.
    */
@@ -150,7 +151,7 @@ public class Grocery {
   }
 
   /**
-   * Mutator method for <code>price</code>
+   * Mutator method for <code>price</code>.
    *
    * @param price Takes in parameter float price and passes it to the field, price.
    *
@@ -166,13 +167,16 @@ public class Grocery {
   }
 
   /**
-   * Accessor method that will get the price per quantity. Ex. price per kilogram or price per liter.
+   * Accessor method that will get the price per quantity.
+   * Ex. price per kilogram or price per liter.
+   *
    * @return Will return the price per quantity.
    *
    */
   public float getPricePerQuantity() {
     String errorMessage = "Price per unit is not possible for ";
-    if (unitOfMeasurement.equalsIgnoreCase("kilogram") || unitOfMeasurement.equalsIgnoreCase("liter")) {
+    if (unitOfMeasurement.equalsIgnoreCase("kilogram")
+            || unitOfMeasurement.equalsIgnoreCase("liter")) {
       return price / quantity;
     }
     throw new UnsupportedOperationException(errorMessage + unitOfMeasurement);
@@ -180,16 +184,17 @@ public class Grocery {
 
   /**
    * This method will override, such that when you return an object, you will be returned the fields
-   * of the object as a string. Instead of getting the memory id of the grocery. Ex. Grocery@5b2133b1
+   * of the object as a string.
+   * Instead of getting the memory id of the grocery. Ex. Grocery@5b2133b1
    *
    * @return Will return fields of the object as a String.
    */
   @Override
   public String toString() {
-    return "Name : " + getName() +
-            ", Price : " + getPrice() +
-            ", Quantity : " + getQuantity() +
-            ", Unit of measurement : " + getUnitOfMeasurement() +
-            ", Expiration date : " + getExpirationDate();
+    return "Name : " + getName()
+            + ", Price : " + getPrice()
+            + ", Quantity : " + getQuantity()
+            + ", Unit of measurement : " + getUnitOfMeasurement()
+            + ", Expiration date : " + getExpirationDate();
   }
 }
