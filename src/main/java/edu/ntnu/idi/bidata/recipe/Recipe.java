@@ -217,7 +217,9 @@ public class Recipe {
   /**
    * This is a formatting method, that will format the object to a string when printing the object.
    * This is to make the object more readable, instead of getting an ID in return.
-   * The refactoring of this method was inspired by GitHub Copilot. Please refer to the report for more info.
+   * The refactoring of this method was inspired by GitHub Copilot.
+   * Please refer to the report for more info.
+   *
    * @return Will return a formatted string, with information about the object.
    */
   @Override
