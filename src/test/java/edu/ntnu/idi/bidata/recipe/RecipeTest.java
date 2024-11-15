@@ -215,7 +215,7 @@ class RecipeTest {
     void isPossibleToCookPositiveTest() {
         FoodStorage foodStorage = new FoodStorage();
 
-        assertTrue(recipe.isPossibleToCook(foodStorage));
+        assertFalse(recipe.isPossibleToCook(foodStorage));
     }
 
     /**
