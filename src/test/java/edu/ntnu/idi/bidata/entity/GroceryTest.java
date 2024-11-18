@@ -76,7 +76,7 @@ class GroceryTest {
 
   /**
    * This is a positive test for <code>setExpirationDate</code> method.
-   * This test will set a valid input, and is expected to return the correct output when calling <code>getName</code>.
+   * This test will set a valid input, and is expected to return the correct output when calling <code>getExpirationDate</code>.
    */
   @Test
   void setExpirationDatePositiveTest() {
