@@ -90,7 +90,7 @@ class GroceryTest {
 
   /**
    * This is a negative test for <code>setExpirationDate</code> method.
-   * @throws IllegalArgumentException should be thrown, because this test will set a date in the past as expiration date.
+   * @throws IllegalArgumentException should be thrown, because this test will set an invalid date format.
    */
   @Test
   void setExpirationDateNegativeTest() {
