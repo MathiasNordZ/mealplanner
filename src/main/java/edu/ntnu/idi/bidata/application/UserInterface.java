@@ -44,9 +44,9 @@ public class UserInterface {
     groceries.add(new Grocery(0.5F, "Pasta", UnitOfMeasurement.KILOGRAM.getUnit(),
             58F, "2024-12-24"));
     groceries.add(new Grocery(0.25F, "Spinach", UnitOfMeasurement.KILOGRAM.getUnit(),
-            25F, "2024-12-3"));
+            25F, "2024-12-03"));
     groceries.add(new Grocery(1F, "Milk", UnitOfMeasurement.LITER.getUnit(),
-            35F, "2024-12-9"));
+            35F, "2024-12-09"));
 
     return groceries;
   }
