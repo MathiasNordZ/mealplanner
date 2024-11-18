@@ -27,14 +27,14 @@ public class Grocery {
    * @param name This is the name of the grocery.
    * @param unitOfMeasurement This is the unit of measurement that the grocery is measured in.
    * @param price This is the price of the grocery.
-   * @param dateOfExpiration This is the expiration date of the grocery. Format: 'YYYY-MM-DD'.
+   * @param expirationDate This is the expiration date of the grocery. Format: 'YYYY-MM-DD'.
    *
    */
   public Grocery(float quantity, String name, String unitOfMeasurement,
-                 float price, String dateOfExpiration) {
+                 float price, String expirationDate) {
     setQuantity(quantity);
     setName(name);
-    setExpirationDate(dateOfExpiration);
+    setExpirationDate(expirationDate);
     setUnitOfMeasurement(unitOfMeasurement);
     setPrice(price);
   }
