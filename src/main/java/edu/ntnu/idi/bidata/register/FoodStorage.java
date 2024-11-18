@@ -116,29 +116,22 @@ public class FoodStorage {
    * @throws IllegalArgumentException if the quantity to remove
    *                                  is higher than the available quantity.
    */
-  private void removeGroceryFromList(Grocery providedGrocery,
-                                     float quantityToRemove, List<Grocery> groceryList) {
-    Iterator<Grocery> groceryIterator = groceryList.iterator();
-    boolean isFound = false;
-    while (groceryIterator.hasNext() && !isFound) {
-      Grocery grocery = groceryIterator.next();
-
+  private void removeGroceryFromList(Grocery providedGrocery, float quantityToRemove, List<Grocery> groceryList) {
+    List<Grocery> itemsToRemove = new ArrayList<>();
+    groceryList.forEach(grocery -> {
       if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
-        float updatedPrice = grocery.getPrice() * (updatedQuantity / grocery.getQuantity());
         if (updatedQuantity < 0) {
-          String errorMessage =
-              "You are trying to remove a higher quantity, than what is available.";
-          throw new IllegalArgumentException(errorMessage);
+          throw new IllegalArgumentException("You are trying to remove a higher quantity, than what is available.");
         } else if (updatedQuantity == 0) {
-          groceryList.remove(grocery);
+          itemsToRemove.add(grocery);
         } else {
           grocery.setQuantity(updatedQuantity);
-          grocery.setPrice(updatedPrice);
+          grocery.setPrice(grocery.getPrice() * (updatedQuantity / grocery.getQuantity()));
         }
-        isFound = true;
       }
-    }
+    });
+    groceryList.removeAll(itemsToRemove);
   }
 
   /**
