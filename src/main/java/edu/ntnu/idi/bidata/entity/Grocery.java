@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.entity;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
@@ -25,16 +26,15 @@ public class Grocery {
    * @param quantity This is the quantity of the grocery.
    * @param name This is the name of the grocery.
    * @param unitOfMeasurement This is the unit of measurement that the grocery is measured in.
-   * @param year This is the year of expiration for the grocery.
-   * @param month This is the month of expiration for the grocery.
-   * @param day This is the day of expiration for the grocery.
+   * @param price This is the price of the grocery.
+   * @param dateOfExpiration This is the expiration date of the grocery. Format: 'YYYY-MM-DD'.
    *
    */
   public Grocery(float quantity, String name, String unitOfMeasurement,
-                 float price, int year, int month, int day) {
+                 float price, String dateOfExpiration) {
     setQuantity(quantity);
     setName(name);
-    setExpirationDate(LocalDate.of(year, month, day));
+    setExpirationDate(dateOfExpiration);
     setUnitOfMeasurement(unitOfMeasurement);
     setPrice(price);
   }
@@ -100,20 +100,17 @@ public class Grocery {
   /**
    * Mutator method for <code>expirationDate</code>.
    *
-   * @param expirationDate Takes in parameter LocalDate expirationDate,
-   *                       and passes it to the field, expirationDate.
+   * @param dateString String parameter that will represent the expiry date on the format "YYYY-MM-DD".
    *
-   * @throws IllegalArgumentException if expiration date is a date in the past.
-   *                                  This is because you should not create an expired grocery.
+   * @throws IllegalArgumentException if expiration date is not on the correct format.
    */
-  public void setExpirationDate(LocalDate expirationDate) {
-    String errorMessage = "You can not set an expiration date of the past.";
-    if (expirationDate.isBefore(LocalDate.now())) {
-      throw new IllegalArgumentException(errorMessage);
+  public void setExpirationDate(String dateString) {
+    try {
+      this.expirationDate = LocalDate.parse(dateString);
+    } catch (DateTimeException e) {
+      throw new IllegalArgumentException("Please enter date on the format 'YYYY-MM-DD'.");
     }
-    this.expirationDate = expirationDate;
-  }
-
+}
   /**
    * Accessor method for <code>unitOfMeasurement</code>.
    *
