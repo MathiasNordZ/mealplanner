@@ -34,19 +34,19 @@ public class UserInterface {
     List<Grocery> groceries = new ArrayList<>();
 
     groceries.add(new Grocery(1F, "Beef", UnitOfMeasurement.KILOGRAM.getUnit(),
-            250F, 2024, 12, 10));
+            250F, "2024-12-10"));
     groceries.add(new Grocery(1.75F, "Potato", UnitOfMeasurement.KILOGRAM.getUnit(),
-            53F, 2024, 12, 31));
+            53F, "2024-12-30"));
     groceries.add(new Grocery(0.2F, "Bernaise", UnitOfMeasurement.LITER.getUnit(),
-            65F, 2024, 12, 20));
+            65F, "2024-12-14"));
     groceries.add(new Grocery(0.75F, "Salmon", UnitOfMeasurement.KILOGRAM.getUnit(),
-            179F, 2024, 12, 12));
+            179F, "2024-12-18"));
     groceries.add(new Grocery(0.5F, "Pasta", UnitOfMeasurement.KILOGRAM.getUnit(),
-            58F, 2025, 8, 10));
+            58F, "2024-12-24"));
     groceries.add(new Grocery(0.25F, "Spinach", UnitOfMeasurement.KILOGRAM.getUnit(),
-            25F, 2024, 12, 10));
+            25F, "2024-12-3"));
     groceries.add(new Grocery(1F, "Milk", UnitOfMeasurement.LITER.getUnit(),
-            35F, 2024, 12, 10));
+            35F, "2024-12-9"));
 
     return groceries;
   }
