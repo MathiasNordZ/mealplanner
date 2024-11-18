@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +24,9 @@ class FoodStorageTest {
   private Grocery milk;
   private Grocery expiredMilk;
   private Grocery chicken;
-
-  LocalDate today;
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  private final LocalDate today = LocalDate.now();
+  private String formattedToday;
 
   /**
    * The method <code>setUp</code> will be run before each test.
@@ -32,17 +34,14 @@ class FoodStorageTest {
    */
   @BeforeEach
   void setUp() {
-    today = LocalDate.now();
-    int year = today.getYear();
-    int month = today.getMonthValue();
-    int day = today.getDayOfMonth();
+    formattedToday = today.format(formatter);
 
     String LITER = "liter";
     String KILOGRAM = "liter";
 
     foodStorage = new FoodStorage();
-    milk = new Grocery(1f, "Milk", LITER, 20, year, month, day);
-    chicken = new Grocery(1.2f, "Chicken", KILOGRAM, 120, year, month, day);
+    milk = new Grocery(1f, "Milk", LITER, 20, formattedToday);
+    chicken = new Grocery(1.2f, "Chicken", KILOGRAM, 120, formattedToday);
 
     foodStorage.addGrocery(chicken);
     foodStorage.addGrocery(milk);
@@ -156,7 +155,8 @@ class FoodStorageTest {
    */
   @Test
   void valueOfAllGroceriesNegativeTest() {
-    Grocery ham = new Grocery(0.25f, "Ham", "kilogram", 25, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
+    formattedToday = today.format(formatter);
+    Grocery ham = new Grocery(0.25f, "Ham", "kilogram", 25, formattedToday);
     foodStorage.addGrocery(ham);
 
     assertNotEquals(140, foodStorage.valueOfAllGroceries());

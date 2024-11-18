@@ -2,6 +2,9 @@ package edu.ntnu.idi.bidata.entity;
 
 import org.junit.jupiter.api.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -16,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GroceryTest {
   private Grocery grocery;
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   @BeforeEach
   void setUp() {
@@ -24,11 +28,9 @@ class GroceryTest {
     String unitOfMeasurement = "kilogram";
     float price = 750f;
     LocalDate today = LocalDate.now();
-    int year = today.getYear();
-    int month = today.getMonthValue();
-    int day = today.getDayOfMonth();
+    String formattedToday = today.format(formatter);
 
-    grocery = new Grocery(quantity, name, unitOfMeasurement, price, year, month, day);
+    grocery = new Grocery(quantity, name, unitOfMeasurement, price, formattedToday);
   }
 
   /**
@@ -79,8 +81,9 @@ class GroceryTest {
   @Test
   void setExpirationDatePositiveTest() {
     LocalDate dateInFuture = LocalDate.now().plusDays(1);
+    String formattedDateInFuture = dateInFuture.format(formatter);
 
-    grocery.setExpirationDate(dateInFuture);
+    grocery.setExpirationDate(formattedDateInFuture);
 
     assertEquals(dateInFuture, grocery.getExpirationDate());
   }
@@ -91,9 +94,8 @@ class GroceryTest {
    */
   @Test
   void setExpirationDateNegativeTest() {
-    LocalDate dateInPast = LocalDate.now().minusDays(1);
-
-    assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(dateInPast));
+    String invalidDate = "10/12/2024";
+    assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(invalidDate));
   }
 
   /**

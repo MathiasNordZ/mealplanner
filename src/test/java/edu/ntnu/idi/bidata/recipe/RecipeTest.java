@@ -5,6 +5,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,8 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  */
 class RecipeTest {
-    Recipe recipe;
-    Map<String, Float> ingredients;
+    private Recipe recipe;
+    private Map<String, Float> ingredients;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * The method <code>SetUp</code>, does create instances of <code>Grocery</code>, adds them to an ingredient map,
@@ -30,9 +32,11 @@ class RecipeTest {
     @BeforeEach
     void setUp() {
         LocalDate today = LocalDate.now();
-        Grocery tomatoSauce = new Grocery(0.25f, "Tomato Sauce", "liter", 25, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
-        Grocery pizzaCrust = new Grocery(0.75f, "Pizza Crust", "kilogram", 75, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
-        Grocery topping = new Grocery(0.35f, "Topping", "kilogram", 45, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
+        String formattedToday = today.format(formatter);
+
+        Grocery tomatoSauce = new Grocery(0.25f, "Tomato Sauce", "liter", 25, formattedToday);
+        Grocery pizzaCrust = new Grocery(0.75f, "Pizza Crust", "kilogram", 75, formattedToday);
+        Grocery topping = new Grocery(0.35f, "Topping", "kilogram", 45, formattedToday);
 
         ingredients = new HashMap<>();
 

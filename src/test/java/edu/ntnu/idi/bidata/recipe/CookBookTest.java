@@ -3,24 +3,27 @@ package edu.ntnu.idi.bidata.recipe;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+
+
 class CookBookTest {
-    CookBook cookBook;
-    Recipe chickenAndRice;
-    Grocery rice;
+    private CookBook cookBook;
+    private Recipe chickenAndRice;
+    private Grocery rice;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @BeforeEach
     void setUp() {
         LocalDate today = LocalDate.now();
-        Grocery chicken = new Grocery(0.25f, "Chicken", "kilogram", 85, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
-        rice = new Grocery(1f, "Rice", "kilogram", 53, today.getYear(), today.getMonthValue(), today.getDayOfMonth());
+        String formattedToday = today.format(formatter);
+        Grocery chicken = new Grocery(0.25f, "Chicken", "kilogram", 85, formattedToday);
+        rice = new Grocery(1f, "Rice", "kilogram", 53, formattedToday);
 
         Map<String, Float> ingredients = new HashMap<>();
         ingredients.put("Chicken", 0.25f);
