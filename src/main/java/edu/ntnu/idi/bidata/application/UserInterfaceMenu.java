@@ -5,6 +5,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserInterfaceMenu {
@@ -132,14 +133,14 @@ private final String mainMenuCommand = """
       }
 
       switch (command) {
-        case GroceryCommand.CREATE_NEW_GROCERY -> createNewGrocery();
+        case GroceryCommand.CREATE_NEW_GROCERY -> createGrocery();
         case GroceryCommand.BACK -> System.out.println("Exiting");
         default -> System.out.println("Invalid command.");
       }
     } while (command != GroceryCommand.BACK);
   }
 
-  private void createNewGrocery() {
+  private void createGrocery() {
     System.out.println("Enter name of grocery");
     String nameOfGrocery = scanner.nextLine();
 
@@ -159,10 +160,27 @@ private final String mainMenuCommand = """
 
     try {
       Grocery grocery = new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
-      groceries.add(grocery);
-      System.out.println("Grocery was created successfully.");
+      foodStorage.addGrocery(grocery);
+      System.out.println("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
       System.out.println("An error occured: " + e.getMessage());
+    }
+  }
+
+  private void removeGrocery () {
+    System.out.println("What grocery do you want to remove?");
+    String groceryToRemove = scanner.nextLine();
+
+    System.out.println("What quantity do you want to remove?");
+    int quantityToRemove = scanner.nextInt();
+
+    try {
+      foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
+      System.out.println("Grocery was removed successfully!");
+    } catch (IllegalArgumentException e) {
+      System.out.println("An error occured: " + e.getMessage());
+    } catch (NoSuchElementException e) {
+      System.out.println("An error occured " + e.getMessage());
     }
   }
 }
