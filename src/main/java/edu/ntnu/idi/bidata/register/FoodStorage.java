@@ -110,16 +110,16 @@ public class FoodStorage {
    * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
    *                                                                SonarLint was throwing.
    *
-   * @param providedGrocery The grocery to remove.
+   * @param groceryToRemove The grocery to remove.
    * @param quantityToRemove The quantity to remove.
    * @param groceryList The list of where the grocery lives.
    * @throws IllegalArgumentException if the quantity to remove
    *                                  is higher than the available quantity.
    */
-  private void removeGroceryFromList(Grocery providedGrocery, float quantityToRemove, List<Grocery> groceryList) {
+  private void removeGroceryFromList(String groceryToRemove, float quantityToRemove, List<Grocery> groceryList) {
     List<Grocery> itemsToRemove = new ArrayList<>();
     groceryList.forEach(grocery -> {
-      if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
+      if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
         if (updatedQuantity < 0) {
           throw new IllegalArgumentException("You are trying to remove a higher quantity, than what is available.");
@@ -139,19 +139,19 @@ public class FoodStorage {
    * This method has been broken into smaller methods to reduce the cognitive complexity.
    * The concept was inspired by GitHub Copilot.
    *
-   * @param providedGrocery The grocery to remove.
+   * @param groceryToRemove The grocery to remove.
    * @param quantityToRemove The quantity to remove.
    */
-  public void removeGrocery(Grocery providedGrocery, float quantityToRemove) {
-    validateInputs(providedGrocery, quantityToRemove);
+  public void removeGrocery(String groceryToRemove, float quantityToRemove) {
+    validateInputs(groceryToRemove, quantityToRemove);
 
-    List<Grocery> groceryList = groceries.get(providedGrocery.getName());
+    List<Grocery> groceryList = groceries.get(groceryToRemove);
     validateGroceryList(groceryList);
 
-    removeGroceryFromList(providedGrocery, quantityToRemove, groceryList);
+    removeGroceryFromList(groceryToRemove, quantityToRemove, groceryList);
 
     if (groceryList.isEmpty()) {
-      groceries.remove(providedGrocery.getName());
+      groceries.remove(groceryToRemove);
     }
   }
 
