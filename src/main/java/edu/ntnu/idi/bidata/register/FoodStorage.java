@@ -70,17 +70,17 @@ public class FoodStorage {
    * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
    *                                                                SonarLint was throwing.
    *
-   * @param providedGrocery The grocery that the quantity should be removed from.
+   * @param groceryToRemove The grocery that the quantity should be removed from.
    * @param quantityToRemove The quantity that is going to be removed.
    *
    * @throws IllegalArgumentException if the quantityToRemove is less than or equal to zero,
    *                                                          or the provided grocery is null.
    */
-  private void validateInputs(Grocery providedGrocery, float quantityToRemove) {
+  private void validateInputs(String groceryToRemove, float quantityToRemove) {
     String errorMessage;
-    if (providedGrocery == null || quantityToRemove <= 0) {
-      if (providedGrocery == null) {
-        errorMessage = "The provided grocery cannot be null.";
+    if (groceryToRemove == null || groceryToRemove.isBlank() || quantityToRemove <= 0) {
+      if (groceryToRemove == null || groceryToRemove.isBlank()) {
+        errorMessage = "The provided grocery cannot be null or empty.";
       } else {
         errorMessage = "The quantity to remove cannot be less than or equal to zero.";
       }
