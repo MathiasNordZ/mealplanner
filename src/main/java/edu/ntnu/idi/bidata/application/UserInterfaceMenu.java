@@ -11,30 +11,35 @@ public class UserInterfaceMenu {
   private List<Grocery> groceries = new ArrayList<>();
   private final Scanner scanner = new Scanner(System.in);
   private FoodStorage foodStorage = new FoodStorage();
-  private final String groceryCommands = """
-      1. Create a new grocery.
-      2. Search for grocery.
-      3. Add grocery to storage.
-      4. Remove grocery.
-      5. List of groceries.
-      6. Expired groceries.
-      7. Value of groceries.
-      8. Create recipe.
-      9. Available groceries.
-      10. Add recipe to cookbook.
-      11. Recipe recommendation.
-      0. Back.
+  private final String groceryCommand = """
+      [1] - Create a new grocery.
+      [2] - Remove grocery.
+      [3] - Search for grocery.
+      [4] - List of all groceries.
+      [5] - List of expired groceries.
+      [0] - Go Back.
       """;
+  private final String cookBookCommand = """
+      [1] - Create recipe.
+      [2] - Remove recipe.
+      [3] - Print recipes.
+      [4] - Print recipe.
+      [5] - Recipe recommendation.
+      [0] - Go back.
+      """;
+private final String mainMenuCommand = """
+    [1] - Grocery Menu.
+    [2] - Cookbook Menu.
+    [0] - Exit.
+    """;
 
   private enum MainCommands {
     GROCERY_MENU(1),
-    FOODSTORAGE_MENU(2),
-    RECIPE_MENU(3),
-    COOKBOOK_MENU(4),
+    COOKBOOK_MENU(2),
     EXIT(0);
 
     private final int value;
-    //TODO make setter method for value.
+    // TODO make setter method for value.
     MainCommands(int value) {
       this.value = value;
     }
@@ -56,14 +61,17 @@ public class UserInterfaceMenu {
   /**
    * Inspired by world of zuul.
    */
-  private enum GroceryCommands {
+  private enum GroceryCommand {
     CREATE_NEW_GROCERY(1),
+    REMOVE_GROCERY(2),
+    SEARCH_FOR_GROCERY(3),
+    LIST_OF_ALL_GROCERIES(4),
+    LIST_OF_EXPIRED_GROCERIES(5),
     BACK(0);
-
 
     private final int value;
 
-    GroceryCommands(int value) {
+    GroceryCommand(int value) {
       this.value = value;
     }
 
@@ -71,8 +79,8 @@ public class UserInterfaceMenu {
       return value;
     }
 
-    private static GroceryCommands fromValue(int value) {
-      for (GroceryCommands command : GroceryCommands.values()) {
+    private static GroceryCommand fromValue(int value) {
+      for (GroceryCommand command : GroceryCommand.values()) {
         if (command.value == value) {
           return command;
         }
@@ -86,11 +94,9 @@ public class UserInterfaceMenu {
 
     do {
       System.out.println("""
-          1. Grocery Menu
-          2. Foodstorage Menu
-          3. Recipe Menu
-          4. Cookbook Menu
-          0. Exit
+          [1] - Grocery Menu.
+          [2] - Cookbook Menu.
+          [0] - Exit.
           """);
       int commandValue = scanner.nextInt();
       scanner.nextLine();
@@ -111,26 +117,26 @@ public class UserInterfaceMenu {
   }
 
   public void groceryMenu() {
-    GroceryCommands command = null;
+    GroceryCommand command = null;
 
     do {
-      System.out.println(groceryCommands);
+      System.out.println(groceryCommand);
       int commandValue = scanner.nextInt();
       scanner.nextLine();
 
       try {
-        command = GroceryCommands.fromValue(commandValue);
+        command = GroceryCommand.fromValue(commandValue);
       } catch (IllegalArgumentException e) {
         System.out.println("Invalid command.");
         continue;
       }
 
       switch (command) {
-        case GroceryCommands.CREATE_NEW_GROCERY -> createNewGrocery();
-        case GroceryCommands.BACK -> System.out.println("Exiting");
+        case GroceryCommand.CREATE_NEW_GROCERY -> createNewGrocery();
+        case GroceryCommand.BACK -> System.out.println("Exiting");
         default -> System.out.println("Invalid command.");
       }
-    } while (command != GroceryCommands.BACK);
+    } while (command != GroceryCommand.BACK);
   }
 
   private void createNewGrocery() {
