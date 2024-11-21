@@ -9,9 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserInterfaceMenu {
-  private List<Grocery> groceries = new ArrayList<>();
-  private final Scanner scanner = new Scanner(System.in);
   private FoodStorage foodStorage = new FoodStorage();
+  private UserInterfaceHandler uiHandler = new UserInterfaceHandler();
   private final String groceryCommand = """
       [1] - Create a new grocery.
       [2] - Remove grocery.
@@ -94,24 +93,19 @@ private final String mainMenuCommand = """
     MainCommands command = null;
 
     do {
-      System.out.println("""
-          [1] - Grocery Menu.
-          [2] - Cookbook Menu.
-          [0] - Exit.
-          """);
-      int commandValue = scanner.nextInt();
-      scanner.nextLine();
+      uiHandler.print(mainMenuCommand);
+      int commandValue = uiHandler.intReader("Enter command: ");
 
       try {
         command = MainCommands.fromValue(commandValue);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid command.");
+        uiHandler.print("Invalid command." + e.getMessage());
         continue;
       }
 
       switch (command) {
         case MainCommands.GROCERY_MENU -> groceryMenu();
-        default -> System.out.println("Invalid command.");
+        default -> uiHandler.print("Invalid command.");
       }
 
     } while (command != MainCommands.EXIT);
@@ -121,66 +115,51 @@ private final String mainMenuCommand = """
     GroceryCommand command = null;
 
     do {
-      System.out.println(groceryCommand);
-      int commandValue = scanner.nextInt();
-      scanner.nextLine();
+      uiHandler.print(groceryCommand);
+      int commandValue = uiHandler.intReader("Enter your command: ");
 
       try {
         command = GroceryCommand.fromValue(commandValue);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid command.");
+        uiHandler.print("Invalid command." + e.getMessage());
         continue;
       }
 
       switch (command) {
         case GroceryCommand.CREATE_NEW_GROCERY -> createGrocery();
         case GroceryCommand.BACK -> System.out.println("Exiting");
-        default -> System.out.println("Invalid command.");
+        default -> uiHandler.print("Invalid command.");
       }
     } while (command != GroceryCommand.BACK);
   }
 
   private void createGrocery() {
-    System.out.println("Enter name of grocery");
-    String nameOfGrocery = scanner.nextLine();
-
-    System.out.println("Quantity of grocery");
-    float quantityOfGrocery = scanner.nextFloat();
-    scanner.nextLine();
-
-    System.out.println("Enter unit of measurement");
-    String unitOfMeasurement = scanner.nextLine();
-
-    System.out.println("Enter price of grocery");
-    float priceOfGrocery = scanner.nextFloat();
-    scanner.nextLine();
-
-    System.out.println("Enter expiry date of grocery");
-    String dateOfExpiry = scanner.nextLine();
+    String nameOfGrocery = uiHandler.stringReader("Please enter name of grocery: ");
+    float quantityOfGrocery = uiHandler.floatReader("Please enter quantity of grocery: ");
+    String unitOfMeasurement = uiHandler.stringReader("Please enter unit of measurement: ");
+    float priceOfGrocery = uiHandler.floatReader("Please enter price of grocery: ");
+    String dateOfExpiry = uiHandler.stringReader("Please enter expiry date (YYYY-MM-DD): ");
 
     try {
       Grocery grocery = new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
       foodStorage.addGrocery(grocery);
-      System.out.println("Grocery was created successfully, and added to storage.");
+      uiHandler.print("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      uiHandler.print("An error occured: " + e.getMessage());
     }
   }
 
   private void removeGrocery () {
-    System.out.println("What grocery do you want to remove?");
-    String groceryToRemove = scanner.nextLine();
-
-    System.out.println("What quantity do you want to remove?");
-    int quantityToRemove = scanner.nextInt();
+    String groceryToRemove = uiHandler.stringReader("Name of grocery to remove: ");
+    int quantityToRemove = uiHandler.intReader("Quantity to remove: ");
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
-      System.out.println("Grocery was removed successfully!");
+      uiHandler.print("Grocery was removed successfully!");
     } catch (IllegalArgumentException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      uiHandler.print("An error occured: " + e.getMessage());
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured " + e.getMessage());
+      uiHandler.print("An error occured " + e.getMessage());
     }
   }
 }
