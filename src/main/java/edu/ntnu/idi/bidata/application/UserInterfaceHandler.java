@@ -1,8 +1,6 @@
 package edu.ntnu.idi.bidata.application;
 
 import java.util.Scanner;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 /**
  * The UserInterfaceHandler class handles input and output operations for the user interface.
@@ -10,7 +8,6 @@ import java.util.logging.Level;
  */
 public class UserInterfaceHandler {
   private final Scanner scanner = new Scanner(System.in);
-  private static final Logger logger = Logger.getLogger(UserInterfaceHandler.class.getName());
 
   /**
    * Reads a string input from the user.
@@ -19,7 +16,7 @@ public class UserInterfaceHandler {
    * @return the string input from the user
    */
   public String stringReader(String prompt) {
-    logger.log(Level.INFO, prompt);
+    System.out.println(prompt);
     return scanner.nextLine();
   }
 
@@ -35,13 +32,13 @@ public class UserInterfaceHandler {
     int value = 0;
     boolean validInput = false;
     while (!validInput) {
-      logger.log(Level.INFO, prompt);
+      System.out.println(prompt);
       if (scanner.hasNextInt()) {
         value = scanner.nextInt();
         scanner.nextLine(); // consume the newline character
         validInput = true;
       } else {
-        logger.log(Level.WARNING, "Invalid input. Please enter a valid integer.");
+        System.out.println("Invalid input. Please enter a valid integer.");
         scanner.next(); // consume the invalid input
       }
     }
@@ -60,13 +57,13 @@ public class UserInterfaceHandler {
     float value = 0;
     boolean validInput = false;
     while (!validInput) {
-      logger.log(Level.INFO, prompt);
+      System.out.println(prompt);
       if (scanner.hasNextFloat()) {
         value = scanner.nextFloat();
         scanner.nextLine(); // consume the newline character
         validInput = true;
       } else {
-        logger.log(Level.WARNING, "Invalid input. Please enter a valid float.");
+        System.out.println("Invalid input. Please enter a valid float.");
         scanner.next(); // consume the invalid input
       }
     }
@@ -79,6 +76,6 @@ public class UserInterfaceHandler {
    * @param messageToPrint the message to print to the console
    */
   public void print(String messageToPrint) {
-    logger.log(Level.INFO, messageToPrint);
+    System.out.println(messageToPrint);
   }
 }
