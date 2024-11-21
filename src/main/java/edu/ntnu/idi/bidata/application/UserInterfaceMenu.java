@@ -2,11 +2,7 @@ package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class UserInterfaceMenu {
   private FoodStorage foodStorage = new FoodStorage();
@@ -39,7 +35,6 @@ private final String mainMenuCommand = """
     EXIT(0);
 
     private final int value;
-    // TODO make setter method for value.
     MainCommands(int value) {
       this.value = value;
     }
@@ -105,13 +100,14 @@ private final String mainMenuCommand = """
 
       switch (command) {
         case MainCommands.GROCERY_MENU -> groceryMenu();
+        //case MainCommands.COOKBOOK_MENU -> cookBookMenu();
         default -> uiHandler.print("Invalid command.");
       }
 
     } while (command != MainCommands.EXIT);
   }
 
-  public void groceryMenu() {
+  private void groceryMenu() {
     GroceryCommand command = null;
 
     do {
