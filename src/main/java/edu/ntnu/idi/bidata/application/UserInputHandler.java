@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class UserInputHandler {
   private final Scanner scanner = new Scanner(System.in);
 
+  public UserInputHandler() {
+    // Empty
+  }
+
   /**
    * Reads a string input from the user.
    *
