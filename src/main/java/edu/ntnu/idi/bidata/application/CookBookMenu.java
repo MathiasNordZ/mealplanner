@@ -6,8 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CookBookMenu {
-  UserInputHandler uiInputHandler;
-  Recipe recipe;
+  private final UserInputHandler uiInputHandler;
+  private Recipe recipe;
+
+  public CookBookMenu(UserInputHandler uiInputHandler) {
+    this.uiInputHandler = uiInputHandler;
+  }
 
   private enum CookBookCommand {
     CREATE_RECIPE(1),
