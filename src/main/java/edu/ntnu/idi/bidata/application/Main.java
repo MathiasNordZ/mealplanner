@@ -12,11 +12,8 @@ public class Main {
    */
   public static void main(String[] args) {
     UserInterface ui = new UserInterface();
-    UserInterfaceMenu uiMenu = new UserInterfaceMenu();
 
-    uiMenu.mainMenu();
-
-    //ui.init();
-    //ui.start();
+    ui.init();
+    ui.start();
   }
 }
