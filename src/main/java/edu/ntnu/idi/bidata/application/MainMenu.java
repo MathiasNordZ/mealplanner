@@ -6,10 +6,14 @@ package edu.ntnu.idi.bidata.application;
  */
 public class MainMenu {
   private final UserInputHandler uiInputHandler;
+  private final GroceryMenu groceryMenu;
+  private final CookBookMenu cookBookMenu;
 
 
-public MainMenu(UserInputHandler uiInputHandler) {
+public MainMenu(UserInputHandler uiInputHandler, GroceryMenu groceryMenu, CookBookMenu cookBookMenu) {
   this.uiInputHandler = uiInputHandler;
+  this.groceryMenu = groceryMenu;
+  this.cookBookMenu = cookBookMenu;
 }
 
   /**
@@ -58,8 +62,8 @@ public MainMenu(UserInputHandler uiInputHandler) {
       }
 
       switch (command) {
-        case MainCommands.GROCERY_MENU -> groceryMenu();
-        case MainCommands.COOKBOOK_MENU -> cookBookMenu();
+        case MainCommands.GROCERY_MENU -> groceryMenu.groceryMenu();
+        case MainCommands.COOKBOOK_MENU -> cookBookMenu.cookBookMenu();
         default -> System.out.println("Invalid command.");
       }
 
