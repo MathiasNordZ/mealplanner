@@ -253,8 +253,15 @@ public class FoodStorage {
    * @return Will return a list of all groceries sorted by name.
    */
   public List<Grocery> getSortedList() {
-    return groceries.values().stream()
+    List<Grocery> allGroceries = groceries.values().stream()
         .flatMap(List::stream)
+        .toList();
+
+    if (allGroceries.isEmpty()) {
+      throw new NoSuchElementException("The grocery list is empty!");
+    }
+
+    return allGroceries.stream()
         .sorted(Comparator.comparing(Grocery::getName))
         .toList();
   }
