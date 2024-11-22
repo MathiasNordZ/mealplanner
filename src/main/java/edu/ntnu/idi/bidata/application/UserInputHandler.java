@@ -3,10 +3,10 @@ package edu.ntnu.idi.bidata.application;
 import java.util.Scanner;
 
 /**
- * The UserInterfaceHandler class handles input and output operations for the user interface.
+ * The UserInputHandler class handles input and output operations for the user interface.
  * It provides methods to read strings, integers, and floats from the user, and to print messages to the console.
  */
-public class UserInterfaceHandler {
+public class UserInputHandler {
   private final Scanner scanner = new Scanner(System.in);
 
   /**
