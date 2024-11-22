@@ -3,19 +3,25 @@ package edu.ntnu.idi.bidata.menu;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
+import edu.ntnu.idi.bidata.register.FoodStorage;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * @version 0.0.1
+ */
 public class CookBookMenu {
   private final UserInputHandler uiInputHandler;
   private Recipe recipe;
   private final CookBook cookBook;
+  private final FoodStorage foodStorage;
 
-  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook) {
+  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage) {
     this.uiInputHandler = uiInputHandler;
     this.cookBook = cookBook;
+    this.foodStorage = foodStorage;
   }
 
   private enum CookBookCommand {
@@ -68,12 +74,17 @@ public class CookBookMenu {
         case CookBookCommand.CREATE_RECIPE -> createRecipe();
         case CookBookCommand.REMOVE_RECIPE -> removeRecipe();
         case CookBookCommand.PRINT_RECIPES -> printRecipes();
+        case CookBookCommand.PRINT_RECIPE -> printRecipe();
+        case CookBookCommand.RECIPE_RECOMMENDATION -> recipeRecommendation();
         case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
         default -> System.out.println("Invalid command.");
       }
     } while (command != CookBookCommand.BACK);
   }
 
+  /**
+   * @since 0.0.1
+   */
   private void createRecipe() {
     try {
       String nameOfRecipe = uiInputHandler.stringReader("Please enter name of recipe: ");
@@ -101,7 +112,10 @@ public class CookBookMenu {
     }
   }
 
-  // stream part inspired by copilot
+  /**
+   * stream part inspired by copilot
+   * @since 0.0.1
+   */
   private void removeRecipe() {
     try {
       String recipeToRemove = uiInputHandler.stringReader("Please enter recipe to remove: ");
@@ -116,9 +130,37 @@ public class CookBookMenu {
     }
   }
 
+  /**
+   * @since 0.0.1
+   */
   private void printRecipes() {
     try {
       System.out.println(cookBook.getAllRecipes());
+    } catch (NoSuchElementException e) {
+      System.out.println("An error occured: " + e.getMessage());
+    }
+  }
+
+  /**
+   * @since 0.0.1
+   */
+  private void printRecipe() {
+    try {
+      String recipeToPrint = uiInputHandler.stringReader("Please enter recipe to print: ");
+      Recipe recipe = cookBook.getAllRecipes().stream()
+          .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToPrint))
+          .findFirst()
+          .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
+      cookBook.getRecipe(recipe);
+    } catch (NoSuchElementException e) {
+      System.out.println("An error occured: " + e.getMessage());
+    }
+  }
+
+  private void recipeRecommendation() {
+    try {
+      Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
+      System.out.println("Recommended recipe: " + recommendedRecipe.getRecipeName());
     } catch (NoSuchElementException e) {
       System.out.println("An error occured: " + e.getMessage());
     }
