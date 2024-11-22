@@ -24,7 +24,7 @@ public class CookBookMenu {
     }
   }
 
-  private void cookBookMenu() {
+  public void cookBookMenu() {
     CookBookCommand command = null;
 
     do {
