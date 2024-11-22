@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  */
 public class UserInterfaceMenu {
   private FoodStorage foodStorage = new FoodStorage();
-  private UserInterfaceHandler uiHandler = new UserInterfaceHandler();
+  private UserInputHandler uiInputHandler = new UserInputHandler();
   private final String cookBookCommand = """
       [1] - Create recipe.
       [2] - Remove recipe.
@@ -84,7 +84,7 @@ public class UserInterfaceMenu {
           [2] - Cookbook Menu.
           [0] - Exit.
           """);
-      int commandValue = uiHandler.intReader("Enter command: ");
+      int commandValue = uiInputHandler.intReader("Enter command: ");
 
       try {
         command = MainCommands.fromValue(commandValue);
@@ -114,7 +114,7 @@ public class UserInterfaceMenu {
           [5] - List of expired groceries.
           [0] - Go Back.
           """);
-      int commandValue = uiHandler.intReader("Enter your command: ");
+      int commandValue = uiInputHandler.intReader("Enter your command: ");
 
       try {
         command = GroceryCommand.fromValue(commandValue);
@@ -136,11 +136,11 @@ public class UserInterfaceMenu {
   }
 
   private void createGrocery() {
-    String nameOfGrocery = uiHandler.stringReader("Please enter name of grocery: ");
-    float quantityOfGrocery = uiHandler.floatReader("Please enter quantity of grocery: ");
-    String unitOfMeasurement = uiHandler.stringReader("Please enter unit of measurement: ");
-    float priceOfGrocery = uiHandler.floatReader("Please enter price of grocery: ");
-    String dateOfExpiry = uiHandler.stringReader("Please enter expiry date (YYYY-MM-DD): ");
+    String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
+    float quantityOfGrocery = uiInputHandler.floatReader("Please enter quantity of grocery: ");
+    String unitOfMeasurement = uiInputHandler.stringReader("Please enter unit of measurement: ");
+    float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
+    String dateOfExpiry = uiInputHandler.stringReader("Please enter expiry date (YYYY-MM-DD): ");
 
     try {
       Grocery grocery = new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
@@ -152,8 +152,8 @@ public class UserInterfaceMenu {
   }
 
   private void removeGrocery () {
-    String groceryToRemove = uiHandler.stringReader("Name of grocery to remove: ");
-    int quantityToRemove = uiHandler.intReader("Quantity to remove: ");
+    String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
+    int quantityToRemove = uiInputHandler.intReader("Quantity to remove: ");
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
@@ -166,7 +166,7 @@ public class UserInterfaceMenu {
   }
 
   private void searchForGrocery() {
-    String groceryToSearch = uiHandler.stringReader("Please enter grocery to search for: ");
+    String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
 
     try {
       foodStorage.searchGrocery(groceryToSearch);
@@ -187,7 +187,7 @@ public class UserInterfaceMenu {
 
   private void listOfExpiredGroceries() {
     try {
-      String dateOfExpiry = uiHandler.stringReader("Please enter date to check which groceries expires before given date: ");
+      String dateOfExpiry = uiInputHandler.stringReader("Please enter date to check which groceries expires before given date: ");
       System.out.println(foodStorage.listOfExpiredGroceries(dateOfExpiry));
     } catch (IllegalArgumentException e) {
       System.out.println("An error occured: " + e.getMessage());
