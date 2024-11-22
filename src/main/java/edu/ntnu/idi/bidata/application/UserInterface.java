@@ -3,6 +3,7 @@ package edu.ntnu.idi.bidata.application;
 import edu.ntnu.idi.bidata.menu.CookBookMenu;
 import edu.ntnu.idi.bidata.menu.GroceryMenu;
 import edu.ntnu.idi.bidata.menu.MainMenu;
+import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 
 /**
@@ -18,7 +19,8 @@ public class UserInterface {
     UserInputHandler uiInputHandler = new UserInputHandler();
     FoodStorage foodStorage = new FoodStorage();
     GroceryMenu groceryMenu = new GroceryMenu(foodStorage, uiInputHandler);
-    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler);
+    CookBook cookBook = new CookBook();
+    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook);
     mainMenu = new MainMenu(uiInputHandler, groceryMenu, cookBookMenu);
   }
 
