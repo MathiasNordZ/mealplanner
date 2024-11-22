@@ -1,6 +1,8 @@
 package edu.ntnu.idi.bidata.register;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -202,33 +204,25 @@ public class FoodStorage {
    * Accessor method for expired groceries.
    * Will return a list of groceries that expires before given date.
    *
-   * @param year Year of expiration.
-   * @param month Month of expiration.
-   * @param day Day of expiration.
+   * @param providedExpiryDate Date to check if grocery expires before.
    * @return Will return a list of expired groceries.
    */
-  public List<Grocery> listOfExpiredGroceries(int year, int month, int day) {
-    String errorMessage;
-    if (year <= 2000 || month < 1 || day < 1) {
-      if (year <= 2000) {
-        errorMessage = "Year cannot be earlier than 2000.";
-      } else if (month < 1) {
-        errorMessage = "Month cannot be less than 1";
-      } else {
-        errorMessage = "Day cannot be less than 1";
-      }
-      throw new IllegalArgumentException(errorMessage);
-    }
+  public List<Grocery> listOfExpiredGroceries(String providedExpiryDate) {
+    try {
+      LocalDate expiryDate = LocalDate.parse(providedExpiryDate);
+      List<Grocery> expiredGroceries = new ArrayList<>();
 
-    List<Grocery> expiredGroceries = new ArrayList<>();
-    for (List<Grocery> groceryList : groceries.values()) {
-      for (Grocery grocery : groceryList) {
-        if (grocery.getExpirationDate().isBefore(LocalDate.of(year, month, day))) {
-          expiredGroceries.add(grocery);
+      for (List<Grocery> groceryList : groceries.values()) {
+        for (Grocery grocery : groceryList) {
+          if (grocery.getExpirationDate().isBefore(expiryDate)) {
+            expiredGroceries.add(grocery);
+          }
         }
       }
+      return expiredGroceries;
+    } catch (DateTimeException e) {
+      throw new IllegalArgumentException("Please enter date on format 'YYYY-MM-DD'.");
     }
-    return expiredGroceries;
   }
 
   /**
