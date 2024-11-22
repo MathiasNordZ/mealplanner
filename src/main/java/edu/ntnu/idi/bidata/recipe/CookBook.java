@@ -28,6 +28,9 @@ public class CookBook {
    * @return Will return all recipes.
    */
   public Set<Recipe> getAllRecipes() {
+    if (recipes.isEmpty()) {
+      throw new NoSuchElementException("No recipes found.");
+    }
     return recipes;
   }
 
