@@ -7,14 +7,6 @@ import java.util.NoSuchElementException;
 public class UserInterfaceMenu {
   private FoodStorage foodStorage = new FoodStorage();
   private UserInterfaceHandler uiHandler = new UserInterfaceHandler();
-  private final String groceryCommand = """
-      [1] - Create a new grocery.
-      [2] - Remove grocery.
-      [3] - Search for grocery.
-      [4] - List of all groceries.
-      [5] - List of expired groceries.
-      [0] - Go Back.
-      """;
   private final String cookBookCommand = """
       [1] - Create recipe.
       [2] - Remove recipe.
@@ -23,11 +15,6 @@ public class UserInterfaceMenu {
       [5] - Recipe recommendation.
       [0] - Go back.
       """;
-private final String mainMenuCommand = """
-    [1] - Grocery Menu.
-    [2] - Cookbook Menu.
-    [0] - Exit.
-    """;
 
   private enum MainCommands {
     GROCERY_MENU(1),
@@ -88,7 +75,11 @@ private final String mainMenuCommand = """
     MainCommands command = null;
 
     do {
-      uiHandler.print(mainMenuCommand);
+      uiHandler.print("""
+          [1] - Grocery Menu.
+          [2] - Cookbook Menu.
+          [0] - Exit.
+          """);
       int commandValue = uiHandler.intReader("Enter command: ");
 
       try {
@@ -111,7 +102,14 @@ private final String mainMenuCommand = """
     GroceryCommand command = null;
 
     do {
-      uiHandler.print(groceryCommand);
+      uiHandler.print("""
+          [1] - Create a new grocery.
+          [2] - Remove grocery.
+          [3] - Search for grocery.
+          [4] - List of all groceries.
+          [5] - List of expired groceries.
+          [0] - Go Back.
+          """);
       int commandValue = uiHandler.intReader("Enter your command: ");
 
       try {
