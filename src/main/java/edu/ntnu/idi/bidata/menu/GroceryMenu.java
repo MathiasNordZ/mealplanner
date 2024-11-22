@@ -1,5 +1,6 @@
-package edu.ntnu.idi.bidata.application;
+package edu.ntnu.idi.bidata.menu;
 
+import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 

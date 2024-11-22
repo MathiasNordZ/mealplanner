@@ -1,5 +1,8 @@
 package edu.ntnu.idi.bidata.application;
 
+import edu.ntnu.idi.bidata.menu.CookBookMenu;
+import edu.ntnu.idi.bidata.menu.GroceryMenu;
+import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 
 /**
