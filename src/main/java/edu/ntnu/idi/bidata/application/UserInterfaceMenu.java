@@ -33,6 +33,7 @@ public class UserInterfaceMenu {
     EXIT(0);
 
     private final int value;
+
     MainCommands(int value) {
       this.value = value;
     }
@@ -147,13 +148,16 @@ public class UserInterfaceMenu {
    */
   private void createGrocery() {
     String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
-    float quantityOfGrocery = uiInputHandler.floatReader("Please enter quantity of grocery: ");
-    String unitOfMeasurement = uiInputHandler.stringReader("Please enter unit of measurement (kilogram/liter): ");
+    float quantityOfGrocery = uiInputHandler
+        .floatReader("Please enter quantity of grocery: ");
+    String unitOfMeasurement = uiInputHandler
+        .stringReader("Please enter unit of measurement (kilogram/liter): ");
     float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
     String dateOfExpiry = uiInputHandler.stringReader("Please enter expiry date (YYYY-MM-DD): ");
 
     try {
-      Grocery grocery = new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
+      Grocery grocery = new Grocery(quantityOfGrocery,
+          nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
       foodStorage.addGrocery(grocery);
       System.out.println("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
@@ -162,10 +166,12 @@ public class UserInterfaceMenu {
   }
 
   /**
-   * This method will prompt the user for which grocery the user wants to remove, and how much quantity to remove.
-   * If the grocery does exist, and the quantity to remove is valid. It will be removed from the food storage.
+   * This method will prompt the user for which grocery the user wants to remove,
+   * and how much quantity to remove.
+   * If the grocery does exist, and the quantity to remove is valid.
+   * It will be removed from the food storage.
    */
-  private void removeGrocery () {
+  private void removeGrocery() {
     String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
     int quantityToRemove = uiInputHandler.intReader("Quantity to remove: ");
 
@@ -209,7 +215,8 @@ public class UserInterfaceMenu {
    */
   private void listOfExpiredGroceries() {
     try {
-      String dateOfExpiry = uiInputHandler.stringReader("Please enter date to check which groceries expires before given date: ");
+      String dateOfExpiry = uiInputHandler
+          .stringReader("Please enter date to check which groceries expires before given date: ");
       System.out.println(foodStorage.listOfExpiredGroceries(dateOfExpiry));
     } catch (IllegalArgumentException e) {
       System.out.println("An error occured: " + e.getMessage());
