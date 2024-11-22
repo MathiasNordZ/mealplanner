@@ -124,6 +124,7 @@ public class UserInterfaceMenu {
         case GroceryCommand.REMOVE_GROCERY -> removeGrocery();
         case GroceryCommand.SEARCH_FOR_GROCERY -> searchForGrocery();
         case GroceryCommand.LIST_OF_ALL_GROCERIES -> listOfAllGroceries();
+        case GroceryCommand.LIST_OF_EXPIRED_GROCERIES -> listOfExpiredGroceries();
         case GroceryCommand.BACK -> System.out.println("Exiting");
         default -> uiHandler.print("Invalid command.");
       }
@@ -177,6 +178,15 @@ public class UserInterfaceMenu {
       System.out.println("List was printed successfully!");
     } catch (NoSuchElementException e) {
       System.out.println("An error occured: " + e.getMessage());
+    }
+  }
+
+  private void listOfExpiredGroceries() {
+    try {
+      String dateOfExpiry = uiHandler.stringReader("Please enter date to check which groceries expires before given date: ");
+      foodStorage.listOfExpiredGroceries(dateOfExpiry);
+    } catch (IllegalArgumentException e) {
+      uiHandler.print("An error occured: " + e.getMessage());
     }
   }
 }
