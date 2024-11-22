@@ -5,6 +5,10 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.NoSuchElementException;
 
 /**
+ * The <code>UserInterfaceMenu</code> class handles the user interface for the application.
+ * The class displays menus and handles user interaction, such as creating, removing,
+ * searching and listing up groceries.
+ *
  * @author Mathias Erik Nord
  * @version 0.0.0
  */
@@ -20,6 +24,9 @@ public class UserInterfaceMenu {
       [0] - Go back.
       """;
 
+  /**
+   * This is an enum that does represent the commands of the main menu.
+   */
   private enum MainCommands {
     GROCERY_MENU(1),
     COOKBOOK_MENU(2),
@@ -28,10 +35,6 @@ public class UserInterfaceMenu {
     private final int value;
     MainCommands(int value) {
       this.value = value;
-    }
-
-    private int getValue() {
-      return value;
     }
 
     private static MainCommands fromValue(int value) {
@@ -46,6 +49,7 @@ public class UserInterfaceMenu {
 
   /**
    * Inspired by world of zuul.
+   * This is an enum that does represent the commands of the Grocery Menu.
    */
   private enum GroceryCommand {
     CREATE_NEW_GROCERY(1),
@@ -61,10 +65,6 @@ public class UserInterfaceMenu {
       this.value = value;
     }
 
-    private int getValue() {
-      return value;
-    }
-
     private static GroceryCommand fromValue(int value) {
       for (GroceryCommand command : GroceryCommand.values()) {
         if (command.value == value) {
@@ -75,6 +75,9 @@ public class UserInterfaceMenu {
     }
   }
 
+  /**
+   * This method will display the main menu and handle the input of the main menu.
+   */
   public void mainMenu() {
     MainCommands command = null;
 
@@ -102,6 +105,9 @@ public class UserInterfaceMenu {
     } while (command != MainCommands.EXIT);
   }
 
+  /**
+   * This method does display the Grocery Menu and handles the input for the grocery commands.
+   */
   private void groceryMenu() {
     GroceryCommand command = null;
 
@@ -135,10 +141,14 @@ public class UserInterfaceMenu {
     } while (command != GroceryCommand.BACK);
   }
 
+  /**
+   * This method will prompt the user to enter details, to create a new grocery.
+   * If the grocery is created successfully, it will be added to the food storage.
+   */
   private void createGrocery() {
     String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
     float quantityOfGrocery = uiInputHandler.floatReader("Please enter quantity of grocery: ");
-    String unitOfMeasurement = uiInputHandler.stringReader("Please enter unit of measurement: ");
+    String unitOfMeasurement = uiInputHandler.stringReader("Please enter unit of measurement (kilogram/liter): ");
     float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
     String dateOfExpiry = uiInputHandler.stringReader("Please enter expiry date (YYYY-MM-DD): ");
 
@@ -151,6 +161,10 @@ public class UserInterfaceMenu {
     }
   }
 
+  /**
+   * This method will prompt the user for which grocery the user wants to remove, and how much quantity to remove.
+   * If the grocery does exist, and the quantity to remove is valid. It will be removed from the food storage.
+   */
   private void removeGrocery () {
     String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
     int quantityToRemove = uiInputHandler.intReader("Quantity to remove: ");
@@ -165,6 +179,10 @@ public class UserInterfaceMenu {
     }
   }
 
+  /**
+   * This method will prompt the user for a grocery they want to search for.
+   * If the grocery does exist, it will be searched for.
+   */
   private void searchForGrocery() {
     String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
 
@@ -185,6 +203,10 @@ public class UserInterfaceMenu {
     }
   }
 
+  /**
+   * This method will prompt the user for a date.
+   * The method will then search for the groceries that expire before the given date.
+   */
   private void listOfExpiredGroceries() {
     try {
       String dateOfExpiry = uiInputHandler.stringReader("Please enter date to check which groceries expires before given date: ");
