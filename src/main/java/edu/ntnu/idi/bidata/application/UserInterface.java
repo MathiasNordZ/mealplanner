@@ -20,7 +20,7 @@ public class UserInterface {
     FoodStorage foodStorage = new FoodStorage();
     GroceryMenu groceryMenu = new GroceryMenu(foodStorage, uiInputHandler);
     CookBook cookBook = new CookBook();
-    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook);
+    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, foodStorage);
     mainMenu = new MainMenu(uiInputHandler, groceryMenu, cookBookMenu);
   }
 
