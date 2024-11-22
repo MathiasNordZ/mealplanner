@@ -69,13 +69,4 @@ public class UserInterfaceHandler {
     }
     return value;
   }
-
-  /**
-   * Prints a message to the console.
-   *
-   * @param messageToPrint the message to print to the console
-   */
-  public void print(String messageToPrint) {
-    System.out.println(messageToPrint);
-  }
 }
