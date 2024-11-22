@@ -23,6 +23,7 @@ class RecipeTest {
     private Recipe recipe;
     private Map<String, Float> ingredients;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    FoodStorage foodStorage;
 
     /**
      * The method <code>SetUp</code>, does create instances of <code>Grocery</code>, adds them to an ingredient map,
@@ -33,10 +34,15 @@ class RecipeTest {
     void setUp() {
         LocalDate today = LocalDate.now();
         String formattedToday = today.format(formatter);
+        foodStorage = new FoodStorage();
 
         Grocery tomatoSauce = new Grocery(0.25f, "Tomato Sauce", "liter", 25, formattedToday);
         Grocery pizzaCrust = new Grocery(0.75f, "Pizza Crust", "kilogram", 75, formattedToday);
         Grocery topping = new Grocery(0.35f, "Topping", "kilogram", 45, formattedToday);
+
+        foodStorage.addGrocery(tomatoSauce);
+        foodStorage.addGrocery(pizzaCrust);
+        foodStorage.addGrocery(topping);
 
         ingredients = new HashMap<>();
 
@@ -217,9 +223,7 @@ class RecipeTest {
      */
     @Test
     void isPossibleToCookPositiveTest() {
-        FoodStorage foodStorage = new FoodStorage();
-
-        assertFalse(recipe.isPossibleToCook(foodStorage));
+        assertTrue(recipe.isPossibleToCook(foodStorage));
     }
 
     /**

@@ -4,6 +4,7 @@ import edu.ntnu.idi.bidata.entity.Grocery;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -76,10 +77,10 @@ class FoodStorageTest {
    */
   @Test
   void removeGroceryPositiveTest() {
-    foodStorage.removeGrocery(chicken, 1.2f);
+    foodStorage.removeGrocery("Chicken", 1.2f);
 
     List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
-    assertFalse(groceries.contains(chicken));
+    assertFalse(groceries.contains("Chicken"));
   }
 
   /**
@@ -90,7 +91,7 @@ class FoodStorageTest {
    */
   @Test
   void removeGroceryNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(chicken, 10f));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", 10f));
   }
 
   /**
@@ -135,10 +136,9 @@ class FoodStorageTest {
    * because the year, day and month is set to illegal values.
    */
   @Test
-  void listOfExpiredGroceriesNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries(1980, 10, 25)); // Test if invalid year throws correct exception.
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries(2023, -1, 25)); // Test if invalid month throws correct exception.
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries(2023, 10, -1)); // Test if invalid day throws correct exception.
+  void listOfExpiredGroceriesNegativeTest() {// Test if invalid year throws correct exception.
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries("25-12-2024")); // Test if invalid month throws correct exception.
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.listOfExpiredGroceries("20231012")); // Test if invalid day throws correct exception.
   }
 
   /**
