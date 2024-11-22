@@ -4,6 +4,10 @@ import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Mathias Erik Nord
+ * @version 0.0.0
+ */
 public class UserInterfaceMenu {
   private FoodStorage foodStorage = new FoodStorage();
   private UserInterfaceHandler uiHandler = new UserInterfaceHandler();
@@ -184,9 +188,9 @@ public class UserInterfaceMenu {
   private void listOfExpiredGroceries() {
     try {
       String dateOfExpiry = uiHandler.stringReader("Please enter date to check which groceries expires before given date: ");
-      foodStorage.listOfExpiredGroceries(dateOfExpiry);
+      System.out.println(foodStorage.listOfExpiredGroceries(dateOfExpiry));
     } catch (IllegalArgumentException e) {
-      uiHandler.print("An error occured: " + e.getMessage());
+      System.out.println("An error occured: " + e.getMessage());
     }
   }
 }
