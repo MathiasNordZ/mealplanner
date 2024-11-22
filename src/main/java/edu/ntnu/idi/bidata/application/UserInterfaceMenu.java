@@ -123,6 +123,9 @@ private final String mainMenuCommand = """
 
       switch (command) {
         case GroceryCommand.CREATE_NEW_GROCERY -> createGrocery();
+        case GroceryCommand.REMOVE_GROCERY -> removeGrocery();
+        case GroceryCommand.SEARCH_FOR_GROCERY -> searchForGrocery();
+        case GroceryCommand.LIST_OF_ALL_GROCERIES -> listOfAllGroceries();
         case GroceryCommand.BACK -> System.out.println("Exiting");
         default -> uiHandler.print("Invalid command.");
       }
@@ -156,6 +159,26 @@ private final String mainMenuCommand = """
       uiHandler.print("An error occured: " + e.getMessage());
     } catch (NoSuchElementException e) {
       uiHandler.print("An error occured " + e.getMessage());
+    }
+  }
+
+  private void searchForGrocery() {
+    String groceryToSearch = uiHandler.stringReader("Please enter grocery to search for: ");
+
+    try {
+      foodStorage.searchGrocery(groceryToSearch);
+      uiHandler.print("Grocery was found: " + groceryToSearch);
+    } catch (NoSuchElementException e) {
+      uiHandler.print("No such grocery was found!" + e.getMessage());
+    }
+  }
+
+  private void listOfAllGroceries() {
+    try {
+      System.out.println(foodStorage.getSortedList());
+      System.out.println("List was printed successfully!");
+    } catch (NoSuchElementException e) {
+      System.out.println("An error occured: " + e.getMessage());
     }
   }
 }
