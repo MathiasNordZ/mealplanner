@@ -9,6 +9,11 @@ public class GroceryMenu {
   UserInputHandler uiInputHandler;
   FoodStorage foodStorage;
 
+  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler) {
+    this.foodStorage = foodStorage;
+    this.uiInputHandler = uiInputHandler;
+  }
+
   /**
    * Inspired by world of zuul.
    * This is an enum that does represent the commands of the Grocery Menu.
@@ -40,7 +45,7 @@ public class GroceryMenu {
   /**
    * This method does display the Grocery Menu and handles the input for the grocery commands.
    */
-  private void groceryMenu() {
+  public void groceryMenu() {
     GroceryCommand command = null;
 
     do {
