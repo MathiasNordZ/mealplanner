@@ -79,7 +79,7 @@ public class UserInterfaceMenu {
     MainCommands command = null;
 
     do {
-      uiHandler.print("""
+      System.out.println("""
           [1] - Grocery Menu.
           [2] - Cookbook Menu.
           [0] - Exit.
@@ -89,14 +89,14 @@ public class UserInterfaceMenu {
       try {
         command = MainCommands.fromValue(commandValue);
       } catch (IllegalArgumentException e) {
-        uiHandler.print("Invalid command." + e.getMessage());
+        System.out.println("Invalid command." + e.getMessage());
         continue;
       }
 
       switch (command) {
         case MainCommands.GROCERY_MENU -> groceryMenu();
         //case MainCommands.COOKBOOK_MENU -> cookBookMenu();
-        default -> uiHandler.print("Invalid command.");
+        default -> System.out.println("Invalid command.");
       }
 
     } while (command != MainCommands.EXIT);
@@ -106,7 +106,7 @@ public class UserInterfaceMenu {
     GroceryCommand command = null;
 
     do {
-      uiHandler.print("""
+      System.out.println("""
           [1] - Create a new grocery.
           [2] - Remove grocery.
           [3] - Search for grocery.
@@ -119,7 +119,7 @@ public class UserInterfaceMenu {
       try {
         command = GroceryCommand.fromValue(commandValue);
       } catch (IllegalArgumentException e) {
-        uiHandler.print("Invalid command." + e.getMessage());
+        System.out.println("Invalid command." + e.getMessage());
         continue;
       }
 
@@ -130,7 +130,7 @@ public class UserInterfaceMenu {
         case GroceryCommand.LIST_OF_ALL_GROCERIES -> listOfAllGroceries();
         case GroceryCommand.LIST_OF_EXPIRED_GROCERIES -> listOfExpiredGroceries();
         case GroceryCommand.BACK -> System.out.println("Exiting");
-        default -> uiHandler.print("Invalid command.");
+        default -> System.out.println("Invalid command.");
       }
     } while (command != GroceryCommand.BACK);
   }
@@ -145,9 +145,9 @@ public class UserInterfaceMenu {
     try {
       Grocery grocery = new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
       foodStorage.addGrocery(grocery);
-      uiHandler.print("Grocery was created successfully, and added to storage.");
+      System.out.println("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
-      uiHandler.print("An error occured: " + e.getMessage());
+      System.out.println("An error occured: " + e.getMessage());
     }
   }
 
@@ -157,11 +157,11 @@ public class UserInterfaceMenu {
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
-      uiHandler.print("Grocery was removed successfully!");
+      System.out.println("Grocery was removed successfully!");
     } catch (IllegalArgumentException e) {
-      uiHandler.print("An error occured: " + e.getMessage());
+      System.out.println("An error occured: " + e.getMessage());
     } catch (NoSuchElementException e) {
-      uiHandler.print("An error occured " + e.getMessage());
+      System.out.println("An error occured " + e.getMessage());
     }
   }
 
@@ -170,9 +170,9 @@ public class UserInterfaceMenu {
 
     try {
       foodStorage.searchGrocery(groceryToSearch);
-      uiHandler.print("Grocery was found: " + groceryToSearch);
+      System.out.println("Grocery was found: " + groceryToSearch);
     } catch (NoSuchElementException e) {
-      uiHandler.print("No such grocery was found!" + e.getMessage());
+      System.out.println("No such grocery was found!" + e.getMessage());
     }
   }
 
