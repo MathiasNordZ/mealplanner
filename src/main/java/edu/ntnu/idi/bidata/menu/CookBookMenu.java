@@ -1,17 +1,21 @@
 package edu.ntnu.idi.bidata.menu;
 
 import edu.ntnu.idi.bidata.application.UserInputHandler;
+import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class CookBookMenu {
   private final UserInputHandler uiInputHandler;
   private Recipe recipe;
+  private final CookBook cookBook;
 
-  public CookBookMenu(UserInputHandler uiInputHandler) {
+  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook) {
     this.uiInputHandler = uiInputHandler;
+    this.cookBook = cookBook;
   }
 
   private enum CookBookCommand {
@@ -62,6 +66,9 @@ public class CookBookMenu {
 
       switch (command) {
         case CookBookCommand.CREATE_RECIPE -> createRecipe();
+        case CookBookCommand.REMOVE_RECIPE -> removeRecipe();
+        case CookBookCommand.PRINT_RECIPES -> printRecipes();
+        case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
         default -> System.out.println("Invalid command.");
       }
     } while (command != CookBookCommand.BACK);
@@ -87,8 +94,32 @@ public class CookBookMenu {
         }
       }
       recipe = new Recipe(nameOfRecipe, recipeDescription, cookingInstructions, ingredients, amountOfServings);
-      System.out.println(nameOfRecipe + " was created successfully!");
+      cookBook.addRecipe(recipe);
+      System.out.println(nameOfRecipe + " was added successfully!");
     } catch (IllegalArgumentException e) {
+      System.out.println("An error occured: " + e.getMessage());
+    }
+  }
+
+  // stream part inspired by copilot
+  private void removeRecipe() {
+    try {
+      String recipeToRemove = uiInputHandler.stringReader("Please enter recipe to remove: ");
+      Recipe recipe = cookBook.getAllRecipes().stream()
+          .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToRemove))
+          .findFirst()
+          .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
+      cookBook.removeRecipe(recipe);
+      System.out.println(recipe + " was removed!");
+    } catch (NoSuchElementException e) {
+      System.out.println("An error occured: "+ e.getMessage());
+    }
+  }
+
+  private void printRecipes() {
+    try {
+      System.out.println(cookBook.getAllRecipes());
+    } catch (NoSuchElementException e) {
       System.out.println("An error occured: " + e.getMessage());
     }
   }
