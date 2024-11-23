@@ -128,8 +128,9 @@ public class FoodStorage {
         } else if (updatedQuantity == 0) {
           itemsToRemove.add(grocery);
         } else {
+          float pricePerUnit = grocery.getPrice() / grocery.getQuantity();
           grocery.setQuantity(updatedQuantity);
-          grocery.setPrice(grocery.getPrice() * (updatedQuantity / grocery.getQuantity()));
+          grocery.setPrice(pricePerUnit * updatedQuantity);
         }
       }
     });
