@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.menu;
 
+import edu.ntnu.idi.bidata.application.StringFormatter;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
@@ -135,7 +136,8 @@ public class CookBookMenu {
    */
   private void printRecipes() {
     try {
-      System.out.println(cookBook.getAllRecipes());
+      String formattedRecipes = StringFormatter.formatRecipes(cookBook.getAllRecipes());
+      System.out.println(formattedRecipes);
     } catch (NoSuchElementException e) {
       System.out.println("An error occured: " + e.getMessage());
     }
