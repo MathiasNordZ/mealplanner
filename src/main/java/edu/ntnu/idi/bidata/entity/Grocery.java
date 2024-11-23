@@ -100,7 +100,8 @@ public class Grocery {
   /**
    * Mutator method for <code>expirationDate</code>.
    *
-   * @param dateString String parameter that will represent the expiry date on the format "YYYY-MM-DD".
+   * @param dateString String parameter that will represent the
+   *                   expiry date on the format "YYYY-MM-DD".
    *
    * @throws IllegalArgumentException if expiration date is not on the correct format.
    */
@@ -110,7 +111,8 @@ public class Grocery {
     } catch (DateTimeException e) {
       throw new IllegalArgumentException("Please enter date on the format 'YYYY-MM-DD'.");
     }
-}
+  }
+
   /**
    * Accessor method for <code>unitOfMeasurement</code>.
    *

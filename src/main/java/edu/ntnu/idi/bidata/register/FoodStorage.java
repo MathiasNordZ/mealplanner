@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata.register;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -118,13 +117,15 @@ public class FoodStorage {
    * @throws IllegalArgumentException if the quantity to remove
    *                                  is higher than the available quantity.
    */
-  private void removeGroceryFromList(String groceryToRemove, float quantityToRemove, List<Grocery> groceryList) {
+  private void removeGroceryFromList(String groceryToRemove,
+                                     float quantityToRemove, List<Grocery> groceryList) {
     List<Grocery> itemsToRemove = new ArrayList<>();
     groceryList.forEach(grocery -> {
       if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
         if (updatedQuantity < 0) {
-          throw new IllegalArgumentException("You are trying to remove a higher quantity, than what is available.");
+          throw new IllegalArgumentException("You are trying to remove a higher quantity, "
+              + "than what is available.");
         } else if (updatedQuantity == 0) {
           itemsToRemove.add(grocery);
         } else {

@@ -3,6 +3,9 @@ package edu.ntnu.idi.bidata.menu;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 
 /**
+ * This class represents the main menu of the application.
+ * It allows the user to navigate to the grocery menu or the cookbook menu.
+ *
  * @author Mathias Erik Nord
  * @version 0.0.1
  */
@@ -11,12 +14,19 @@ public class MainMenu {
   private final GroceryMenu groceryMenu;
   private final CookBookMenu cookBookMenu;
 
-
-public MainMenu(UserInputHandler uiInputHandler, GroceryMenu groceryMenu, CookBookMenu cookBookMenu) {
-  this.uiInputHandler = uiInputHandler;
-  this.groceryMenu = groceryMenu;
-  this.cookBookMenu = cookBookMenu;
-}
+  /**
+   * Constructor for the <code>MainMenu</code> class.
+   *
+   * @param uiInputHandler The user input handler.
+   * @param groceryMenu The grocery menu.
+   * @param cookBookMenu The cookbook menu.
+   */
+  public MainMenu(UserInputHandler uiInputHandler, GroceryMenu groceryMenu,
+                  CookBookMenu cookBookMenu) {
+    this.uiInputHandler = uiInputHandler;
+    this.groceryMenu = groceryMenu;
+    this.cookBookMenu = cookBookMenu;
+  }
 
   /**
    * This is an enum that does represent the commands of the main menu.

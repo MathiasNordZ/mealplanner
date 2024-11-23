@@ -5,12 +5,15 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
+ * This class represents the cook book menu in the application.
+ * In the cook book menu the user should be able to manage the recipes.
+ *
+ * @author Mathias Erik Nord
  * @version 0.0.1
  */
 public class CookBookMenu {
@@ -19,6 +22,13 @@ public class CookBookMenu {
   private final CookBook cookBook;
   private final FoodStorage foodStorage;
 
+  /**
+   * Constructor for the <code>CookBookMeny</code> class.
+   *
+   * @param uiInputHandler The user input handler.
+   * @param cookBook The cookbook containing recipes.
+   * @param foodStorage The food storage containing groceries.
+   */
   public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage) {
     this.uiInputHandler = uiInputHandler;
     this.cookBook = cookBook;
@@ -49,6 +59,10 @@ public class CookBookMenu {
     }
   }
 
+  /**
+   * The display of the cook book menu.
+   * Interacts with the user by taking the inputs.
+   */
   public void cookBookMenu() {
     CookBookCommand command = null;
 
@@ -60,7 +74,7 @@ public class CookBookMenu {
       [4] - Print recipe.
       [5] - Recipe recommendation.
       [0] - Go back.
-      """);
+          """);
 
       int commandValue = uiInputHandler.intReader("Enter your command: ");
 
@@ -84,28 +98,35 @@ public class CookBookMenu {
   }
 
   /**
+   * Makes the user able to create a new recipe.
+   * Will then add it to the cookbook.
+   *
    * @since 0.0.1
    */
   private void createRecipe() {
     try {
       String nameOfRecipe = uiInputHandler.stringReader("Please enter name of recipe: ");
       String recipeDescription = uiInputHandler.stringReader("Please enter a recipe description: ");
-      String cookingInstructions = uiInputHandler.stringReader("Please enter cooking instructions: ");
+      String cookingInstructions = uiInputHandler
+          .stringReader("Please enter cooking instructions: ");
       int amountOfServings = uiInputHandler.intReader("Please enter amount of servings");
 
       Map<String, Float> ingredients = new HashMap<>();
       boolean isUserDone = false;
 
       while (!isUserDone) {
-        String nameOfIngredient = uiInputHandler.stringReader("Please enter name of ingredient (type 'done' if finished): ");
+        String nameOfIngredient = uiInputHandler
+            .stringReader("Please enter name of ingredient (type 'done' if finished): ");
         if (nameOfIngredient.equalsIgnoreCase("Done")) {
           isUserDone = true;
         } else {
-          float quantityOfIngredient = uiInputHandler.intReader("Please enter required quantity of ingredient: ");
+          float quantityOfIngredient = uiInputHandler
+              .intReader("Please enter required quantity of ingredient: ");
           ingredients.put(nameOfIngredient, quantityOfIngredient);
         }
       }
-      recipe = new Recipe(nameOfRecipe, recipeDescription, cookingInstructions, ingredients, amountOfServings);
+      recipe = new Recipe(nameOfRecipe, recipeDescription,
+          cookingInstructions, ingredients, amountOfServings);
       cookBook.addRecipe(recipe);
       System.out.println(nameOfRecipe + " was added successfully!");
     } catch (IllegalArgumentException e) {
@@ -114,7 +135,10 @@ public class CookBookMenu {
   }
 
   /**
-   * stream part inspired by copilot
+   * stream part inspired by copilot.
+   *
+   * <p>Will make the user able to remove a recipe from the cookbook.</p>
+   *
    * @since 0.0.1
    */
   private void removeRecipe() {
@@ -127,11 +151,13 @@ public class CookBookMenu {
       cookBook.removeRecipe(recipe);
       System.out.println(recipe + " was removed!");
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured: "+ e.getMessage());
+      System.out.println("An error occured: " + e.getMessage());
     }
   }
 
   /**
+   * Prints all the recipes in the cookbook.
+   *
    * @since 0.0.1
    */
   private void printRecipes() {
@@ -144,6 +170,8 @@ public class CookBookMenu {
   }
 
   /**
+   * Prints a given recipe from the cookbook.
+   *
    * @since 0.0.1
    */
   private void printRecipe() {

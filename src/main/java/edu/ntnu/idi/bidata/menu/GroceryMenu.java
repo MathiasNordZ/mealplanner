@@ -4,13 +4,25 @@ import edu.ntnu.idi.bidata.application.StringFormatter;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.NoSuchElementException;
 
+/**
+ * This class represents the grocery menu in the application.
+ * In the grocery menu, the user can manage groceries.
+ *
+ * @author Mathias Erik Nord
+ * @version 0.0.1
+ */
 public class GroceryMenu {
   UserInputHandler uiInputHandler;
   FoodStorage foodStorage;
 
+  /**
+   * Constructor for the GroceryMeny class.
+   *
+   * @param foodStorage The food storage that contains the groceries.
+   * @param uiInputHandler The user input handler.
+   */
   public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler) {
     this.foodStorage = foodStorage;
     this.uiInputHandler = uiInputHandler;
@@ -156,7 +168,8 @@ public class GroceryMenu {
     try {
       String dateOfExpiry = uiInputHandler
           .stringReader("Please enter date to check which groceries expires before given date: ");
-      String formattedExipredGroceries = StringFormatter.formatExpiredGroceries(foodStorage, dateOfExpiry);
+      String formattedExipredGroceries = StringFormatter
+          .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExipredGroceries);
     } catch (IllegalArgumentException e) {
       System.out.println("An error occured: " + e.getMessage());

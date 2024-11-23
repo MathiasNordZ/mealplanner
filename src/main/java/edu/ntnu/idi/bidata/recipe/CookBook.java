@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -75,7 +74,8 @@ public class CookBook {
   }
 
   /**
-   * Accessor method that will recommend a recipe, based on what is already in the given foodStorage.
+   * Accessor method that will recommend a recipe,
+   * based on what is already in the given foodStorage.
    *
    * @param foodStorage storage to check for groceries.
    * @return Will return a recipe, if there are enough groceries.
