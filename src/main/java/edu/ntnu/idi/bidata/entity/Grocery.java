@@ -178,20 +178,4 @@ public class Grocery {
     }
     throw new UnsupportedOperationException(errorMessage + unitOfMeasurement);
   }
-
-  /**
-   * This method will override, such that when you return an object, you will be returned the fields
-   * of the object as a string.
-   * Instead of getting the memory id of the grocery. Ex. Grocery@5b2133b1
-   *
-   * @return Will return fields of the object as a String.
-   */
-  @Override
-  public String toString() {
-    return "Name : " + getName()
-            + ", Price : " + getPrice()
-            + ", Quantity : " + getQuantity()
-            + ", Unit of measurement : " + getUnitOfMeasurement()
-            + ", Expiration date : " + getExpirationDate();
-  }
 }
