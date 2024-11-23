@@ -103,8 +103,9 @@ class CookBookTest {
      */
     @Test
     void removeRecipePositiveTest() {
+        cookBook.addRecipe(chickenAndRice);
         cookBook.removeRecipe(chickenAndRice);
-        assertEquals(0, cookBook.getAllRecipes().size());
+        assertThrows(NoSuchElementException.class, () -> cookBook.getAllRecipes());
     }
 
     /**
