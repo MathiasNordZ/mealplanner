@@ -111,7 +111,7 @@ public class GroceryMenu {
    */
   private void removeGrocery() {
     String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
-    int quantityToRemove = uiInputHandler.intReader("Quantity to remove: ");
+    float quantityToRemove = uiInputHandler.floatReader("Quantity to remove: ");
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
