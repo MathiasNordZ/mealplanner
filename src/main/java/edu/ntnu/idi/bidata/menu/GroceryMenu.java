@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.menu;
 
+import edu.ntnu.idi.bidata.application.StringFormatter;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
@@ -130,8 +131,8 @@ public class GroceryMenu {
     String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
 
     try {
-      foodStorage.searchGrocery(groceryToSearch);
-      System.out.println("Grocery was found: " + groceryToSearch);
+      String formattedGrocery = StringFormatter.formatGrocery(foodStorage, groceryToSearch);
+      System.out.println(formattedGrocery);
     } catch (NoSuchElementException e) {
       System.out.println("No such grocery was found!" + e.getMessage());
     }
@@ -139,7 +140,8 @@ public class GroceryMenu {
 
   private void listOfAllGroceries() {
     try {
-      System.out.println(foodStorage.getSortedList());
+      String formattedGroceries = StringFormatter.formatSortedGroceries(foodStorage);
+      System.out.println(formattedGroceries);
       System.out.println("List was printed successfully!");
     } catch (NoSuchElementException e) {
       System.out.println("An error occured: " + e.getMessage());
@@ -154,7 +156,8 @@ public class GroceryMenu {
     try {
       String dateOfExpiry = uiInputHandler
           .stringReader("Please enter date to check which groceries expires before given date: ");
-      System.out.println(foodStorage.listOfExpiredGroceries(dateOfExpiry));
+      String formattedExipredGroceries = StringFormatter.formatExpiredGroceries(foodStorage, dateOfExpiry);
+      System.out.println(formattedExipredGroceries);
     } catch (IllegalArgumentException e) {
       System.out.println("An error occured: " + e.getMessage());
     }
