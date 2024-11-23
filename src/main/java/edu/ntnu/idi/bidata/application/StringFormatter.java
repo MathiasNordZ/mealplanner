@@ -29,7 +29,8 @@ public class StringFormatter {
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-10s | %-10s | %-15s | %-15s |\n";
     table.append(String.format(format, "Name", "Quantity", "Unit", "Price", "Expiry Date"));
-    table.append("--------------------------------------------------------------------------------------\n");
+    table.append("----------------------------------------"
+        + "----------------------------------------------\n");
 
     for (Grocery grocery : groceries) {
       table.append(String.format(format, grocery.getName(),
@@ -49,8 +50,10 @@ public class StringFormatter {
   public static String formatRecipes(Set<Recipe> recipes) {
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-50s | %-50s | %-30s | %-15s |\n";
-    table.append(String.format(format, "Name", "Description", "Instructions", "Ingredients", "Servings"));
-    table.append("----------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    table.append(String.format(format, "Name", "Description", "Instructions",
+        "Ingredients", "Servings"));
+    table.append("---------------------------------------------------------------------------------"
+        + "-------------------------------------------------------------------\n");
 
     for (Recipe recipe : recipes) {
       table.append(String.format(format, recipe.getRecipeName(),
@@ -98,6 +101,13 @@ public class StringFormatter {
     return formatGroceries(foodStorage.searchGrocery(groceryToSearch));
   }
 
+  /**
+   * This method will format a recipe according to the <code>formatReicpe</code> template.
+   *
+   * @param recipe The recipe to format.
+   * @return A formatted string representation of the recipe.
+   * @since 0.0.1
+   */
   public static String formatRecipe(Recipe recipe) {
     return formatRecipes(Set.of(recipe));
   }

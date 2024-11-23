@@ -7,7 +7,6 @@ import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +30,8 @@ public class UserInterface {
     ingredients.put("Chicken", 0.75f);
     ingredients.put("Rice", 0.5f);
 
-    Recipe recipe = new Recipe("Chicken and Rice", "This is a chicken and rice dish", "Fry chicken in pan, cook rice, serve.", ingredients, 3);
+    Recipe recipe = new Recipe("Chicken and Rice", "This is a chicken and rice dish",
+        "Fry chicken in pan, cook rice, serve.", ingredients, 3);
     cookBook.addRecipe(recipe);
 
     Grocery milk = new Grocery(1f, "Milk", "liter", 25, "2024-12-31");
