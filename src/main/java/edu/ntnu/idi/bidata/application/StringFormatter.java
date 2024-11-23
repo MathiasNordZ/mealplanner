@@ -98,7 +98,7 @@ public class StringFormatter {
     return formatGroceries(foodStorage.searchGrocery(groceryToSearch));
   }
 
-  public static String formatRecipeList(CookBook cookBook) {
-    return formatRecipes(cookBook.getAllRecipes());
+  public static String formatRecipe(Recipe recipe) {
+    return formatRecipes(Set.of(recipe));
   }
 }
