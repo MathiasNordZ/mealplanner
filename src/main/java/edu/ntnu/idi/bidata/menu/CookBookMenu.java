@@ -153,7 +153,7 @@ public class CookBookMenu {
           .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToPrint))
           .findFirst()
           .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
-      String formattedRecipe = StringFormatter.formatRecipe(cookBook, recipe);
+      String formattedRecipe = StringFormatter.formatRecipe(recipe);
       System.out.println(formattedRecipe);
     } catch (NoSuchElementException e) {
       System.out.println("An error occured: " + e.getMessage());
