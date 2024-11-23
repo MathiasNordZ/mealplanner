@@ -4,11 +4,16 @@ import java.util.Scanner;
 
 /**
  * The UserInputHandler class handles input and output operations for the user interface.
- * It provides methods to read strings, integers, and floats from the user, and to print messages to the console.
+ * It provides methods to read strings, integers, and floats from the user,
+ * and to print messages to the console.
  */
 public class UserInputHandler {
   private final Scanner scanner = new Scanner(System.in);
 
+  /**
+   * Constructor for <code>UserInputHandler</code>.
+   * Initializes the a scanner instance to read inputs from user.
+   */
   public UserInputHandler() {
     // Empty
   }
