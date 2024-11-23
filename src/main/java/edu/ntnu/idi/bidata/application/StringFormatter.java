@@ -2,10 +2,12 @@ package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.List;
 
 /**
+ * This class is a formatting class.
+ * The job of the class is to format how string outputs should look in the terminal.
+ *
  * @author Mathias Erik Nord
  * @version 0.0.1
  */
@@ -14,6 +16,7 @@ public class StringFormatter {
   }
 
   /**
+   * This method is the template of how a grocery should look when printed.
    *
    * @param groceries The groceries to add to table.
    * @return Will return a table according to the given format.
@@ -26,12 +29,16 @@ public class StringFormatter {
     table.append("----------------------------------------------------------------------\n");
 
     for (Grocery grocery : groceries) {
-      table.append(String.format(format, grocery.getName(), grocery.getQuantity(), grocery.getUnitOfMeasurement(), grocery.getPrice(), grocery.getExpirationDate()));
+      table.append(String.format(format, grocery.getName(),
+          grocery.getQuantity(), grocery.getUnitOfMeasurement(),
+          grocery.getPrice(), grocery.getExpirationDate()));
     }
     return table.toString();
   }
 
   /**
+   * This method will format the <code>getSortedList</code>,
+   * according to the <code>formatGroceries</code> template.
    *
    * @param foodStorage The foodStorage to check.
    * @return Will a sorted list, formatted as a table
@@ -42,6 +49,8 @@ public class StringFormatter {
   }
 
   /**
+   * This method will format the <code>listOfExpiredGroceries</code>,
+   * according to the <code>formatGroceries</code> template.
    *
    * @param foodStorage The foodStorage to check.
    * @param providedExpiryDate Expiry date to sort by.
@@ -53,6 +62,8 @@ public class StringFormatter {
   }
 
   /**
+   * This method will format <code>searchGrocery</code>,
+   * according to the <code>formatGroceries</code> template.
    *
    * @param foodStorage The foodStorage to check.
    * @param groceryToSearch The grocery to search for.
