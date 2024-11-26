@@ -171,20 +171,4 @@ public class Grocery implements GroceryItem {
     }
     this.price = price;
   }
-
-  /**
-   * Accessor method that will get the price per quantity.
-   * Ex. price per kilogram or price per liter.
-   *
-   * @return Will return the price per quantity.
-   *
-   */
-  public float getPricePerQuantity() {
-    String errorMessage = "Price per unit is not possible for ";
-    if (unitOfMeasurement.equalsIgnoreCase("kilogram")
-            || unitOfMeasurement.equalsIgnoreCase("liter")) {
-      return price / quantity;
-    }
-    throw new UnsupportedOperationException(errorMessage + unitOfMeasurement);
-  }
 }
