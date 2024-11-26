@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.register.FoodStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -22,13 +23,14 @@ class CookBookTest {
     private CookBook cookBook;
     private Recipe chickenAndRice;
     private Grocery rice;
+    private Grocery chicken;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @BeforeEach
     void setUp() {
         LocalDate today = LocalDate.now();
         String formattedToday = today.format(formatter);
-        Grocery chicken = new Grocery(0.25f, "Chicken", "kilogram", 85, formattedToday);
+        chicken = new Grocery(0.25f, "Chicken", "kilogram", 85, formattedToday);
         rice = new Grocery(1f, "Rice", "kilogram", 53, formattedToday);
 
         Map<String, Float> ingredients = new HashMap<>();
@@ -122,5 +124,33 @@ class CookBookTest {
     @Test
     void removeRecipeNegativeTest() {
         assertThrows(IllegalArgumentException.class, () -> cookBook.removeRecipe(null));
+    }
+
+    /**
+     * Positive test for <code>recipeRecommendation</code>.
+     * Will assert that the method will recommend a recipe with available groceries.
+     */
+    @Test
+    void recipeRecommendationPositiveTest() {
+        FoodStorage foodStorage = new FoodStorage();
+        foodStorage.addGrocery(rice);
+        foodStorage.addGrocery(chicken);
+
+        Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
+
+        assertEquals(chickenAndRice, recommendedRecipe);
+    }
+
+    /**
+     * Negative test for <code>recipeRecommendation</code>.
+     * Will assert that <code>IllegalArgumentException</code> is thrown if <code>foodStorage</code> is <coded>null</coded>.
+     * Will assert that <code>NoSuchElementException</code> is thrown if <code>foodStorage</code> is empty.
+     */
+    @Test
+    void recipeRecommendationNegativeTest() {
+        FoodStorage foodStorage = new FoodStorage();
+
+        assertThrows(IllegalArgumentException.class, () -> cookBook.recipeRecommendation(null));
+        assertThrows(NoSuchElementException.class, () -> cookBook.recipeRecommendation(foodStorage));
     }
 }
