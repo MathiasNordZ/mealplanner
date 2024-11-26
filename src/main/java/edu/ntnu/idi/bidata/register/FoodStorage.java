@@ -233,13 +233,15 @@ public class FoodStorage {
    * @return Will return the total value of all groceries.
    */
   public float valueOfAllGroceries() {
-    float totalValue = 0;
-    for (List<Grocery> groceryList : groceries.values()) {
-      for (Grocery grocery : groceryList) {
-        totalValue += grocery.getPrice();
-      }
+    try {
+      return groceries.values().stream()
+          .filter(groceryList -> groceryList != null && !groceryList.isEmpty())
+          .flatMap(List::stream)
+          .map(Grocery::getPrice)
+          .reduce(0f, Float::sum);
+    } catch (Exception e) {
+        return 0;
     }
-    return totalValue;
   }
 
   /**
