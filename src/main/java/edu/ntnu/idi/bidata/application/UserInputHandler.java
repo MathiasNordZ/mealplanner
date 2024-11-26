@@ -15,7 +15,7 @@ public class UserInputHandler {
 
   /**
    * Constructor for <code>UserInputHandler</code>.
-   * Initializes the a scanner instance to read inputs from user.
+   * Initializes a scanner instance to read inputs from user.
    */
   public UserInputHandler() {
     // Empty
