@@ -180,9 +180,7 @@ public class GroceryMenu {
       String formattedExpiredGroceries = StringFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExpiredGroceries);
-      System.out.println("Value of expired groceries: " + expiredGroceries.stream()
-          .map(Grocery::getPrice)
-          .reduce(0f, Float::sum) + "\n");
+      System.out.println("Value of expired groceries: " + foodStorage.valueOfExpiredGroceries(expiredGroceries) + "\n");
     } catch (IllegalArgumentException e) {
       System.out.println(ERRORMESSAGE + e.getMessage());
     }
@@ -199,3 +197,4 @@ public class GroceryMenu {
     }
   }
 }
+va
