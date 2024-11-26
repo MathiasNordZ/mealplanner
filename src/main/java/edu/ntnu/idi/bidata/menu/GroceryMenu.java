@@ -40,6 +40,7 @@ public class GroceryMenu {
     SEARCH_FOR_GROCERY(3),
     LIST_OF_ALL_GROCERIES(4),
     LIST_OF_EXPIRED_GROCERIES(5),
+    VALUE_OF_ALL_GROCERIES(6),
     BACK(0);
 
     private final int value;
@@ -71,6 +72,7 @@ public class GroceryMenu {
           [3] - Search for grocery.
           [4] - List of all groceries.
           [5] - List of expired groceries.
+          [6] - Value of all groceries.
           [0] - Go Back.
           """);
       int commandValue = uiInputHandler.intReader("Enter your command: ");
@@ -88,6 +90,7 @@ public class GroceryMenu {
         case GroceryCommand.SEARCH_FOR_GROCERY -> searchForGrocery();
         case GroceryCommand.LIST_OF_ALL_GROCERIES -> listOfAllGroceries();
         case GroceryCommand.LIST_OF_EXPIRED_GROCERIES -> listOfExpiredGroceries();
+        case GroceryCommand.VALUE_OF_ALL_GROCERIES -> valueOfAllGroceries();
         case GroceryCommand.BACK -> System.out.println("Exiting");
         default -> System.out.println("Invalid command.");
       }
@@ -172,6 +175,14 @@ public class GroceryMenu {
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExpiredGroceries);
     } catch (IllegalArgumentException e) {
+      System.out.println("An error occured: " + e.getMessage());
+    }
+  }
+
+  private void valueOfAllGroceries() {
+    try {
+      System.out.println("Value of all groceries: " + foodStorage.valueOfAllGroceries());
+    } catch (Exception e) {
       System.out.println("An error occured: " + e.getMessage());
     }
   }
