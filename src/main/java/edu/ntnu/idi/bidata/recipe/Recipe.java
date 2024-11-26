@@ -203,8 +203,9 @@ public class Recipe {
       boolean isFound = false;
       for (Grocery storedGrocery : foodStorage.getSortedList()) {
         if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
-                >= requiredQuantity) {
+            >= requiredQuantity) {
           isFound = true;
+          break; // Will break early.
         }
       }
       if (!isFound) {
