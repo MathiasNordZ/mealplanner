@@ -37,8 +37,8 @@ class FoodStorageTest {
   void setUp() {
     formattedToday = today.format(formatter);
 
-    String LITER = "liter";
-    String KILOGRAM = "liter";
+    final String LITER = "liter";
+    final String KILOGRAM = "liter";
 
     foodStorage = new FoodStorage();
     milk = new Grocery(1f, "Milk", LITER, 20, formattedToday);
