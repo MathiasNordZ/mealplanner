@@ -7,14 +7,14 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * <p>
+ *   This is the test class for the class Grocery. The test class is supposed to test certain methods of the Grocery class, both with positive and negative values.
+ *   The test class does follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
+ * </p>
  *
  * @author <b>Mathias Erik Nord</b>
  * @since <b>16.10.2024</b>
  * @version <b>0.0.1</b>
- *
- * This is the test class for the class Grocery. The test class is supposed to test certain methods of the Grocery class, both with positive and negative values.
- * The test class does follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
- *
  */
 
 class GroceryTest {
