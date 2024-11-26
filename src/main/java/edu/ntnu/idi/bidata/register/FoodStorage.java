@@ -190,16 +190,10 @@ public class FoodStorage {
    *
    * @return Will return the total value of expired groceries.
    */
-  public float valueOfExpiredGroceries() {
-    float totalValue = 0;
-    for (List<Grocery> groceryList : groceries.values()) {
-      for (Grocery grocery : groceryList) {
-        if (grocery.getExpirationDate().isBefore(LocalDate.now())) {
-          totalValue += grocery.getPrice();
-        }
-      }
-    }
-    return totalValue;
+  public float valueOfExpiredGroceries(List<Grocery> expiredGroceries) {
+    return expiredGroceries.stream()
+        .map(Grocery::getPrice)
+        .reduce(0f, Float::sum);
   }
 
   /**
