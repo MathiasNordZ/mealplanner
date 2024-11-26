@@ -1,6 +1,6 @@
 package edu.ntnu.idi.bidata.menu;
 
-import edu.ntnu.idi.bidata.util.StringFormatter;
+import edu.ntnu.idi.bidata.application.StringFormatter;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
