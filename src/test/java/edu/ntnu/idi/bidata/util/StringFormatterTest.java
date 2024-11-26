@@ -1,38 +1,28 @@
 package edu.ntnu.idi.bidata.util;
 
+import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class StringFormatterTest {
   FoodStorage foodStorage;
   StringFormatter stringFormatter;
+  Grocery apple, banana;
 
   @BeforeEach
   public void SetUp() {
     foodStorage = new FoodStorage();
     stringFormatter = new StringFormatter();
-  }
 
-  @Test
-  void formatGroceriesPositiveTest() {
-  }
-
-  @Test
-  void formatGroceriesNegativeTest() {
-  }
-
-  @Test
-  void formatRecipesPositiveTest() {
-  }
-
-  @Test
-  void formatRecipesNegativeTest() {
+    banana = new Grocery(2, "Banana", "pcs", 10, "2024-12-13");
+    apple = new Grocery(10, "Apple", "pcs", 25, "2024-12-12");
   }
 
   @Test
   void formatSortedGroceriesPositiveTest() {
-
   }
 
   @Test
