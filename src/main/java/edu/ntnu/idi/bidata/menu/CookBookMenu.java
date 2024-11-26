@@ -19,9 +19,9 @@ import java.util.NoSuchElementException;
  */
 public class CookBookMenu {
   private final UserInputHandler uiInputHandler;
-  private Recipe recipe;
   private final CookBook cookBook;
   private final FoodStorage foodStorage;
+  private static final String ERRORMESSAGE = "An error occurred: ";
 
   /**
    * Constructor for the <code>CookBookMeny</code> class.
@@ -106,6 +106,7 @@ public class CookBookMenu {
    */
   private void createRecipe() {
     try {
+      Recipe recipe;
       String nameOfRecipe = uiInputHandler.stringReader("Please enter name of recipe: ");
       String recipeDescription = uiInputHandler.stringReader("Please enter a recipe description: ");
       String cookingInstructions = uiInputHandler
@@ -131,7 +132,7 @@ public class CookBookMenu {
       cookBook.addRecipe(recipe);
       System.out.println(nameOfRecipe + " was added successfully!");
     } catch (IllegalArgumentException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -152,7 +153,7 @@ public class CookBookMenu {
       cookBook.removeRecipe(recipe);
       System.out.println(recipe + " was removed!");
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -166,7 +167,7 @@ public class CookBookMenu {
       String formattedRecipes = StringFormatter.formatRecipes(cookBook.getAllRecipes());
       System.out.println(formattedRecipes);
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -185,7 +186,7 @@ public class CookBookMenu {
       String formattedRecipe = StringFormatter.formatRecipe(recipe);
       System.out.println(formattedRecipe);
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -194,7 +195,7 @@ public class CookBookMenu {
       Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
       System.out.println("Recommended recipe: " + recommendedRecipe.getRecipeName());
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 }
