@@ -3,6 +3,7 @@ package edu.ntnu.idi.bidata.menu;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import java.util.List;
 import java.util.NoSuchElementException;
 import edu.ntnu.idi.bidata.util.StringFormatter;
 
@@ -153,6 +154,9 @@ public class GroceryMenu {
     }
   }
 
+  /**
+   * This method will print a list of all groceries.
+   */
   private void listOfAllGroceries() {
     try {
       String formattedGroceries = StringFormatter.formatSortedGroceries(foodStorage);
@@ -166,24 +170,32 @@ public class GroceryMenu {
   /**
    * This method will prompt the user for a date.
    * The method will then search for the groceries that expire before the given date.
+   * The bottom of the list will print the total value of the expired groceries.
    */
   private void listOfExpiredGroceries() {
     try {
       String dateOfExpiry = uiInputHandler
           .stringReader("Please enter date to check which groceries expires before given date: ");
+      List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(dateOfExpiry);
       String formattedExpiredGroceries = StringFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExpiredGroceries);
+      System.out.println("Value of expired groceries: " + expiredGroceries.stream()
+          .map(Grocery::getPrice)
+          .reduce(0f, Float::sum) + "\n");
     } catch (IllegalArgumentException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
+  /**
+   * This method will print the value of all groceries.
+   */
   private void valueOfAllGroceries() {
     try {
       System.out.println("Value of all groceries: " + foodStorage.valueOfAllGroceries());
     } catch (Exception e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 }
