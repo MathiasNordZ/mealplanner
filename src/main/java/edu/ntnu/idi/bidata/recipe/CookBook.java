@@ -85,6 +85,9 @@ public class CookBook {
    * @return Will return a recipe, if there are enough groceries.
    */
   public Recipe recipeRecommendation(FoodStorage foodStorage) {
+    if (foodStorage == null) {
+      throw new IllegalArgumentException("Food storage cannot be null!");
+    }
     for (Recipe recipe : recipes) {
       boolean isPossibleToCook = true;
       for (Map.Entry<String, Float> ingredient : recipe.getIngredients().entrySet()) {
