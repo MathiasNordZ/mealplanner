@@ -14,8 +14,9 @@ import edu.ntnu.idi.bidata.util.StringFormatter;
  * @version 0.0.1
  */
 public class GroceryMenu {
-  UserInputHandler uiInputHandler;
-  FoodStorage foodStorage;
+  private final UserInputHandler uiInputHandler;
+  private final FoodStorage foodStorage;
+  private static final String ERRORMESSAGE = "An error occurred: ";
 
   /**
    * Constructor for the GroceryMeny class.
@@ -111,7 +112,7 @@ public class GroceryMenu {
       foodStorage.addGrocery(grocery);
       System.out.println("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -128,10 +129,8 @@ public class GroceryMenu {
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
       System.out.println("Grocery was removed successfully!");
-    } catch (IllegalArgumentException e) {
-      System.out.println("An error occured: " + e.getMessage());
-    } catch (NoSuchElementException e) {
-      System.out.println("An error occured " + e.getMessage());
+    } catch (IllegalArgumentException | NoSuchElementException e) {
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -156,7 +155,7 @@ public class GroceryMenu {
       System.out.println(formattedGroceries);
       System.out.println("List was printed successfully!");
     } catch (NoSuchElementException e) {
-      System.out.println("An error occured: " + e.getMessage());
+      System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }
 
@@ -168,9 +167,9 @@ public class GroceryMenu {
     try {
       String dateOfExpiry = uiInputHandler
           .stringReader("Please enter date to check which groceries expires before given date: ");
-      String formattedExipredGroceries = StringFormatter
+      String formattedExpiredGroceries = StringFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
-      System.out.println(formattedExipredGroceries);
+      System.out.println(formattedExpiredGroceries);
     } catch (IllegalArgumentException e) {
       System.out.println("An error occured: " + e.getMessage());
     }
