@@ -11,13 +11,14 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
- * @author Mathias Erik Nord
- * @since 15.11.2024
- *
+ * <p>
  * This is the test class for the class Recipe. The test class is supposed to test certain methods of the Recipe class, both with positive and negative values.
  * The test class does follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
+ * </p>
  *
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>15.11.2024</b>
+ * @version <b>0.0.1</b>
  */
 class RecipeTest {
     private Recipe recipe;
@@ -26,7 +27,7 @@ class RecipeTest {
     FoodStorage foodStorage;
 
     /**
-     * The method <code>SetUp</code>, does create instances of <code>Grocery</code>, adds them to an ingredient map,
+     * The method <code>setUp</code>, does create instances of <code>Grocery</code>, adds them to an ingredient map,
      * and creates a recipe based on the groceries.
      * This is done to avoid having to set up instances in every test.
      */

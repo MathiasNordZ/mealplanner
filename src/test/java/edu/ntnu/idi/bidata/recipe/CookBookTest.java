@@ -11,7 +11,13 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
+/**
+ * Test class for <code>CookBook</code>.
+ *
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>24.11.2024</b>
+ * @version <b>0.0.1</b>
+ */
 class CookBookTest {
     private CookBook cookBook;
     private Recipe chickenAndRice;

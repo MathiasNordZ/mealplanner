@@ -7,6 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ *<p>
+ * Test class for <code>StringFormatter</code>.
+ *</p>
+ *
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>26.11.2024</b>
+ * @version <b>0.0.1</b>
+ */
 class StringFormatterTest {
   FoodStorage foodStorage;
   StringFormatter stringFormatter;

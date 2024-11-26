@@ -11,13 +11,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
- * @author Mathias Erik Nord
- * @since 05.11.2024
- *
+ * <p>
  * This is the test class for the class FoodStorage. The test class is supposed to test certain methods of the FoodStorage class.
  * The test class does follow the Arrange, Act and Assert philosophy, where an object of the class FoodStorage is created. It is acted upon, and then asserted.
+ * </p>
  *
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>05.11.2024</b>
+ * @version <b>0.0.1</b>
  */
 class FoodStorageTest {
   private FoodStorage foodStorage;

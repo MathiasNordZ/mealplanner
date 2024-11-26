@@ -3,14 +3,14 @@ package edu.ntnu.idi.bidata.entity;
 import org.junit.jupiter.api.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author Mathias Erik Nord
- * @since 16.10.2024
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>16.10.2024</b>
+ * @version <b>0.0.1</b>
  *
  * This is the test class for the class Grocery. The test class is supposed to test certain methods of the Grocery class, both with positive and negative values.
  * The test class does follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
