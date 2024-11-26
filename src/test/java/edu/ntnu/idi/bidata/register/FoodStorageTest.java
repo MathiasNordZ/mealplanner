@@ -77,10 +77,14 @@ class FoodStorageTest {
    */
   @Test
   void removeGroceryPositiveTest() {
-    foodStorage.removeGrocery("Chicken", 1.2f);
-
+    foodStorage.removeGrocery("Chicken", 0.6f);
     List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
-    assertFalse(groceries.contains("Chicken"));
+    assertFalse(groceries.isEmpty());
+    assertEquals(0.6f, groceries.getFirst().getQuantity());
+
+    foodStorage.removeGrocery("Chicken", 0.6f);
+    groceries = foodStorage.searchGrocery("Chicken");
+    assertTrue(groceries.isEmpty());
   }
 
   /**
@@ -92,6 +96,9 @@ class FoodStorageTest {
   @Test
   void removeGroceryNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", 10f));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(null, 10));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("", 10));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", -1));
   }
 
   /**
@@ -171,7 +178,6 @@ class FoodStorageTest {
 
     assertEquals(chicken, sortedGroceryList.getFirst()); // Check if first item is chicken.
     assertEquals(milk, sortedGroceryList.get(1)); // Check if second item is milk.
-
-
   }
+
 }
