@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata.register;
 
-import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.entity.GroceryItem;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.NoSuchElementException;
  * @since 30.10.2024
  */
 public class FoodStorage {
-  private final Map<String, List<Grocery>> groceries = new HashMap<>();
+  private final Map<String, List<GroceryItem>> groceries = new HashMap<>();
 
   /**
    * Constructor for <code>FoodStorage</code>.
@@ -35,20 +36,20 @@ public class FoodStorage {
    *
    * @param providedGrocery Represents the instance of a Grocery.
    */
-  public void addGrocery(Grocery providedGrocery) {
+  public void addGrocery(GroceryItem providedGrocery) {
     String errorMessage;
     if (providedGrocery == null) {
       errorMessage = "The provided grocery cannot be null.";
       throw new IllegalArgumentException(errorMessage);
     }
 
-    List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(),
+    List<GroceryItem> groceryList = groceries.getOrDefault(providedGrocery.getName(),
         new ArrayList<>());
-    Iterator<Grocery> groceryIterator = groceryList.iterator();
+    Iterator<GroceryItem> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
     while (groceryIterator.hasNext() && !isFound) {
-      Grocery grocery = groceryIterator.next();
+      GroceryItem grocery = groceryIterator.next();
 
       if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
         grocery.setQuantity(grocery.getQuantity() + providedGrocery.getQuantity());
@@ -98,10 +99,9 @@ public class FoodStorage {
    * @param groceryList List to check.
    * @throws NoSuchElementException if there is no elements in the list.
    */
-  private void validateGroceryList(List<Grocery> groceryList) {
-    String errorMessage = "The grocery list is empty.";
+  private void validateGroceryList(List<GroceryItem> groceryList) {
     if (groceryList == null || groceryList.isEmpty()) {
-      throw new NoSuchElementException(errorMessage);
+      throw new NoSuchElementException("The grocery list is empty.");
     }
   }
 
@@ -118,8 +118,8 @@ public class FoodStorage {
    *                                  is higher than the available quantity.
    */
   private void removeGroceryFromList(String groceryToRemove,
-                                     float quantityToRemove, List<Grocery> groceryList) {
-    List<Grocery> itemsToRemove = new ArrayList<>();
+                                     float quantityToRemove, List<GroceryItem> groceryList) {
+    List<GroceryItem> itemsToRemove = new ArrayList<>();
     groceryList.forEach(grocery -> {
       if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
         float updatedQuantity = grocery.getQuantity() - quantityToRemove;
@@ -149,7 +149,7 @@ public class FoodStorage {
   public void removeGrocery(String groceryToRemove, float quantityToRemove) {
     validateInputs(groceryToRemove, quantityToRemove);
 
-    List<Grocery> groceryList = groceries.get(groceryToRemove);
+    List<GroceryItem> groceryList = groceries.get(groceryToRemove);
     validateGroceryList(groceryList);
 
     removeGroceryFromList(groceryToRemove, quantityToRemove, groceryList);
@@ -162,21 +162,20 @@ public class FoodStorage {
   /**
    * Accessor method to search for an instance of Grocery in FoodStorage.
    * If there are two instances with different expiry dates,
-   *                                 it will be returned as two instances in a list.
+   * it will be returned as two instances in a list.
    * If the two instances has the same expiry date, they will be combined.
    *
    * @param name Represents the name of the grocery to search for.
    * @return Will return the instance(s) that is searched for.
    */
-  public List<Grocery> searchGrocery(String name) {
-    String errorMessage = "Provided name cannot be null, empty or blank.";
+  public List<GroceryItem> searchGrocery(String name) {
     if (name == null || name.isBlank() || name.isEmpty()) {
-      throw new IllegalArgumentException(errorMessage);
+      throw new IllegalArgumentException("Provided name cannot be null, empty or blank.");
     }
 
-    List<Grocery> searchedGrocery = new ArrayList<>();
-    for (List<Grocery> groceryList : groceries.values()) {
-      for (Grocery grocery : groceryList) {
+    List<GroceryItem> searchedGrocery = new ArrayList<>();
+    for (List<GroceryItem> groceryList : groceries.values()) {
+      for (GroceryItem grocery : groceryList) {
         if (grocery.getName().equalsIgnoreCase(name)) {
           searchedGrocery.add(grocery);
         }
@@ -192,8 +191,8 @@ public class FoodStorage {
    */
   public float valueOfExpiredGroceries() {
     float totalValue = 0;
-    for (List<Grocery> groceryList : groceries.values()) {
-      for (Grocery grocery : groceryList) {
+    for (List<GroceryItem> groceryList : groceries.values()) {
+      for (GroceryItem grocery : groceryList) {
         if (grocery.getExpirationDate().isBefore(LocalDate.now())) {
           totalValue += grocery.getPrice();
         }
@@ -209,13 +208,13 @@ public class FoodStorage {
    * @param providedExpiryDate Date to check if grocery expires before.
    * @return Will return a list of expired groceries.
    */
-  public List<Grocery> listOfExpiredGroceries(String providedExpiryDate) {
+  public List<GroceryItem> listOfExpiredGroceries(String providedExpiryDate) {
     try {
       LocalDate expiryDate = LocalDate.parse(providedExpiryDate);
-      List<Grocery> expiredGroceries = new ArrayList<>();
+      List<GroceryItem> expiredGroceries = new ArrayList<>();
 
-      for (List<Grocery> groceryList : groceries.values()) {
-        for (Grocery grocery : groceryList) {
+      for (List<GroceryItem> groceryList : groceries.values()) {
+        for (GroceryItem grocery : groceryList) {
           if (grocery.getExpirationDate().isBefore(expiryDate)) {
             expiredGroceries.add(grocery);
           }
@@ -234,8 +233,8 @@ public class FoodStorage {
    */
   public float valueOfAllGroceries() {
     float totalValue = 0;
-    for (List<Grocery> groceryList : groceries.values()) {
-      for (Grocery grocery : groceryList) {
+    for (List<GroceryItem> groceryList : groceries.values()) {
+      for (GroceryItem grocery : groceryList) {
         totalValue += grocery.getPrice();
       }
     }
@@ -248,8 +247,8 @@ public class FoodStorage {
    *
    * @return Will return a list of all groceries sorted by name.
    */
-  public List<Grocery> getSortedList() {
-    List<Grocery> allGroceries = groceries.values().stream()
+  public List<GroceryItem> getSortedList() {
+    List<GroceryItem> allGroceries = groceries.values().stream()
         .flatMap(List::stream)
         .toList();
 
@@ -258,7 +257,7 @@ public class FoodStorage {
     }
 
     return allGroceries.stream()
-        .sorted(Comparator.comparing(Grocery::getName))
+        .sorted(Comparator.comparing(GroceryItem::getName))
         .toList();
   }
 
@@ -270,13 +269,13 @@ public class FoodStorage {
    * @return Will return a boolean, true if available and false if not.
    */
   public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity) {
-    List<Grocery> groceryList = groceries.get(nameOfIngredient);
+    List<GroceryItem> groceryList = groceries.get(nameOfIngredient);
 
     if (groceryList == null) {
       return false;
     }
     float totalQuantity = 0;
-    for (Grocery grocery : groceryList) {
+    for (GroceryItem grocery : groceryList) {
       totalQuantity += grocery.getQuantity();
       if (totalQuantity >= requiredQuantity) {
         return true;

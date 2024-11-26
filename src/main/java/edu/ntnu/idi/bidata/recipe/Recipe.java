@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.entity.GroceryItem;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.Map;
 
@@ -201,7 +202,7 @@ public class Recipe {
       String ingredientName = entry.getKey();
       float requiredQuantity = entry.getValue();
       boolean isFound = false;
-      for (Grocery storedGrocery : foodStorage.getSortedList()) {
+      for (GroceryItem storedGrocery : foodStorage.getSortedList()) {
         if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
                 >= requiredQuantity) {
           isFound = true;

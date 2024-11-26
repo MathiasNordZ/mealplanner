@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.entity.GroceryItem;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.List;
@@ -24,14 +25,14 @@ public class StringFormatter {
    * @return Will return a table according to the given format.
    * @since 0.0.1
    */
-  public static String formatGroceries(List<Grocery> groceries) {
+  public static String formatGroceries(List<GroceryItem> groceries) {
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-10s | %-10s | %-15s | %-15s |\n";
     table.append(String.format(format, "Name", "Quantity", "Unit", "Price", "Expiry Date"));
     table.append("----------------------------------------"
         + "----------------------------------------------\n");
 
-    for (Grocery grocery : groceries) {
+    for (GroceryItem grocery : groceries) {
       table.append(String.format(format, grocery.getName(),
           grocery.getQuantity(), grocery.getUnitOfMeasurement(),
           grocery.getPrice(), grocery.getExpirationDate()));
