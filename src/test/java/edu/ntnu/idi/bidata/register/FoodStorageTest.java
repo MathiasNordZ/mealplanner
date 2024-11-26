@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -122,19 +123,22 @@ class FoodStorageTest {
   void searchGroceryNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.searchGrocery(""));
   }
-  /*
+
   @Test
   void listOfExpiredGroceriesPositiveTest() {
-    LocalDate expiredDate = today.minusDays(1);
+    String expiredDate = "2023-10-10";
+    LocalDate date = LocalDate.parse(expiredDate, formatter);
     expiredMilk = new Grocery(2f, "Milk", "liter", 40,
-        expiredDate.getYear(), expiredDate.getMonthValue(), expiredDate.getDayOfMonth());
+        expiredDate);
 
     foodStorage.addGrocery(expiredMilk);
-    List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(today.getYear(),
-        today.getMonthValue(), today.getDayOfMonth());
+    List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(formattedToday);
+
+    assertFalse(expiredGroceries.isEmpty());
     assertEquals("Milk", expiredGroceries.getFirst().getName());
+    assertEquals(date, expiredGroceries.getFirst().getExpirationDate());
   }
- */
+
 
   /**
    * Negative test for method <code>listOfExpiredGroceries</code>.
@@ -178,6 +182,25 @@ class FoodStorageTest {
 
     assertEquals(chicken, sortedGroceryList.getFirst()); // Check if first item is chicken.
     assertEquals(milk, sortedGroceryList.get(1)); // Check if second item is milk.
+  }
+
+  @Test
+  void valueOfExpiredGroceriesPositiveTest() {
+    List<Grocery> expiredGroceries = List.of(
+        new Grocery(2f, "Salmon", "kilogram", 150f, "2023-12-10"),
+        new Grocery(1f, "Salad", "kilogram", 25f, "2023-12-10")
+    );
+    float totalValue = foodStorage.valueOfExpiredGroceries(expiredGroceries);
+
+    assertEquals(175f, totalValue);
+  }
+
+  @Test
+  void valueOfExpiredGroceriesNegativeTest() {
+    List<Grocery> expiredGroceries = new ArrayList<>();
+
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.valueOfExpiredGroceries(expiredGroceries));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.valueOfExpiredGroceries(null));
   }
 
 }
