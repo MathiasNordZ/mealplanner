@@ -16,7 +16,7 @@ import java.util.Set;
  * @version 0.0.1
  */
 public class StringFormatter {
-  private StringFormatter() {
+  StringFormatter() {
   }
 
   /**
