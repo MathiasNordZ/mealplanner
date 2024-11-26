@@ -191,6 +191,9 @@ public class FoodStorage {
    * @return Will return the total value of expired groceries.
    */
   public float valueOfExpiredGroceries(List<Grocery> expiredGroceries) {
+    if (expiredGroceries == null || expiredGroceries.isEmpty()) {
+      throw new IllegalArgumentException("The list cannot be null or empty.");
+    }
     return expiredGroceries.stream()
         .map(Grocery::getPrice)
         .reduce(0f, Float::sum);
