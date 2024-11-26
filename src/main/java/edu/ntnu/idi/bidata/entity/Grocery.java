@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @since <b>16.10.2024</b>
  * @version 0.1.1
  */
-public class Grocery implements GroceryItem {
+public class Grocery {
   private float quantity;
   private float price;
   private String name;
@@ -44,7 +44,6 @@ public class Grocery implements GroceryItem {
    *
    * @return Returns the value of the field, quantity.
    */
-  @Override
   public float getQuantity() {
     return quantity;
   }
@@ -57,7 +56,6 @@ public class Grocery implements GroceryItem {
    * @throws IllegalArgumentException if quantity is less than zero,
    *                                  because a negative quantity is not possible.
    */
-  @Override
   public void setQuantity(float quantity) {
     String errorMessage = "Quantity can not have a negative value.";
     if (quantity < 0) {
@@ -71,7 +69,6 @@ public class Grocery implements GroceryItem {
    *
    * @return Returns the value of field, name.
    */
-  @Override
   public String getName() {
     return name;
   }
@@ -96,7 +93,6 @@ public class Grocery implements GroceryItem {
    *
    * @return Returns the value of field, expirationDate.
    */
-  @Override
   public LocalDate getExpirationDate() {
     return expirationDate;
   }
@@ -122,7 +118,6 @@ public class Grocery implements GroceryItem {
    *
    * @return Returns the field unitOfMeasurement.
    */
-  @Override
   public String getUnitOfMeasurement() {
     return unitOfMeasurement;
   }
@@ -150,7 +145,6 @@ public class Grocery implements GroceryItem {
    *
    * @return Returns the field price.
    */
-  @Override
   public float getPrice() {
     return price;
   }
@@ -163,7 +157,6 @@ public class Grocery implements GroceryItem {
    * @throws IllegalArgumentException if the provided parameter is less than zero.
    *                                  This is to prevent a negative price.
    */
-  @Override
   public void setPrice(float price) {
     String errorMessage = "The price can not be less than zero.";
     if (price < 0) {

@@ -1,11 +1,9 @@
 package edu.ntnu.idi.bidata.register;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
-import edu.ntnu.idi.bidata.entity.GroceryItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -57,7 +55,7 @@ class FoodStorageTest {
   void addGroceryPositiveTest() {
     foodStorage.addGrocery(milk);
 
-    List<GroceryItem> groceries = foodStorage.searchGrocery("Milk");
+    List<Grocery> groceries = foodStorage.searchGrocery("Milk");
     assertFalse(groceries.isEmpty());
     assertEquals("Milk", groceries.getFirst().getName());
   }
@@ -80,7 +78,7 @@ class FoodStorageTest {
   void removeGroceryPositiveTest() {
     foodStorage.removeGrocery("Chicken", 1.2f);
 
-    List<GroceryItem> groceries = foodStorage.searchGrocery("Chicken");
+    List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
     assertFalse(groceries.contains("Chicken"));
   }
 
@@ -101,7 +99,7 @@ class FoodStorageTest {
    */
   @Test
   void searchGroceryPositiveTest() {
-    List<GroceryItem> groceries = foodStorage.searchGrocery("Chicken");
+    List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
 
     assertEquals("Chicken", groceries.getFirst().getName());
   }
@@ -168,7 +166,7 @@ class FoodStorageTest {
    */
   @Test
   void getSortedListTest() {
-    List<GroceryItem> sortedGroceryList = foodStorage.getSortedList();
+    List<Grocery> sortedGroceryList = foodStorage.getSortedList();
 
     assertEquals(chicken, sortedGroceryList.getFirst()); // Check if first item is chicken.
     assertEquals(milk, sortedGroceryList.get(1)); // Check if second item is milk.

@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
-import edu.ntnu.idi.bidata.entity.GroceryItem;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.List;
@@ -26,7 +25,7 @@ public class StringFormatter {
    * @return Will return a table according to the given format.
    * @since 0.0.1
    */
-  public static String formatGroceries(List<GroceryItem> groceries) {
+  public static String formatGroceries(List<Grocery> groceries) {
     if (groceries == null || groceries.isEmpty()) {
       if (groceries == null) {
         throw new IllegalArgumentException("Grocery list cannot be null!");
@@ -40,7 +39,7 @@ public class StringFormatter {
     table.append("----------------------------------------"
         + "----------------------------------------------\n");
 
-    for (GroceryItem grocery : groceries) {
+    for (Grocery grocery : groceries) {
       table.append(String.format(format, grocery.getName(),
           grocery.getQuantity(), grocery.getUnitOfMeasurement(),
           grocery.getPrice(), grocery.getExpirationDate()));
