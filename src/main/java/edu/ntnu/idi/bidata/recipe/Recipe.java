@@ -37,19 +37,6 @@ public class Recipe {
   }
 
   /**
-   * Validation method for <code>String</code> inputs.
-   *
-   * @param stringInput input that is passed from outer method.
-   * @throws IllegalArgumentException is thrown if string input is null, blank or empty.
-   */
-  private void stringInputValidation(String stringInput) {
-    String errorMessage = "Provided input cannot be null, empty or blank.";
-    if (stringInput == null || stringInput.isBlank() || stringInput.isEmpty()) {
-      throw new IllegalArgumentException(errorMessage);
-    }
-  }
-
-  /**
    * Accessor method for <code>recipeName</code>.
    *
    * @return Will return name of the recipe.
@@ -119,36 +106,6 @@ public class Recipe {
   }
 
   /**
-   * Error handling method for the method<code>setIngredients</code>.
-   *
-   * @param ingredients The Map to validate.
-   * @throws IllegalArgumentException if the <code>ingredients</code> is null,
-   *                                  if <code>ingredientName</code> is null or blank,
-   *                               or if <code>quantity</code> is null, less than or equal to zero.
-   */
-  public void mapInputValidation(Map<String, Float> ingredients) {
-    StringBuilder errorMessage = new StringBuilder();
-    if (ingredients == null) {
-      errorMessage.append("The inputted ingredients cannot be null\n");
-    } else {
-      for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
-        String ingredientName = entry.getKey();
-        Float quantity = entry.getValue();
-
-        if (ingredientName == null || ingredientName.isBlank()) {
-          errorMessage.append("Ingredient name cannot be null or blank.\n");
-        }
-        if (quantity == null || quantity <= 0) {
-          errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
-        }
-      }
-    }
-    if (!errorMessage.isEmpty()) {
-      throw new IllegalArgumentException(errorMessage.toString());
-    }
-  }
-
-  /**
    * Mutator method for <code>ingredients</code>.
    * Will set the ingredients for a recipe.
    * Takes in the name of the ingredient as a <code>String</code>,
@@ -213,5 +170,48 @@ public class Recipe {
       }
     }
     return true;
+  }
+
+  /**
+   * Validation method for <code>String</code> inputs.
+   *
+   * @param stringInput input that is passed from outer method.
+   * @throws IllegalArgumentException is thrown if string input is null, blank or empty.
+   */
+  private void stringInputValidation(String stringInput) {
+    String errorMessage = "Provided input cannot be null, empty or blank.";
+    if (stringInput == null || stringInput.isBlank() || stringInput.isEmpty()) {
+      throw new IllegalArgumentException(errorMessage);
+    }
+  }
+
+  /**
+   * Error handling method for the method<code>setIngredients</code>.
+   *
+   * @param ingredients The Map to validate.
+   * @throws IllegalArgumentException if the <code>ingredients</code> is null,
+   *                                  if <code>ingredientName</code> is null or blank,
+   *                               or if <code>quantity</code> is null, less than or equal to zero.
+   */
+  public void mapInputValidation(Map<String, Float> ingredients) {
+    StringBuilder errorMessage = new StringBuilder();
+    if (ingredients == null) {
+      errorMessage.append("The inputted ingredients cannot be null\n");
+    } else {
+      for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
+        String ingredientName = entry.getKey();
+        Float quantity = entry.getValue();
+
+        if (ingredientName == null || ingredientName.isBlank()) {
+          errorMessage.append("Ingredient name cannot be null or blank.\n");
+        }
+        if (quantity == null || quantity <= 0) {
+          errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
+        }
+      }
+    }
+    if (!errorMessage.isEmpty()) {
+      throw new IllegalArgumentException(errorMessage.toString());
+    }
   }
 }
