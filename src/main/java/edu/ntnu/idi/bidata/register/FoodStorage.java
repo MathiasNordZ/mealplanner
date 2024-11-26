@@ -15,8 +15,10 @@ import java.util.NoSuchElementException;
  * This class represents a storage where instances of Grocery can be stored.
  * The storage can represent a fridge, drawer, freezer etc.
  *
- * @author Mathias Erik Nord
- * @since 30.10.2024
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>05.11.2024</b>
+ * @version <b>0.0.1</b>
+ *
  */
 public class FoodStorage {
   private final Map<String, List<Grocery>> groceries = new HashMap<>();

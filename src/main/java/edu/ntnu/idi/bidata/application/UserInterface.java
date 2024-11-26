@@ -12,6 +12,9 @@ import java.util.Map;
 
 /**
  * This is the interface class, that will take all interaction with the user.
+ *
+ * @author <b>Mathias Erik Nord</b>
+ * @version <b>0.0.1</b>
  */
 public class UserInterface {
   private MainMenu mainMenu;

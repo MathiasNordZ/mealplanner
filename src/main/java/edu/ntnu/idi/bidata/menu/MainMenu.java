@@ -6,8 +6,9 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
  * This class represents the main menu of the application.
  * It allows the user to navigate to the grocery menu or the cookbook menu.
  *
- * @author Mathias Erik Nord
- * @version 0.0.1
+ * @author <b>Mathias Erik Nord</b>
+ * @version <b>0.0.1</b>
+ * @since <b>22.11.2024</b>
  */
 public class MainMenu {
   private final UserInputHandler uiInputHandler;

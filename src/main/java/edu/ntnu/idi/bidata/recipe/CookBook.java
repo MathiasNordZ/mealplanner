@@ -8,6 +8,10 @@ import java.util.Set;
 
 /**
  * This is a cookbook class that contains a set of recipes.
+ *
+ * @author <b>Mathias Erik Nord</b>
+ * @version <b>0.0.1</b>
+ * @since <b>13.11.2024</b>
  */
 public class CookBook {
   private final HashSet<Recipe> recipes = new HashSet<>();

@@ -13,8 +13,9 @@ import java.util.NoSuchElementException;
  * This class represents the cook book menu in the application.
  * In the cook book menu the user should be able to manage the recipes.
  *
- * @author Mathias Erik Nord
- * @version 0.0.1
+ * @author <b>Mathias Erik Nord</b>
+ * @version <b>0.0.1</b>>
+ * @since <b>22.11.2024</b>
  */
 public class CookBookMenu {
   private final UserInputHandler uiInputHandler;

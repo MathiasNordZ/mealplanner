@@ -11,8 +11,9 @@ import java.util.Set;
  * This class is a formatting class.
  * The job of the class is to format how string outputs should look in the terminal.
  *
- * @author Mathias Erik Nord
- * @version 0.0.1
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>22.11.2024</b>
+ * @version <b>0.0.1</b>
  */
 public class StringFormatter {
   StringFormatter() {

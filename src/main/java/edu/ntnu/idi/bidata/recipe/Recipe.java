@@ -7,9 +7,9 @@ import java.util.Map;
 /**
  * This class is representing a recipe.
  *
- * @author Mathias Erik Nord
- * @since 13.11.24
- * @version 0.1.1
+ * @author <b>Mathias Erik Nord</b>
+ * @since <b>13.11.24</b>
+ * @version <b>0.1.1</b>
  */
 public class Recipe {
   private String recipeName;
