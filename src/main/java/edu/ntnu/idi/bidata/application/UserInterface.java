@@ -42,11 +42,25 @@ public class UserInterface {
     mainMenu.mainMenu();
   }
 
+  /**
+   * Private method that will initialize an instance of <code>Grocery</code>.
+   *
+   * @param foodStorage Food storage that grocery will be added to
+   * @param quantity Quantity of grocery to add.
+   * @param name Name of grocery to add.
+   * @param unit Unit of measurement of grocery.
+   * @param price Price of grocery.
+   * @param expiryDate Expiry date of grocery.
+   */
   private void initializeGrocery(FoodStorage foodStorage, float quantity, String name, String unit, int price, String expiryDate) {
     Grocery grocery = new Grocery(quantity, name, unit, price, expiryDate);
     foodStorage.addGrocery(grocery);
   }
 
+  /**
+   * Method will call <code>initializeGrocery</code>.
+   * @param foodStorage Food storage that grocery should be added to.
+   */
   private void addGrocery(FoodStorage foodStorage) {
     initializeGrocery(foodStorage, 1f, "Milk", "liter", 25, "2024-12-31");
     initializeGrocery(foodStorage, 1.25f, "Chicken", "kilogram", 125, "2024-12-10");
@@ -54,11 +68,26 @@ public class UserInterface {
     initializeGrocery(foodStorage, 1.5f, "Cola", "liter", 37, "2025-08-20");
   }
 
+  /**
+   * Private method that will initialize an instance of <code>Recipe</code>>.
+   *
+   * @param cookBook Cookbook to add the recipe to.
+   * @param recipeName Name of the recipe.
+   * @param recipeDescription Description of the recipe.
+   * @param cookingInstructions Instructions for the recipe.
+   * @param ingredients Ingredients of the recipe.
+   * @param amountOfServings Amount of servings.
+   */
   private void initializeRecipe(CookBook cookBook, String recipeName, String recipeDescription, String cookingInstructions, Map<String, Float> ingredients, int amountOfServings) {
     Recipe recipe = new Recipe(recipeName, recipeDescription, cookingInstructions, ingredients, amountOfServings);
     cookBook.addRecipe(recipe);
   }
 
+  /**
+   * Method will call <code>initializeRecipe</code>.
+   *
+   * @param cookBook Cookbook to add recipe to.
+   */
   private void addRecipe(CookBook cookBook) {
     Map<String, Float> ingredients = new HashMap<>();
     ingredients.put("Chicken", 0.75f);
