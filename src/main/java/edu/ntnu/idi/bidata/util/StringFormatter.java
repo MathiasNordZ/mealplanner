@@ -27,13 +27,7 @@ public class StringFormatter {
    * @since 0.0.1
    */
   public static String formatGroceries(List<Grocery> groceries) {
-    if (groceries == null || groceries.isEmpty()) {
-      if (groceries == null) {
-        throw new IllegalArgumentException("Grocery list cannot be null!");
-      } else {
-        throw new NoSuchElementException("List has no elements!");
-      }
-    }
+    groceryValidation(groceries);
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-10s | %-10s | %-15s | %-15s |\n";
     table.append(String.format(format, "Name", "Quantity", "Unit", "Price", "Expiry Date"));
@@ -49,6 +43,24 @@ public class StringFormatter {
   }
 
   /**
+   * Validation method for <code>formatGroceries</code>.
+   * Will validate that the provided Set is not <code>null</code> or empty.
+   * Refactored to a separate method to be less complex and more modular.
+   *
+   * @param groceries Grocery list to validate.
+   * @since 0.0.1
+   */
+  private static void groceryValidation(List<Grocery> groceries) {
+    if (groceries == null || groceries.isEmpty()) {
+      if (groceries == null) {
+        throw new IllegalArgumentException("Grocery list cannot be null!");
+      } else {
+        throw new NoSuchElementException("List has no elements!");
+      }
+    }
+  }
+
+  /**
    * This method is the template of how a recipe should look when printed.
    *
    * @param recipes The recipes to add to table.
@@ -56,13 +68,7 @@ public class StringFormatter {
    * @since 0.0.1
    */
   public static String formatRecipes(Set<Recipe> recipes) {
-    if (recipes == null || recipes.isEmpty()) {
-      if (recipes == null) {
-        throw new IllegalArgumentException("Recipe list cannot be null!");
-      } else {
-        throw new NoSuchElementException("Recipe list has no elements!");
-      }
-    }
+    recipeValidation(recipes);
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-50s | %-50s | %-30s | %-15s |\n";
     table.append(String.format(format, "Name", "Description", "Instructions",
@@ -76,6 +82,23 @@ public class StringFormatter {
           recipe.getIngredients(), recipe.getAmountOfServings()));
     }
     return table.toString();
+  }
+
+  /**
+   * Validation method for <code>formatRecipes</code>.
+   * Will validate that the provided Set is not <code>null</code> or empty.
+   * Refactored to a separate method to be less complex and more modular.
+   *
+   * @param recipes The recipe set to validate.
+   */
+  private static void recipeValidation(Set<Recipe> recipes) {
+    if (recipes == null || recipes.isEmpty()) {
+      if (recipes == null) {
+        throw new IllegalArgumentException("Recipe list cannot be null!");
+      } else {
+        throw new NoSuchElementException("Recipe list has no elements!");
+      }
+    }
   }
 
   /**
