@@ -29,23 +29,8 @@ public class UserInterface {
     CookBook cookBook = new CookBook();
     CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, foodStorage);
 
-    Map<String, Float> ingredients = new HashMap<>();
-    ingredients.put("Chicken", 0.75f);
-    ingredients.put("Rice", 0.5f);
-
-    Recipe recipe = new Recipe("Chicken and Rice", "This is a chicken and rice dish",
-        "Fry chicken in pan, cook rice, serve.", ingredients, 3);
-    cookBook.addRecipe(recipe);
-
-    Grocery milk = new Grocery(1f, "Milk", "liter", 25, "2024-12-31");
-    Grocery chicken = new Grocery(1.25f, "Chicken", "kilogram", 125, "2024-12-10");
-    Grocery rice = new Grocery(2f, "Rice", "kilogram", 45, "2025-10-30");
-    Grocery cola = new Grocery(1.5f, "Cola", "liter", 37, "2025-08-20");
-
-    foodStorage.addGrocery(milk);
-    foodStorage.addGrocery(chicken);
-    foodStorage.addGrocery(rice);
-    foodStorage.addGrocery(cola);
+    addRecipe(cookBook);
+    addGrocery(foodStorage);
 
     mainMenu = new MainMenu(uiInputHandler, groceryMenu, cookBookMenu);
   }
@@ -55,5 +40,30 @@ public class UserInterface {
    */
   public void start() {
     mainMenu.mainMenu();
+  }
+
+  private void initializeGrocery(FoodStorage foodStorage, float quantity, String name, String unit, int price, String expiryDate) {
+    Grocery grocery = new Grocery(quantity, name, unit, price, expiryDate);
+    foodStorage.addGrocery(grocery);
+  }
+
+  private void addGrocery(FoodStorage foodStorage) {
+    initializeGrocery(foodStorage, 1f, "Milk", "liter", 25, "2024-12-31");
+    initializeGrocery(foodStorage, 1.25f, "Chicken", "kilogram", 125, "2024-12-10");
+    initializeGrocery(foodStorage, 2f, "Rice", "kilogram", 45, "2025-10-30");
+    initializeGrocery(foodStorage, 1.5f, "Cola", "liter", 37, "2025-08-20");
+  }
+
+  private void initializeRecipe(CookBook cookBook, String recipeName, String recipeDescription, String cookingInstructions, Map<String, Float> ingredients, int amountOfServings) {
+    Recipe recipe = new Recipe(recipeName, recipeDescription, cookingInstructions, ingredients, amountOfServings);
+    cookBook.addRecipe(recipe);
+  }
+
+  private void addRecipe(CookBook cookBook) {
+    Map<String, Float> ingredients = new HashMap<>();
+    ingredients.put("Chicken", 0.75f);
+    ingredients.put("Rice", 0.5f);
+    initializeRecipe(cookBook, "Chicken and Rice", "This is a chicken and rice dish",
+        "Fry chicken in pan, cook rice, serve.", ingredients, 3);
   }
 }
