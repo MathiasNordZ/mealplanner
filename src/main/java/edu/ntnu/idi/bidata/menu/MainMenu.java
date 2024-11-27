@@ -75,6 +75,7 @@ public class MainMenu {
       switch (command) {
         case MainCommands.GROCERY_MENU -> groceryMenu.groceryMenu();
         case MainCommands.COOKBOOK_MENU -> cookBookMenu.cookBookMenu();
+        case MainCommands.EXIT -> System.out.println("Exiting application.");
         default -> System.out.println("Invalid command.");
       }
 
