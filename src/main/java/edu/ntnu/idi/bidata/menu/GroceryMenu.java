@@ -6,7 +6,6 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.List;
 import java.util.NoSuchElementException;
 import edu.ntnu.idi.bidata.util.StringFormatter;
-import edu.ntnu.idi.bidata.util.StringMenu;
 
 /**
  * This class represents the grocery menu in the application.
