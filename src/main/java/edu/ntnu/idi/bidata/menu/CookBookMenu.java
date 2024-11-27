@@ -5,7 +5,6 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import edu.ntnu.idi.bidata.util.StringMenu;
 
 import java.util.HashMap;
 import java.util.Map;
