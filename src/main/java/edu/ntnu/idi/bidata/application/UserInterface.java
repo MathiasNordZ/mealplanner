@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This is the interface class, that will take all interaction with the user.
+ * <p>This is the interface class. This class will initialize instances required to run the application.
+ * It will also initially fill the food storage and cookbook with groceries and recipes by default.</p>
  *
  * @author <b>Mathias Erik Nord</b>
  * @version <b>0.0.1</b>
@@ -20,7 +21,8 @@ public class UserInterface {
   private MainMenu mainMenu;
 
   /**
-   * This is the method that initializes the program.
+   * <p>This is the method that initializes instances required to run the application.
+   * It will also fill the cookbook and food storage with some default groceries and recipes.</p>
    */
   public void init() {
     UserInputHandler uiInputHandler = new UserInputHandler();
