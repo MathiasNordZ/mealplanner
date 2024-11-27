@@ -38,7 +38,6 @@ public class UserInputHandler {
    *
    * @param prompt the message to display to the user before reading input
    * @return the integer input from the user
-   * @throws IllegalArgumentException if the input is not a valid integer
    */
   public int intReader(String prompt) {
     int value = 0;
@@ -63,7 +62,6 @@ public class UserInputHandler {
    *
    * @param prompt the message to display to the user before reading input
    * @return the float input from the user
-   * @throws IllegalArgumentException if the input is not a valid float
    */
   public float floatReader(String prompt) {
     float value = 0;
