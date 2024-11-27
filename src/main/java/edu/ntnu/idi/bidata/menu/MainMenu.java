@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata.menu;
 
 import edu.ntnu.idi.bidata.application.UserInputHandler;
-import edu.ntnu.idi.bidata.util.StringMenu;
 
 /**
  * This class represents the main menu of the application.
