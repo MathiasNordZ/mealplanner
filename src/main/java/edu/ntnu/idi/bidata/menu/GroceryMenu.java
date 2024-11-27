@@ -6,6 +6,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.List;
 import java.util.NoSuchElementException;
 import edu.ntnu.idi.bidata.util.StringFormatter;
+import edu.ntnu.idi.bidata.util.StringMenu;
 
 /**
  * This class represents the grocery menu in the application.
@@ -19,6 +20,7 @@ public class GroceryMenu {
   private final UserInputHandler uiInputHandler;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
+  private final StringMenu stringMenu = new StringMenu();
 
   /**
    * Constructor for the GroceryMenu class.
@@ -67,15 +69,7 @@ public class GroceryMenu {
     GroceryCommand command = null;
 
     do {
-      System.out.println("""
-          [1] - Create a new grocery.
-          [2] - Remove grocery.
-          [3] - Search for grocery.
-          [4] - List of all groceries.
-          [5] - List of expired groceries.
-          [6] - Value of all groceries.
-          [0] - Go Back.
-          """);
+        stringMenu.printGroceryMenu();
       int commandValue = uiInputHandler.intReader("Enter your command: ");
 
       try {
@@ -181,7 +175,7 @@ public class GroceryMenu {
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExpiredGroceries);
       System.out.println("Value of expired groceries: " + foodStorage.valueOfExpiredGroceries(expiredGroceries) + "\n");
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException | NoSuchElementException e ) {
       System.out.println(ERRORMESSAGE + e.getMessage());
     }
   }

@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata.menu;
 
 import edu.ntnu.idi.bidata.application.UserInputHandler;
+import edu.ntnu.idi.bidata.util.StringMenu;
 
 /**
  * This class represents the main menu of the application.
@@ -14,6 +15,7 @@ public class MainMenu {
   private final UserInputHandler uiInputHandler;
   private final GroceryMenu groceryMenu;
   private final CookBookMenu cookBookMenu;
+  private final StringMenu stringMenu = new StringMenu();
 
   /**
    * Constructor for the <code>MainMenu</code> class.
@@ -60,11 +62,7 @@ public class MainMenu {
     MainCommands command = null;
 
     do {
-      System.out.println("""
-          [1] - Grocery Menu.
-          [2] - Cookbook Menu.
-          [0] - Exit.
-          """);
+      stringMenu.printMainMenu();
       int commandValue = uiInputHandler.intReader("Enter command: ");
 
       try {

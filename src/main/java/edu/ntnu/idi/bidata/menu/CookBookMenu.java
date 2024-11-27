@@ -5,6 +5,8 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.util.StringMenu;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -22,6 +24,7 @@ public class CookBookMenu {
   private final CookBook cookBook;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
+  private final StringMenu stringMenu = new StringMenu();
 
   /**
    * Constructor for the <code>CookBookMeny</code> class.
@@ -68,15 +71,7 @@ public class CookBookMenu {
     CookBookCommand command = null;
 
     do {
-      System.out.println("""
-      [1] - Create recipe.
-      [2] - Remove recipe.
-      [3] - Print recipes.
-      [4] - Print recipe.
-      [5] - Recipe recommendation.
-      [0] - Go back.
-          """);
-
+      stringMenu.printCookbookMenu();
       int commandValue = uiInputHandler.intReader("Enter your command: ");
 
       try {
