@@ -43,12 +43,29 @@ public class FoodStorage {
       errorMessage = "The provided grocery cannot be null.";
       throw new IllegalArgumentException(errorMessage);
     }
-
     List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(),
         new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
+    isFound = isFound(providedGrocery, groceryIterator, isFound);
+
+    if (!isFound) {
+      groceryList.add(providedGrocery);
+    }
+    groceries.put(providedGrocery.getName(), groceryList);
+  }
+
+  /**
+   * Extracted while loop from <code>addGrocery</code>.
+   * This will reduce the complexity of the method, and improve modularity.
+   *
+   * @param providedGrocery Represents the instance of a Grocery.
+   * @param groceryIterator Will iterate through the grocery list.
+   * @param isFound Will flag if the grocery is found.
+   * @return Will return a boolean if the grocery already exists or not.
+   */
+  private static boolean isFound(Grocery providedGrocery, Iterator<Grocery> groceryIterator, boolean isFound) {
     while (groceryIterator.hasNext() && !isFound) {
       Grocery grocery = groceryIterator.next();
 
@@ -59,11 +76,7 @@ public class FoodStorage {
         isFound = true;
       }
     }
-
-    if (!isFound) {
-      groceryList.add(providedGrocery);
-    }
-    groceries.put(providedGrocery.getName(), groceryList);
+    return isFound;
   }
 
   /**
