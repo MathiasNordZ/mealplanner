@@ -1,4 +1,4 @@
-package edu.ntnu.idi.bidata.util;
+package edu.ntnu.idi.bidata.menu;
 
 public class StringMenu {
   public StringMenu() {
