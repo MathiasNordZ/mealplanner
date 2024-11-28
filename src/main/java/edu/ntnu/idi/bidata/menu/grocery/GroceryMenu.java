@@ -17,7 +17,7 @@ public class GroceryMenu {
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
   private final StringMenu stringMenu = new StringMenu();
-  private final GrocerMenuMutator groceryMutator = new GrocerMenuMutator();
+   private final GroceryMenuMutator groceryMutator = new GroceryMenuMutator();
   private final GroceryMenuPrinter groceryPrinter = new GroceryMenuPrinter();
 
   /**

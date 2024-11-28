@@ -6,7 +6,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 
 import java.util.NoSuchElementException;
 
-public class GrocerMenuMutator {
+public class GroceryMenuMutator {
   private final UserInputHandler uiInputHandler = new UserInputHandler();
 
 
