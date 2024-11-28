@@ -2,8 +2,11 @@ package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import org.graalvm.collections.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Parameter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -22,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class RecipeTest {
     private Recipe recipe;
-    private Map<String, Float> ingredients;
+    private Map<String, Pair<Float, String>> ingredients;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     FoodStorage foodStorage;
 
@@ -47,9 +50,9 @@ class RecipeTest {
 
         ingredients = new HashMap<>();
 
-        ingredients.put("Tomato Sauce", 0.25f);
-        ingredients.put("Pizza Crust", 0.75f);
-        ingredients.put("Topping", 0.35f);
+        ingredients.put("Tomato Sauce", Pair.create(0.25f, "liter"));
+        ingredients.put("Pizza Crust", Pair.create(0.75f, "kilogram"));
+        ingredients.put("Topping", Pair.create(0.35f, "kilogram"));
 
         recipe = new Recipe("Pizza", "This is a pizza recipe", "Bake pizza crust, add tomato sauce & topping, bake at 200 deg for 20 min.", ingredients, 2);
     }
@@ -144,8 +147,8 @@ class RecipeTest {
      */
     @Test
     void mapInputValidationPositiveTest() {
-        Map<String, Float> validIngredients = new HashMap<>();
-        validIngredients.put("Tomato Sauce", 0.25f);
+        Map<String, Pair<Float, String>> validIngredients = new HashMap<>();
+        validIngredients.put("Tomato Sauce", Pair.create(0.25f, "kilogram"));
 
         assertDoesNotThrow(() -> recipe.mapInputValidation(validIngredients));
     }
@@ -156,8 +159,8 @@ class RecipeTest {
      */
     @Test
     void mapInputValidationNegativeTest() {
-        Map<String, Float> invalidIngredients = new HashMap<>();
-        invalidIngredients.put(null, 0.25f);
+        Map<String, Pair<Float, String>> invalidIngredients = new HashMap<>();
+        invalidIngredients.put(null, Pair.create(0.25f, "kilogram"));
 
         assertThrows(IllegalArgumentException.class, () -> recipe.mapInputValidation(invalidIngredients));
     }
@@ -168,8 +171,8 @@ class RecipeTest {
      */
     @Test
     void setIngredientsPositiveTest() {
-        Map<String, Float> testIngredients = new HashMap<>();
-        testIngredients.put("Cheese", 0.25f);
+        Map<String, Pair<Float, String>> testIngredients = new HashMap<>();
+        testIngredients.put("Cheese", Pair.create(0.25f, "kilogram"));
         recipe.setIngredients(testIngredients);
 
         assertEquals(testIngredients, recipe.getIngredients());
@@ -181,8 +184,8 @@ class RecipeTest {
      */
     @Test
     void setIngredientsNegativeTest() {
-        Map<String, Float> testIngredients = new HashMap<>();
-        testIngredients.put("", 0.25f);
+        Map<String, Pair<Float, String>> testIngredients = new HashMap<>();
+        testIngredients.put("", Pair.create(0.25f, "kilogram"));
 
         assertThrows(IllegalArgumentException.class, () -> recipe.setIngredients(testIngredients));
     }

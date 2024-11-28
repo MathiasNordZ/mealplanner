@@ -5,6 +5,7 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import org.graalvm.collections.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -107,7 +108,7 @@ public class CookBookMenu {
           .stringReader("Please enter cooking instructions: ");
       int amountOfServings = uiInputHandler.intReader("Please enter amount of servings");
 
-      Map<String, Float> ingredients = new HashMap<>();
+      Map<String, Pair<Float, String>> ingredients = new HashMap<>();
       boolean isUserDone = false;
 
       while (!isUserDone) {
@@ -118,7 +119,8 @@ public class CookBookMenu {
         } else {
           float quantityOfIngredient = uiInputHandler
               .intReader("Please enter required quantity of ingredient: ");
-          ingredients.put(nameOfIngredient, quantityOfIngredient);
+          String unitOfMeasurement = uiInputHandler.stringReader("Please enter unit of measurement.");
+          ingredients.put(nameOfIngredient, Pair.create(quantityOfIngredient, unitOfMeasurement));
         }
       }
       recipe = new Recipe(nameOfRecipe, recipeDescription,

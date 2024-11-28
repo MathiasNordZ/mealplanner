@@ -2,6 +2,7 @@ package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import org.graalvm.collections.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -33,9 +34,9 @@ class CookBookTest {
         chicken = new Grocery(0.25f, "Chicken", "kilogram", 85, formattedToday);
         rice = new Grocery(1f, "Rice", "kilogram", 53, formattedToday);
 
-        Map<String, Float> ingredients = new HashMap<>();
-        ingredients.put("Chicken", 0.25f);
-        ingredients.put("Rice", 0.25f);
+        Map<String, Pair<Float, String>> ingredients = new HashMap<>();
+        ingredients.put("Chicken", Pair.create(0.25f, "kilogram"));
+        ingredients.put("Rice", Pair.create(0.25f, "kilogram"));
 
         String cookingInstructions =
                 """
@@ -86,8 +87,8 @@ class CookBookTest {
      */
     @Test
     void addRecipePositiveTest() {
-        Map<String, Float> ingredients = new HashMap<>();
-        ingredients.put("rice", 0.2f);
+        Map<String, Pair<Float, String>> ingredients = new HashMap<>();
+        ingredients.put("rice", Pair.create(0.2f, "kilogram"));
         Recipe friedRice = new Recipe("Fried rice", "This is a fried rice recipe", "1. Fry rice", ingredients, 1);
 
         cookBook.addRecipe(friedRice);

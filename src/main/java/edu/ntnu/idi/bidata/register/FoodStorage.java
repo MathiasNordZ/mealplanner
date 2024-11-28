@@ -281,17 +281,14 @@ public class FoodStorage {
    * @param requiredQuantity The required quantity of ingredient.
    * @return Will return a boolean, true if available and false if not.
    */
-  public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity) {
-    List<Grocery> groceryList = groceries.get(nameOfIngredient);
-
-    if (groceryList == null) {
-      return false;
-    }
-    float totalQuantity = 0;
-    for (Grocery grocery : groceryList) {
-      totalQuantity += grocery.getQuantity();
-      if (totalQuantity >= requiredQuantity) {
-        return true;
+  public boolean isGroceryAvailable(String name, float quantity, String unit) {
+    for (List<Grocery> groceryList : groceries.values()) {
+      for (Grocery grocery : groceryList) {
+        if (grocery.getName().equals(name) &&
+            grocery.getQuantity() >= quantity &&
+            grocery.getUnitOfMeasurement().equalsIgnoreCase(unit)) {
+          return true;
+        }
       }
     }
     return false;

@@ -2,6 +2,8 @@ package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import org.graalvm.collections.Pair;
+
 import java.util.Map;
 
 /**
@@ -15,7 +17,7 @@ public class Recipe {
   private String recipeName;
   private String recipeDescription;
   private String cookingInstructions;
-  private Map<String, Float> ingredients;
+  private Map<String, Pair<Float, String>> ingredients; // Refactor inspired by CoPilot.
   private int amountOfServings;
 
   /**
@@ -28,7 +30,7 @@ public class Recipe {
    *
    */
   public Recipe(String recipeName, String recipeDescription, String cookingInstructions,
-                Map<String, Float> ingredients, int amountOfServings) {
+                Map<String, Pair<Float, String>> ingredients, int amountOfServings) {
     setRecipeName(recipeName);
     setRecipeDescription(recipeDescription);
     setCookingInstructions(cookingInstructions);
@@ -101,7 +103,7 @@ public class Recipe {
    *
    * @return Will return a map of ingredients, with name as key and quantity as value.
    */
-  public Map<String, Float> getIngredients() {
+  public Map<String, Pair<Float, String>> getIngredients() {
     return ingredients;
   }
 
@@ -114,7 +116,7 @@ public class Recipe {
    *
    * @param ingredients The ingredients that are needed to make the recipe.
    */
-  public void setIngredients(Map<String, Float> ingredients) {
+  public void setIngredients(Map<String, Pair<Float, String>> ingredients) {
     mapInputValidation(ingredients);
     this.ingredients = ingredients;
   }
@@ -154,9 +156,9 @@ public class Recipe {
     if (foodStorage == null) {
       throw new IllegalArgumentException("The foodStorage cannot be null.");
     }
-    for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
+    for (Map.Entry<String, Pair<Float, String>> entry : ingredients.entrySet()) {
       String ingredientName = entry.getKey();
-      float requiredQuantity = entry.getValue();
+      float requiredQuantity = entry.getValue().getLeft();
       boolean isFound = false;
       for (Grocery storedGrocery : foodStorage.getSortedList()) {
         if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
@@ -193,19 +195,19 @@ public class Recipe {
    *                                  if <code>ingredientName</code> is null or blank,
    *                               or if <code>quantity</code> is null, less than or equal to zero.
    */
-  public void mapInputValidation(Map<String, Float> ingredients) {
+  public void mapInputValidation(Map<String, Pair<Float, String>> ingredients) {
     StringBuilder errorMessage = new StringBuilder();
     if (ingredients == null) {
       errorMessage.append("The inputted ingredients cannot be null\n");
     } else {
-      for (Map.Entry<String, Float> entry : ingredients.entrySet()) {
+      for (Map.Entry<String, Pair<Float, String>> entry : ingredients.entrySet()) {
         String ingredientName = entry.getKey();
-        Float quantity = entry.getValue();
+        Pair<Float, String> quantityAndUnit = entry.getValue();
 
         if (ingredientName == null || ingredientName.isBlank()) {
           errorMessage.append("Ingredient name cannot be null or blank.\n");
         }
-        if (quantity == null || quantity <= 0) {
+        if (quantityAndUnit == null || quantityAndUnit.getLeft() <= 0 || quantityAndUnit.getRight().isBlank()) {
           errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
         }
       }
