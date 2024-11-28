@@ -1,8 +1,6 @@
 package edu.ntnu.idi.bidata.recipe;
 
-import edu.ntnu.idi.bidata.register.FoodStorage;
-import org.graalvm.collections.Pair;
-
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
 public class RecipeValidator {
@@ -10,18 +8,18 @@ public class RecipeValidator {
 
   }
 
-  private static void ingredientValidation(Map<String, Pair<Float, String>> ingredients, StringBuilder errorMessage) {
+  private static void ingredientValidation(Map<String, SimpleEntry<Float, String>> ingredients, StringBuilder errorMessage) {
     if (ingredients == null) {
       errorMessage.append("The inputted ingredients cannot be null\n");
     } else {
-      for (Map.Entry<String, Pair<Float, String>> entry : ingredients.entrySet()) {
+      for (Map.Entry<String, SimpleEntry<Float, String>> entry : ingredients.entrySet()) {
         String ingredientName = entry.getKey();
-        Pair<Float, String> quantityAndUnit = entry.getValue();
+        SimpleEntry<Float, String> quantityAndUnit = entry.getValue();
 
         if (ingredientName == null || ingredientName.isBlank()) {
           errorMessage.append("Ingredient name cannot be null or blank.\n");
         }
-        if (quantityAndUnit == null || quantityAndUnit.getLeft() <= 0 || quantityAndUnit.getRight().isBlank()) {
+        if (quantityAndUnit == null || quantityAndUnit.getKey() <= 0 || quantityAndUnit.getValue().isBlank()) {
           errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
         }
       }
@@ -36,7 +34,7 @@ public class RecipeValidator {
    *                                  if <code>ingredientName</code> is null or blank,
    *                               or if <code>quantity</code> is null, less than or equal to zero.
    */
-  public static void mapInputValidation(Map<String, Pair<Float, String>> ingredients) {
+  public static void mapInputValidation(Map<String, SimpleEntry<Float, String>> ingredients) {
     StringBuilder errorMessage = new StringBuilder();
     ingredientValidation(ingredients, errorMessage);
     if (!errorMessage.isEmpty()) {
@@ -59,12 +57,6 @@ public class RecipeValidator {
   public static void amountOfServingsValidation(int amountOfServings) {
     if (amountOfServings <= 0) {
       throw new IllegalArgumentException("The inputted amount of servings cannot be less than zero");
-    }
-  }
-
-  public static void foodStorageValidation(FoodStorage foodStorage) {
-    if (foodStorage == null) {
-      throw new IllegalArgumentException("The foodStorage cannot be null.");
     }
   }
 }

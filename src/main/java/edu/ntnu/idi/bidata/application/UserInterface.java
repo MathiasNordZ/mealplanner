@@ -7,7 +7,7 @@ import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import org.graalvm.collections.Pair;
+import java.util.AbstractMap.SimpleEntry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +82,7 @@ public class UserInterface {
    * @param ingredients Ingredients of the recipe.
    * @param amountOfServings Amount of servings.
    */
-  private void initializeRecipe(CookBook cookBook, String recipeName, String recipeDescription, String cookingInstructions, Map<String, Pair<Float, String>> ingredients, int amountOfServings) {
+  private void initializeRecipe(CookBook cookBook, String recipeName, String recipeDescription, String cookingInstructions, Map<String, SimpleEntry<Float, String>> ingredients, int amountOfServings) {
     Recipe recipe = new Recipe(recipeName, recipeDescription, cookingInstructions, ingredients, amountOfServings);
     cookBook.addRecipe(recipe);
   }
@@ -93,9 +93,9 @@ public class UserInterface {
    * @param cookBook Cookbook to add recipe to.
    */
   private void addRecipe(CookBook cookBook) {
-    Map<String, Pair<Float, String>> ingredients = new HashMap<>();
-    ingredients.put("Chicken", Pair.create(0.75f, "kilogram"));
-    ingredients.put("Rice", Pair.create(0.5f, "kilogram"));
+    Map<String, SimpleEntry<Float, String>> ingredients = new HashMap<>();
+    ingredients.put("Chicken", new SimpleEntry<>(0.75f, "kilogram"));
+    ingredients.put("Rice", new SimpleEntry<>(0.5f, "kilogram"));
     initializeRecipe(cookBook, "Chicken and Rice", "This is a chicken and rice dish",
         "Fry chicken in pan, cook rice, serve.", ingredients, 3);
   }
