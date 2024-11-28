@@ -14,15 +14,15 @@ public class UserInputHandler {
   private final Scanner scanner = new Scanner(System.in);
 
   /**
-   * Constructor for <code>UserInputHandler</code>.
-   * Initializes a scanner instance to read inputs from user.
+   * <p>Constructor for <code>UserInputHandler</code>.
+   * Initializes a scanner instance to read inputs from user.</p>
    */
   public UserInputHandler() {
     // Empty
   }
 
   /**
-   * Reads a string input from the user.
+   * <p>>Reads a string input from the user.</p>
    *
    * @param prompt the message to display to the user before reading input
    * @return the string input from the user
@@ -33,8 +33,8 @@ public class UserInputHandler {
   }
 
   /**
-   * Reads an integer input from the user.
-   * If the input is not a valid integer, an IllegalArgumentException is thrown.
+   * <p>Reads an integer input from the user.
+   * If the input is not a valid integer, an IllegalArgumentException is thrown.</p>
    *
    * @param prompt the message to display to the user before reading input
    * @return the integer input from the user
@@ -57,8 +57,8 @@ public class UserInputHandler {
   }
 
   /**
-   * Reads a float input from the user.
-   * If the input is not a valid float, an IllegalArgumentException is thrown.
+   * <p>Reads a float input from the user.
+   * If the input is not a valid float, an IllegalArgumentException is thrown.</p>
    *
    * @param prompt the message to display to the user before reading input
    * @return the float input from the user
@@ -80,6 +80,13 @@ public class UserInputHandler {
     return value;
   }
 
+  /**
+   * <p>Reads the date input from user.
+   * Will re-prompt if user enters an invalid input.</p>
+   *
+   * @param prompt The prompt message.
+   * @return Will return the inputted date of expiry.
+   */
   public String dateReader(String prompt) {
     String dateOfExpiry = "";
     boolean isDateCorrect = false;
@@ -94,6 +101,13 @@ public class UserInputHandler {
     return dateOfExpiry;
   }
 
+  /**
+   * <p>Reads the unit of measurement input from user.
+   * Will re-prompt is user enters wrong unit format.</p>
+   *
+   * @param prompt The prompt message.
+   * @return Will return the inputted unit.
+   */
   public String unitReader(String prompt) {
     String unitOfMeasurement = "";
     boolean isUnitCorrect = false;
