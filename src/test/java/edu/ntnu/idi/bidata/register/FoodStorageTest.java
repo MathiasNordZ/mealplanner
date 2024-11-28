@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -199,8 +200,8 @@ class FoodStorageTest {
   void valueOfExpiredGroceriesNegativeTest() {
     List<Grocery> expiredGroceries = new ArrayList<>();
 
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.valueOfExpiredGroceries(expiredGroceries));
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.valueOfExpiredGroceries(null));
+    assertThrows(NoSuchElementException.class, () -> foodStorage.valueOfExpiredGroceries(expiredGroceries));
+    assertThrows(NoSuchElementException.class, () -> foodStorage.valueOfExpiredGroceries(null));
   }
 
 }
