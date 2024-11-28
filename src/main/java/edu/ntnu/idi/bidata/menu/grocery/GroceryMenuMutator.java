@@ -1,8 +1,7 @@
 package edu.ntnu.idi.bidata.menu.grocery;
 
-import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
-import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.GroceryManager;
 
 import java.util.NoSuchElementException;

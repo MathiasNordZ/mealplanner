@@ -1,16 +1,15 @@
 package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenu;
 import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
-import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import edu.ntnu.idi.bidata.register.GroceryManager;
 
 import java.util.AbstractMap.SimpleEntry;
-
 import java.util.HashMap;
 import java.util.Map;
 

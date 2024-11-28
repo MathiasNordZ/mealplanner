@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
-import edu.ntnu.idi.bidata.register.FoodStorage;
 import edu.ntnu.idi.bidata.register.GroceryManager;
 
 import java.util.List;

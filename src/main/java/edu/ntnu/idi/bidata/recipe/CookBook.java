@@ -1,14 +1,12 @@
 package edu.ntnu.idi.bidata.recipe;
 
-import edu.ntnu.idi.bidata.register.FoodStorage;
-import edu.ntnu.idi.bidata.register.FoodStorageValidator;
 import edu.ntnu.idi.bidata.register.GroceryManager;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.AbstractMap.SimpleEntry;
 
 /**
  * This is a cookbook class that contains a set of recipes.

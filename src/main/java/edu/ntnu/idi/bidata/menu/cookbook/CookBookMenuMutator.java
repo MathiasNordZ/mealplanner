@@ -3,6 +3,7 @@ package edu.ntnu.idi.bidata.menu.cookbook;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
+
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
