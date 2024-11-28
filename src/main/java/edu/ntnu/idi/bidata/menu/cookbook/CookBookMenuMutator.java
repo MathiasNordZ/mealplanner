@@ -1,4 +1,4 @@
-package edu.ntnu.idi.bidata.menu;
+package edu.ntnu.idi.bidata.menu.cookbook;
 
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class RecipeMutator {
+public class CookBookMenuMutator {
   private final UserInputHandler uiInputHandler = new UserInputHandler();
 
-  public RecipeMutator() {
+  public CookBookMenuMutator() {
 
   }
 

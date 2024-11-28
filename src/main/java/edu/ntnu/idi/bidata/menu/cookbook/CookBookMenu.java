@@ -1,11 +1,9 @@
-package edu.ntnu.idi.bidata.menu;
+package edu.ntnu.idi.bidata.menu.cookbook;
 
-import edu.ntnu.idi.bidata.util.CookBookFormatter;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
+import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
-import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import java.util.NoSuchElementException;
 
 /**
  * This class represents the cook book menu in the application.
@@ -21,8 +19,8 @@ public class CookBookMenu {
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
   private final StringMenu stringMenu = new StringMenu();
-  private final RecipeMutator recipeMutator = new RecipeMutator();
-  private final RecipePrinter recipePrinter = new RecipePrinter();
+  private final CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator();
+  private final CookBookMenuPrinter cookBookMenuPrinter = new CookBookMenuPrinter();
 
   /**
    * Constructor for the <code>CookBookMeny</code> class.
@@ -80,23 +78,14 @@ public class CookBookMenu {
       }
 
       switch (command) {
-        case CookBookCommand.CREATE_RECIPE -> recipeMutator.createRecipe(ERRORMESSAGE, cookBook);
-        case CookBookCommand.REMOVE_RECIPE -> recipeMutator.removeRecipe(ERRORMESSAGE, cookBook);
-        case CookBookCommand.PRINT_RECIPES -> recipePrinter.printRecipes(ERRORMESSAGE, cookBook);
-        case CookBookCommand.PRINT_RECIPE -> recipePrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
-        case CookBookCommand.RECIPE_RECOMMENDATION -> recipeRecommendation();
+        case CookBookCommand.CREATE_RECIPE -> cookBookMenuMutator.createRecipe(ERRORMESSAGE, cookBook);
+        case CookBookCommand.REMOVE_RECIPE -> cookBookMenuMutator.removeRecipe(ERRORMESSAGE, cookBook);
+        case CookBookCommand.PRINT_RECIPES -> cookBookMenuPrinter.printRecipes(ERRORMESSAGE, cookBook);
+        case CookBookCommand.PRINT_RECIPE -> cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
+        case CookBookCommand.RECIPE_RECOMMENDATION -> cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
         case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
         default -> System.out.println("Invalid command.");
       }
     } while (command != CookBookCommand.BACK);
-  }
-
-  private void recipeRecommendation() {
-    try {
-      Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
-      System.out.println("Recommended recipe: " + recommendedRecipe.getRecipeName());
-    } catch (NoSuchElementException e) {
-      System.out.println(ERRORMESSAGE + e.getMessage());
-    }
   }
 }
