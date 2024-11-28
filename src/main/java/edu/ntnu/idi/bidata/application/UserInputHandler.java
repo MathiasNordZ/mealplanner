@@ -49,7 +49,7 @@ public class UserInputHandler {
         scanner.nextLine(); // consume the newline character
         validInput = true;
       } else {
-        System.out.println("Invalid input. Please enter a valid integer.");
+        System.out.println("You provided and invalid input! Please enter a valid whole number.");
         scanner.next(); // consume the invalid input
       }
     }
@@ -73,7 +73,7 @@ public class UserInputHandler {
         scanner.nextLine(); // consume the newline character
         validInput = true;
       } else {
-        System.out.println("Invalid input. Please enter a valid float.");
+        System.out.println("You provided and invalid input! Please enter a valid number.");
         scanner.next(); // consume the invalid input
       }
     }
@@ -85,7 +85,7 @@ public class UserInputHandler {
     boolean isDateCorrect = false;
     while (!isDateCorrect) {
       dateOfExpiry = stringReader(prompt);
-      if (dateOfExpiry.matches("\\d{4}-\\d{2}-\\d{2}")) {
+      if (dateOfExpiry.matches("\\d{4}-\\d{2}-\\d{2}")) { // Will check that it matches the correct format.
         isDateCorrect = true;
       }
     }
