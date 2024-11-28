@@ -1,12 +1,11 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import org.graalvm.collections.Pair;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.AbstractMap.SimpleEntry;
 
 /**
  * This is a cookbook class that contains a set of recipes.
@@ -92,10 +91,10 @@ public class CookBook {
     }
     for (Recipe recipe : recipes) {
       boolean isPossibleToCook = true;
-      for (Map.Entry<String, Pair<Float, String>> ingredient : recipe.getIngredients().entrySet()) {
+      for (Map.Entry<String, SimpleEntry<Float, String>> ingredient : recipe.getIngredients().entrySet()) {
         String nameOfIngredient = ingredient.getKey();
-        float requiredQuantity = ingredient.getValue().getLeft();
-        String requiredUnit = ingredient.getValue().getRight();
+        float requiredQuantity = ingredient.getValue().getKey();
+        String requiredUnit = ingredient.getValue().getValue();
         if (!foodStorage.isGroceryAvailable(nameOfIngredient, requiredQuantity, requiredUnit)) {
           isPossibleToCook = false;
         }
