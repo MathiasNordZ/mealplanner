@@ -1,9 +1,6 @@
 package edu.ntnu.idi.bidata.recipe;
 
-import edu.ntnu.idi.bidata.entity.Grocery;
-import edu.ntnu.idi.bidata.register.FoodStorage;
-import org.graalvm.collections.Pair;
-
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
 import static edu.ntnu.idi.bidata.recipe.RecipeValidator.*;
@@ -19,7 +16,7 @@ public class Recipe {
   private String recipeName;
   private String recipeDescription;
   private String cookingInstructions;
-  private Map<String, Pair<Float, String>> ingredients; // Refactor inspired by CoPilot.
+  private Map<String, SimpleEntry<Float, String>> ingredients; // Refactor inspired by CoPilot.
   private int amountOfServings;
 
   /**
@@ -32,7 +29,7 @@ public class Recipe {
    *
    */
   public Recipe(String recipeName, String recipeDescription, String cookingInstructions,
-                Map<String, Pair<Float, String>> ingredients, int amountOfServings) {
+                Map<String, SimpleEntry<Float, String>> ingredients, int amountOfServings) {
     setRecipeName(recipeName);
     setRecipeDescription(recipeDescription);
     setCookingInstructions(cookingInstructions);
@@ -105,7 +102,7 @@ public class Recipe {
    *
    * @return Will return a map of ingredients, with name as key and quantity as value.
    */
-  public Map<String, Pair<Float, String>> getIngredients() {
+  public Map<String, SimpleEntry<Float, String>> getIngredients() {
     return ingredients;
   }
 
@@ -118,7 +115,7 @@ public class Recipe {
    *
    * @param ingredients The ingredients that are needed to make the recipe.
    */
-  public void setIngredients(Map<String, Pair<Float, String>> ingredients) {
+  public void setIngredients(Map<String, SimpleEntry<Float, String>> ingredients) {
     mapInputValidation(ingredients);
     this.ingredients = ingredients;
   }
@@ -141,41 +138,5 @@ public class Recipe {
   public void setAmountOfServings(int amountOfServings) {
     amountOfServingsValidation(amountOfServings);
     this.amountOfServings = amountOfServings;
-  }
-
-  /**
-   * This is a boolean method to check if a recipe is possible to make,
-   * with the groceries in a given food storage.
-   *
-   * @param foodStorage The storage to check for available groceries. Ex. fridge, freezer etc.
-   * @return Will return true if recipe is possible to make, if not it will return false.
-   */
-  public boolean isPossibleToCook(FoodStorage foodStorage) {
-    foodStorageValidation(foodStorage);
-    for (Map.Entry<String, Pair<Float, String>> entry : ingredients.entrySet()) {
-      String ingredientName = entry.getKey();
-      float requiredQuantity = entry.getValue().getLeft();
-      if (!isIngredientAvailable(foodStorage, ingredientName, requiredQuantity)) return false;
-    }
-    return true;
-  }
-
-  /**
-   *
-   * Extracted method from isPossibleToCook.
-   *
-   * @param foodStorage
-   * @param ingredientName
-   * @param requiredQuantity
-   * @return
-   */
-  private boolean isIngredientAvailable(FoodStorage foodStorage, String ingredientName, float requiredQuantity) {
-    for (Grocery storedGrocery : foodStorage.getSortedList()) {
-      if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
-          >= requiredQuantity) {
-        return true;
-      }
-    }
-    return false;
   }
 }
