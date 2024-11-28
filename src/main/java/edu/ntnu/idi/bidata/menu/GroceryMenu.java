@@ -100,7 +100,7 @@ public class GroceryMenu {
     float quantityOfGrocery = uiInputHandler
         .floatReader("Please enter quantity of grocery: ");
     String unitOfMeasurement = uiInputHandler
-        .stringReader("Please enter unit of measurement (kilogram/liter): ");
+        .unitReader("Please enter unit of measurement (kilogram/liter/pcs): ");
     float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
     String dateOfExpiry = uiInputHandler.dateReader("Please enter expiry date (YYYY-MM-DD): ");
 
