@@ -1,6 +1,9 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.FoodStorageValidator;
+import edu.ntnu.idi.bidata.register.GroceryManager;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -85,8 +88,8 @@ public class CookBook {
    * @param foodStorage storage to check for groceries.
    * @return Will return a recipe, if there are enough groceries.
    */
-  public Recipe recipeRecommendation(FoodStorage foodStorage) {
-    if (foodStorage == null) {
+  public Recipe recipeRecommendation(GroceryManager groceryManager) {
+    if (groceryManager == null) {
       throw new IllegalArgumentException("Food storage cannot be null!");
     }
     for (Recipe recipe : recipes) {
@@ -95,7 +98,7 @@ public class CookBook {
         String nameOfIngredient = ingredient.getKey();
         float requiredQuantity = ingredient.getValue().getKey();
         String requiredUnit = ingredient.getValue().getValue();
-        if (!foodStorage.isGroceryAvailable(nameOfIngredient, requiredQuantity, requiredUnit)) {
+        if (!groceryManager.isGroceryAvailable(nameOfIngredient, requiredQuantity, requiredUnit)) {
           isPossibleToCook = false;
         }
       }

@@ -7,6 +7,10 @@ import java.util.NoSuchElementException;
 
 public class FoodStorageValidator {
 
+  public FoodStorageValidator() {
+
+  }
+
   /**
    * Validation method for <code>removeGrocery</code>.
    * Will validate the input, to check if the provided grocery is not null,

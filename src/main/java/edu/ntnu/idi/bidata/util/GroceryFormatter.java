@@ -2,6 +2,7 @@ package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.GroceryManager;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -60,8 +61,8 @@ public class GroceryFormatter {
    * @return Will a sorted list, formatted as a table
    * @since 0.0.1
    */
-  public static String formatSortedGroceries(FoodStorage foodStorage) {
-    return formatGroceries(foodStorage.getSortedList());
+  public static String formatSortedGroceries(GroceryManager groceryManager) {
+    return formatGroceries(groceryManager.getSortedList());
   }
 
   /**
@@ -73,8 +74,8 @@ public class GroceryFormatter {
    * @return Will return list of expired groceries, formatted as table.
    * @since 0.0.1
    */
-  public static String formatExpiredGroceries(FoodStorage foodStorage, String providedExpiryDate) {
-    return formatGroceries(foodStorage.listOfExpiredGroceries(providedExpiryDate));
+  public static String formatExpiredGroceries(GroceryManager groceryManager, String providedExpiryDate) {
+    return formatGroceries(groceryManager.listOfExpiredGroceries(providedExpiryDate));
   }
 
   /**
@@ -86,7 +87,7 @@ public class GroceryFormatter {
    * @return Will return the grocery in a formatted table.
    * @since 0.0.1
    */
-  public static String formatGrocery(FoodStorage foodStorage, String groceryToSearch) {
-    return formatGroceries(foodStorage.searchGrocery(groceryToSearch));
+  public static String formatGrocery(GroceryManager groceryManager, String groceryToSearch) {
+    return formatGroceries(groceryManager.searchGrocery(groceryToSearch));
   }
 }

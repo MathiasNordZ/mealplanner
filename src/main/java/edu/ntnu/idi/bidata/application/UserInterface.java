@@ -7,6 +7,8 @@ import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.GroceryManager;
+
 import java.util.AbstractMap.SimpleEntry;
 
 import java.util.HashMap;
@@ -28,13 +30,13 @@ public class UserInterface {
    */
   public void init() {
     UserInputHandler uiInputHandler = new UserInputHandler();
-    FoodStorage foodStorage = new FoodStorage();
-    GroceryMenu groceryMenu = new GroceryMenu(foodStorage, uiInputHandler);
+    GroceryManager groceryManager = new GroceryManager(new FoodStorage());
+    GroceryMenu groceryMenu = new GroceryMenu(groceryManager, uiInputHandler);
     CookBook cookBook = new CookBook();
-    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, foodStorage);
+    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, groceryManager);
 
     addRecipe(cookBook);
-    addGrocery(foodStorage);
+    addGrocery(groceryManager);
 
     mainMenu = new MainMenu(uiInputHandler, groceryMenu, cookBookMenu);
   }
@@ -56,20 +58,20 @@ public class UserInterface {
    * @param price Price of grocery.
    * @param expiryDate Expiry date of grocery.
    */
-  private void initializeGrocery(FoodStorage foodStorage, float quantity, String name, String unit, int price, String expiryDate) {
+  private void initializeGrocery(GroceryManager groceryManager, float quantity, String name, String unit, int price, String expiryDate) {
     Grocery grocery = new Grocery(quantity, name, unit, price, expiryDate);
-    foodStorage.addGrocery(grocery);
+    groceryManager.addGrocery(grocery);
   }
 
   /**
    * Method will call <code>initializeGrocery</code>.
    * @param foodStorage Food storage that grocery should be added to.
    */
-  private void addGrocery(FoodStorage foodStorage) {
-    initializeGrocery(foodStorage, 1f, "Milk", "liter", 25, "2024-12-31");
-    initializeGrocery(foodStorage, 1.25f, "Chicken", "kilogram", 125, "2024-12-10");
-    initializeGrocery(foodStorage, 2f, "Rice", "kilogram", 45, "2025-10-30");
-    initializeGrocery(foodStorage, 1.5f, "Cola", "liter", 37, "2025-08-20");
+  private void addGrocery(GroceryManager groceryManager) {
+    initializeGrocery(groceryManager, 1f, "Milk", "liter", 25, "2024-12-31");
+    initializeGrocery(groceryManager, 1.25f, "Chicken", "kilogram", 125, "2024-12-10");
+    initializeGrocery(groceryManager, 2f, "Rice", "kilogram", 45, "2025-10-30");
+    initializeGrocery(groceryManager, 1.5f, "Cola", "liter", 37, "2025-08-20");
   }
 
   /**

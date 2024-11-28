@@ -3,6 +3,7 @@ package edu.ntnu.idi.bidata.menu.grocery;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.GroceryManager;
 
 /**
  * This class represents the grocery menu in the application.
@@ -14,7 +15,8 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  */
 public class GroceryMenu {
   private final UserInputHandler uiInputHandler;
-  private final FoodStorage foodStorage;
+  private final FoodStorage foodStorage = new FoodStorage();
+  private GroceryManager groceryManager = new GroceryManager(foodStorage);
   private static final String ERRORMESSAGE = "An error occurred: ";
   private final StringMenu stringMenu = new StringMenu();
    private final GroceryMenuMutator groceryMutator = new GroceryMenuMutator();
@@ -26,8 +28,8 @@ public class GroceryMenu {
    * @param foodStorage The food storage that contains the groceries.
    * @param uiInputHandler The user input handler.
    */
-  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler) {
-    this.foodStorage = foodStorage;
+  public GroceryMenu(GroceryManager groceryManager, UserInputHandler uiInputHandler) {
+    this.groceryManager = groceryManager;
     this.uiInputHandler = uiInputHandler;
   }
 
@@ -78,12 +80,12 @@ public class GroceryMenu {
       }
 
       switch (command) {
-        case GroceryCommand.CREATE_NEW_GROCERY -> groceryMutator.createGrocery(ERRORMESSAGE, foodStorage);
-        case GroceryCommand.REMOVE_GROCERY -> groceryMutator.removeGrocery(ERRORMESSAGE, foodStorage);
-        case GroceryCommand.SEARCH_FOR_GROCERY -> groceryPrinter.searchForGrocery(foodStorage);
-        case GroceryCommand.LIST_OF_ALL_GROCERIES -> groceryPrinter.listOfAllGroceries(ERRORMESSAGE, foodStorage);
-        case GroceryCommand.LIST_OF_EXPIRED_GROCERIES -> groceryPrinter.listOfExpiredGroceries(ERRORMESSAGE, foodStorage);
-        case GroceryCommand.VALUE_OF_ALL_GROCERIES -> groceryPrinter.valueOfAllGroceries(ERRORMESSAGE, foodStorage);
+        case GroceryCommand.CREATE_NEW_GROCERY -> groceryMutator.createGrocery(ERRORMESSAGE, groceryManager);
+        case GroceryCommand.REMOVE_GROCERY -> groceryMutator.removeGrocery(ERRORMESSAGE, groceryManager);
+        case GroceryCommand.SEARCH_FOR_GROCERY -> groceryPrinter.searchForGrocery(groceryManager);
+        case GroceryCommand.LIST_OF_ALL_GROCERIES -> groceryPrinter.listOfAllGroceries(ERRORMESSAGE, groceryManager);
+        case GroceryCommand.LIST_OF_EXPIRED_GROCERIES -> groceryPrinter.listOfExpiredGroceries(ERRORMESSAGE, groceryManager);
+        case GroceryCommand.VALUE_OF_ALL_GROCERIES -> groceryPrinter.valueOfAllGroceries(ERRORMESSAGE, groceryManager);
         case GroceryCommand.BACK -> System.out.println("Exiting");
         default -> System.out.println("Invalid command.");
       }

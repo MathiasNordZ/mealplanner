@@ -4,6 +4,7 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.GroceryManager;
 import edu.ntnu.idi.bidata.util.CookBookFormatter;
 
 import java.util.NoSuchElementException;
@@ -46,9 +47,9 @@ public class CookBookMenuPrinter {
     }
   }
 
-  public void recipeRecommendation(String errorMessage, CookBook cookBook, FoodStorage foodStorage) {
+  public void recipeRecommendation(String errorMessage, CookBook cookBook, GroceryManager groceryManager) {
     try {
-      Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
+      Recipe recommendedRecipe = cookBook.recipeRecommendation(groceryManager);
       System.out.println("Recommended recipe: " + recommendedRecipe.getRecipeName());
     } catch (NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());

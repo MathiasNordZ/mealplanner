@@ -4,6 +4,7 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.GroceryManager;
 
 /**
  * This class represents the cook book menu in the application.
@@ -16,7 +17,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 public class CookBookMenu {
   private final UserInputHandler uiInputHandler;
   private final CookBook cookBook;
-  private final FoodStorage foodStorage;
+  private GroceryManager groceryManager = new GroceryManager(new FoodStorage());
   private static final String ERRORMESSAGE = "An error occurred: ";
   private final StringMenu stringMenu = new StringMenu();
   private final CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator();
@@ -29,10 +30,10 @@ public class CookBookMenu {
    * @param cookBook The cookbook containing recipes.
    * @param foodStorage The food storage containing groceries.
    */
-  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage) {
+  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, GroceryManager groceryManager) {
     this.uiInputHandler = uiInputHandler;
     this.cookBook = cookBook;
-    this.foodStorage = foodStorage;
+    this.groceryManager = groceryManager;
   }
 
   private enum CookBookCommand {
@@ -82,7 +83,7 @@ public class CookBookMenu {
         case CookBookCommand.REMOVE_RECIPE -> cookBookMenuMutator.removeRecipe(ERRORMESSAGE, cookBook);
         case CookBookCommand.PRINT_RECIPES -> cookBookMenuPrinter.printRecipes(ERRORMESSAGE, cookBook);
         case CookBookCommand.PRINT_RECIPE -> cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
-        case CookBookCommand.RECIPE_RECOMMENDATION -> cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
+        case CookBookCommand.RECIPE_RECOMMENDATION -> cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, groceryManager);
         case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
         default -> System.out.println("Invalid command.");
       }

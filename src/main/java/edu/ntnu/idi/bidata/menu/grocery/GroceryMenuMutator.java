@@ -3,6 +3,7 @@ package edu.ntnu.idi.bidata.menu.grocery;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import edu.ntnu.idi.bidata.register.GroceryManager;
 
 import java.util.NoSuchElementException;
 
@@ -14,7 +15,7 @@ public class GroceryMenuMutator {
    * This method will prompt the user to enter details, to create a new grocery.
    * If the grocery is created successfully, it will be added to the food storage.
    */
-  public void createGrocery(String errorMessage, FoodStorage foodStorage) {
+  public void createGrocery(String errorMessage, GroceryManager groceryManager) {
     String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
     float quantityOfGrocery = uiInputHandler
         .floatReader("Please enter quantity of grocery: ");
@@ -26,7 +27,7 @@ public class GroceryMenuMutator {
     try {
       Grocery grocery = new Grocery(quantityOfGrocery,
           nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
-      foodStorage.addGrocery(grocery);
+      groceryManager.addGrocery(grocery);
       System.out.println("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
@@ -39,12 +40,12 @@ public class GroceryMenuMutator {
    * If the grocery does exist, and the quantity to remove is valid.
    * It will be removed from the food storage.
    */
-  public void removeGrocery(String errorMessage, FoodStorage foodStorage) {
+  public void removeGrocery(String errorMessage, GroceryManager groceryManager) {
     String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
     float quantityToRemove = uiInputHandler.floatReader("Quantity to remove: ");
 
     try {
-      foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
+      groceryManager.removeGrocery(groceryToRemove, quantityToRemove);
       System.out.println("Grocery was removed successfully!");
     } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
