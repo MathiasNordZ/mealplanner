@@ -6,6 +6,8 @@ import org.graalvm.collections.Pair;
 
 import java.util.Map;
 
+import static edu.ntnu.idi.bidata.recipe.RecipeValidator.*;
+
 /**
  * This class is representing a recipe.
  *
@@ -137,11 +139,7 @@ public class Recipe {
    * @param amountOfServings The amount of servings.
    */
   public void setAmountOfServings(int amountOfServings) {
-    String errorMessage;
-    if (amountOfServings <= 0) {
-      errorMessage = "The inputted amount of servings cannot be less than zero";
-      throw new IllegalArgumentException(errorMessage);
-    }
+    amountOfServingsValidation(amountOfServings);
     this.amountOfServings = amountOfServings;
   }
 
@@ -153,67 +151,31 @@ public class Recipe {
    * @return Will return true if recipe is possible to make, if not it will return false.
    */
   public boolean isPossibleToCook(FoodStorage foodStorage) {
-    if (foodStorage == null) {
-      throw new IllegalArgumentException("The foodStorage cannot be null.");
-    }
+    foodStorageValidation(foodStorage);
     for (Map.Entry<String, Pair<Float, String>> entry : ingredients.entrySet()) {
       String ingredientName = entry.getKey();
       float requiredQuantity = entry.getValue().getLeft();
-      boolean isFound = false;
-      for (Grocery storedGrocery : foodStorage.getSortedList()) {
-        if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
-            >= requiredQuantity) {
-          isFound = true;
-          break; // Will break early.
-        }
-      }
-      if (!isFound) {
-        return false;
-      }
+      if (!isIngredientAvailable(foodStorage, ingredientName, requiredQuantity)) return false;
     }
     return true;
   }
 
   /**
-   * Validation method for <code>String</code> inputs.
    *
-   * @param stringInput input that is passed from outer method.
-   * @throws IllegalArgumentException is thrown if string input is null, blank or empty.
-   */
-  private void stringInputValidation(String stringInput) {
-    String errorMessage = "Provided input cannot be null, empty or blank.";
-    if (stringInput == null || stringInput.isBlank() || stringInput.isEmpty()) {
-      throw new IllegalArgumentException(errorMessage);
-    }
-  }
-
-  /**
-   * Error handling method for the method<code>setIngredients</code>.
+   * Extracted method from isPossibleToCook.
    *
-   * @param ingredients The Map to validate.
-   * @throws IllegalArgumentException if the <code>ingredients</code> is null,
-   *                                  if <code>ingredientName</code> is null or blank,
-   *                               or if <code>quantity</code> is null, less than or equal to zero.
+   * @param foodStorage
+   * @param ingredientName
+   * @param requiredQuantity
+   * @return
    */
-  public void mapInputValidation(Map<String, Pair<Float, String>> ingredients) {
-    StringBuilder errorMessage = new StringBuilder();
-    if (ingredients == null) {
-      errorMessage.append("The inputted ingredients cannot be null\n");
-    } else {
-      for (Map.Entry<String, Pair<Float, String>> entry : ingredients.entrySet()) {
-        String ingredientName = entry.getKey();
-        Pair<Float, String> quantityAndUnit = entry.getValue();
-
-        if (ingredientName == null || ingredientName.isBlank()) {
-          errorMessage.append("Ingredient name cannot be null or blank.\n");
-        }
-        if (quantityAndUnit == null || quantityAndUnit.getLeft() <= 0 || quantityAndUnit.getRight().isBlank()) {
-          errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
-        }
+  private boolean isIngredientAvailable(FoodStorage foodStorage, String ingredientName, float requiredQuantity) {
+    for (Grocery storedGrocery : foodStorage.getSortedList()) {
+      if (storedGrocery.getName().equals(ingredientName) && storedGrocery.getQuantity()
+          >= requiredQuantity) {
+        return true;
       }
     }
-    if (!errorMessage.isEmpty()) {
-      throw new IllegalArgumentException(errorMessage.toString());
-    }
+    return false;
   }
 }
