@@ -61,7 +61,7 @@ public class StringFormatter {
   }
 
   /**
-   * This method is the template of how a recipe should look when printed.
+   * This method is the template of how a list of recipes should look when printed.
    *
    * @param recipes The recipes to add to table.
    * @return Will return a table according to the given format.
@@ -70,16 +70,40 @@ public class StringFormatter {
   public static String formatRecipes(Set<Recipe> recipes) {
     recipeValidation(recipes);
     StringBuilder table = new StringBuilder();
-    String format = "| %-20s | %-50s | %-50s | %-30s | %-15s |\n";
-    table.append(String.format(format, "Name", "Description", "Instructions",
+    String format = "| %-20s | %-50s | %-30s | %-15s |\n";
+    table.append(String.format(format, "Name", "Description",
         "Ingredients", "Servings"));
     table.append("---------------------------------------------------------------------------------"
         + "-------------------------------------------------------------------\n");
 
     for (Recipe recipe : recipes) {
       table.append(String.format(format, recipe.getRecipeName(),
-          recipe.getRecipeDescription(), recipe.getCookingInstructions(),
-          recipe.getIngredients(), recipe.getAmountOfServings()));
+          recipe.getRecipeDescription(), recipe.getIngredients(),
+          recipe.getAmountOfServings()));
+    }
+    return table.toString();
+  }
+
+  /**
+   * This method is the template of how a specific recipe should look when printed.
+   *
+   * @param recipe Recipe to add to table.
+   * @return Will return a table according to the given format.
+   * @since 0.0.1
+   */
+  public static String formatRecipe(Set<Recipe> recipe) {
+    recipeValidation(recipe);
+    StringBuilder table = new StringBuilder();
+    String format = "| %-20s | %-50s | %-50s | %-30s | %-15s |\n";
+    table.append(String.format(format, "Name", "Description", "Instructions",
+        "Ingredients", "Servings"));
+    table.append("---------------------------------------------------------------------------------"
+        + "-------------------------------------------------------------------\n");
+
+    for (Recipe recipeElement : recipe) {
+      table.append(String.format(format, recipeElement.getRecipeName(),
+          recipeElement.getRecipeDescription(), recipeElement.getCookingInstructions(),
+          recipeElement.getIngredients(), recipeElement.getAmountOfServings()));
     }
     return table.toString();
   }
@@ -147,6 +171,6 @@ public class StringFormatter {
    * @since 0.0.1
    */
   public static String formatRecipe(Recipe recipe) {
-    return formatRecipes(Set.of(recipe));
+    return formatRecipe(Set.of(recipe));
   }
 }
