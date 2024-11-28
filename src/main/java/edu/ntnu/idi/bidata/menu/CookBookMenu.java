@@ -5,10 +5,6 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import org.graalvm.collections.Pair;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -25,6 +21,8 @@ public class CookBookMenu {
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
   private final StringMenu stringMenu = new StringMenu();
+  private final RecipeMutator recipeMutator = new RecipeMutator();
+  private final RecipePrinter recipePrinter = new RecipePrinter();
 
   /**
    * Constructor for the <code>CookBookMeny</code> class.
@@ -82,108 +80,15 @@ public class CookBookMenu {
       }
 
       switch (command) {
-        case CookBookCommand.CREATE_RECIPE -> createRecipe();
-        case CookBookCommand.REMOVE_RECIPE -> removeRecipe();
-        case CookBookCommand.PRINT_RECIPES -> printRecipes();
-        case CookBookCommand.PRINT_RECIPE -> printRecipe();
+        case CookBookCommand.CREATE_RECIPE -> recipeMutator.createRecipe(ERRORMESSAGE, cookBook);
+        case CookBookCommand.REMOVE_RECIPE -> recipeMutator.removeRecipe(ERRORMESSAGE, cookBook);
+        case CookBookCommand.PRINT_RECIPES -> recipePrinter.printRecipes(ERRORMESSAGE, cookBook);
+        case CookBookCommand.PRINT_RECIPE -> recipePrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
         case CookBookCommand.RECIPE_RECOMMENDATION -> recipeRecommendation();
         case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
         default -> System.out.println("Invalid command.");
       }
     } while (command != CookBookCommand.BACK);
-  }
-
-  /**
-   * Makes the user able to create a new recipe.
-   * Will then add it to the cookbook.
-   *
-   * @since 0.0.1
-   */
-  private void createRecipe() {
-    try {
-      Recipe recipe;
-      String nameOfRecipe = uiInputHandler.stringReader("Please enter name of recipe: ");
-      String recipeDescription = uiInputHandler.stringReader("Please enter a recipe description: ");
-      String cookingInstructions = uiInputHandler
-          .stringReader("Please enter cooking instructions: ");
-      int amountOfServings = uiInputHandler.intReader("Please enter amount of servings");
-
-      Map<String, Pair<Float, String>> ingredients = new HashMap<>();
-      boolean isUserDone = false;
-
-      while (!isUserDone) {
-        String nameOfIngredient = uiInputHandler
-            .stringReader("Please enter name of ingredient (type 'done' if finished): ");
-        if (nameOfIngredient.equalsIgnoreCase("Done")) {
-          isUserDone = true;
-        } else {
-          float quantityOfIngredient = uiInputHandler
-              .intReader("Please enter required quantity of ingredient: ");
-          String unitOfMeasurement = uiInputHandler.stringReader("Please enter unit of measurement.");
-          ingredients.put(nameOfIngredient, Pair.create(quantityOfIngredient, unitOfMeasurement));
-        }
-      }
-      recipe = new Recipe(nameOfRecipe, recipeDescription,
-          cookingInstructions, ingredients, amountOfServings);
-      cookBook.addRecipe(recipe);
-      System.out.println(nameOfRecipe + " was added successfully!");
-    } catch (IllegalArgumentException e) {
-      System.out.println(ERRORMESSAGE + e.getMessage());
-    }
-  }
-
-  /**
-   * stream part inspired by copilot.
-   *
-   * <p>Will make the user able to remove a recipe from the cookbook.</p>
-   *
-   * @since 0.0.1
-   */
-  private void removeRecipe() {
-    try {
-      String recipeToRemove = uiInputHandler.stringReader("Please enter recipe to remove: ");
-      Recipe recipe = cookBook.getAllRecipes().stream()
-          .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToRemove))
-          .findFirst()
-          .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
-      cookBook.removeRecipe(recipe);
-      System.out.println(recipe + " was removed!");
-    } catch (NoSuchElementException e) {
-      System.out.println(ERRORMESSAGE + e.getMessage());
-    }
-  }
-
-  /**
-   * Prints all the recipes in the cookbook.
-   *
-   * @since 0.0.1
-   */
-  private void printRecipes() {
-    try {
-      String formattedRecipes = CookBookFormatter.formatRecipes(cookBook.getAllRecipes());
-      System.out.println(formattedRecipes);
-    } catch (NoSuchElementException e) {
-      System.out.println(ERRORMESSAGE + e.getMessage());
-    }
-  }
-
-  /**
-   * Prints a given recipe from the cookbook.
-   *
-   * @since 0.0.1
-   */
-  private void printRecipe() {
-    try {
-      String recipeToPrint = uiInputHandler.stringReader("Please enter recipe to print: ");
-      Recipe recipe = cookBook.getAllRecipes().stream()
-          .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToPrint))
-          .findFirst()
-          .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
-      String formattedRecipe = CookBookFormatter.formatRecipe(recipe);
-      System.out.println(formattedRecipe);
-    } catch (NoSuchElementException e) {
-      System.out.println(ERRORMESSAGE + e.getMessage());
-    }
   }
 
   private void recipeRecommendation() {
