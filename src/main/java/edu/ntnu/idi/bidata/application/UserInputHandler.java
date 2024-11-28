@@ -79,4 +79,16 @@ public class UserInputHandler {
     }
     return value;
   }
+
+  public String dateReader(String prompt) {
+    String dateOfExpiry = "";
+    boolean isDateCorrect = false;
+    while (!isDateCorrect) {
+      dateOfExpiry = stringReader(prompt);
+      if (dateOfExpiry.matches("\\d{4}-\\d{2}-\\d{2}")) {
+        isDateCorrect = true;
+      }
+    }
+    return dateOfExpiry;
+  }
 }
