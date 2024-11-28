@@ -107,7 +107,7 @@ public class Grocery {
     try {
       this.expirationDate = LocalDate.parse(dateString);
     } catch (DateTimeException e) {
-      throw new IllegalArgumentException("Please enter date on the format 'YYYY-MM-DD'.");
+      throw new IllegalArgumentException("You have entered an invalid date!");
     }
   }
 
