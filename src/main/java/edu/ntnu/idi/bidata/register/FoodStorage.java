@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import static edu.ntnu.idi.bidata.register.FoodStorageValidator.*;
+
 /**
  * This class represents a storage where instances of Grocery can be stored.
  * The storage can represent a fridge, drawer, freezer etc.
@@ -38,11 +40,7 @@ public class FoodStorage {
    * @param providedGrocery Represents the instance of a Grocery.
    */
   public void addGrocery(Grocery providedGrocery) {
-    String errorMessage;
-    if (providedGrocery == null) {
-      errorMessage = "The provided grocery cannot be null.";
-      throw new IllegalArgumentException(errorMessage);
-    }
+    validateGrocery(providedGrocery);
     List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(),
         new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
@@ -65,7 +63,7 @@ public class FoodStorage {
    * @param isFound Will flag if the grocery is found.
    * @return Will return a boolean if the grocery already exists or not.
    */
-  private static boolean isFound(Grocery providedGrocery, Iterator<Grocery> groceryIterator, boolean isFound) {
+  private boolean isFound(Grocery providedGrocery, Iterator<Grocery> groceryIterator, boolean isFound) {
     while (groceryIterator.hasNext() && !isFound) {
       Grocery grocery = groceryIterator.next();
 
@@ -77,46 +75,6 @@ public class FoodStorage {
       }
     }
     return isFound;
-  }
-
-  /**
-   * Validation method for <code>removeGrocery</code>.
-   * Will validate the input, to check if the provided grocery is not null,
-   * and that the quantity to remove is not less than or equal to zero.
-   * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
-   *                                                                SonarLint was throwing.
-   *
-   * @param groceryToRemove The grocery that the quantity should be removed from.
-   * @param quantityToRemove The quantity that is going to be removed.
-   *
-   * @throws IllegalArgumentException if the quantityToRemove is less than or equal to zero,
-   *                                                          or the provided grocery is null.
-   */
-  private void validateInputs(String groceryToRemove, float quantityToRemove) {
-    String errorMessage;
-    if (groceryToRemove == null || groceryToRemove.isBlank() || quantityToRemove <= 0) {
-      if (groceryToRemove == null || groceryToRemove.isBlank()) {
-        errorMessage = "The provided grocery cannot be null or empty.";
-      } else {
-        errorMessage = "The quantity to remove cannot be less than or equal to zero.";
-      }
-      throw new IllegalArgumentException(errorMessage);
-    }
-  }
-
-  /**
-   * Validation method for <code>removeGrocery</code>.
-   * Will validate the input to check if the groceryList is null or empty.
-   * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
-   *                                                                SonarLint was throwing.
-   *
-   * @param groceryList List to check.
-   * @throws NoSuchElementException if there is no elements in the list.
-   */
-  private void validateGroceryList(List<Grocery> groceryList) {
-    if (groceryList == null || groceryList.isEmpty()) {
-      throw new NoSuchElementException("The grocery list is empty.");
-    }
   }
 
   /**
@@ -134,22 +92,33 @@ public class FoodStorage {
   private void removeGroceryFromList(String groceryToRemove,
                                      float quantityToRemove, List<Grocery> groceryList) {
     List<Grocery> itemsToRemove = new ArrayList<>();
-    groceryList.forEach(grocery -> {
-      if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
-        float updatedQuantity = grocery.getQuantity() - quantityToRemove;
-        if (updatedQuantity < 0) {
-          throw new IllegalArgumentException("You are trying to remove a higher quantity, "
-              + "than what is available.");
-        } else if (updatedQuantity == 0) {
-          itemsToRemove.add(grocery);
-        } else {
-          float pricePerUnit = grocery.getPrice() / grocery.getQuantity();
-          grocery.setQuantity(updatedQuantity);
-          grocery.setPrice(pricePerUnit * updatedQuantity);
-        }
-      }
-    });
+    groceryList.forEach(grocery -> removeGroceryLogic(groceryToRemove, quantityToRemove, grocery, itemsToRemove));
     groceryList.removeAll(itemsToRemove);
+  }
+
+  /**
+   * Extracted from removeFromGroceryList
+   *
+   *
+   * @param groceryToRemove
+   * @param quantityToRemove
+   * @param grocery
+   * @param itemsToRemove
+   */
+  private void removeGroceryLogic(String groceryToRemove, float quantityToRemove, Grocery grocery, List<Grocery> itemsToRemove) {
+    if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
+      float updatedQuantity = grocery.getQuantity() - quantityToRemove;
+      if (updatedQuantity < 0) {
+        throw new IllegalArgumentException("You are trying to remove a higher quantity, "
+            + "than what is available.");
+      } else if (updatedQuantity == 0) {
+        itemsToRemove.add(grocery);
+      } else {
+        float pricePerUnit = grocery.getPrice() / grocery.getQuantity();
+        grocery.setQuantity(updatedQuantity);
+        grocery.setPrice(pricePerUnit * updatedQuantity);
+      }
+    }
   }
 
   /**
@@ -183,10 +152,7 @@ public class FoodStorage {
    * @return Will return the instance(s) that is searched for.
    */
   public List<Grocery> searchGrocery(String name) {
-    if (name == null || name.isBlank() || name.isEmpty()) {
-      throw new IllegalArgumentException("Provided name cannot be null, empty or blank.");
-    }
-
+    validateString(name);
     List<Grocery> searchedGrocery = new ArrayList<>();
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
@@ -204,9 +170,7 @@ public class FoodStorage {
    * @return Will return the total value of expired groceries.
    */
   public float valueOfExpiredGroceries(List<Grocery> expiredGroceries) {
-    if (expiredGroceries == null || expiredGroceries.isEmpty()) {
-      throw new IllegalArgumentException("The list cannot be null or empty.");
-    }
+    validateGroceryList(expiredGroceries);
     return expiredGroceries.stream()
         .map(Grocery::getPrice)
         .reduce(0f, Float::sum);
@@ -223,17 +187,26 @@ public class FoodStorage {
     try {
       LocalDate expiryDate = LocalDate.parse(providedExpiryDate);
       List<Grocery> expiredGroceries = new ArrayList<>();
+      expiredGroceries(expiryDate, expiredGroceries);
 
-      for (List<Grocery> groceryList : groceries.values()) {
-        for (Grocery grocery : groceryList) {
-          if (grocery.getExpirationDate().isBefore(expiryDate)) {
-            expiredGroceries.add(grocery);
-          }
-        }
-      }
       return expiredGroceries;
     } catch (DateTimeException e) {
       throw new IllegalArgumentException("Please enter date on format 'YYYY-MM-DD'.");
+    }
+  }
+
+  /**
+   * Extracted from listOfExpiredGroceries.
+   * @param expiryDate
+   * @param expiredGroceries
+   */
+  private void expiredGroceries(LocalDate expiryDate, List<Grocery> expiredGroceries) {
+    for (List<Grocery> groceryList : groceries.values()) {
+      for (Grocery grocery : groceryList) {
+        if (grocery.getExpirationDate().isBefore(expiryDate)) {
+          expiredGroceries.add(grocery);
+        }
+      }
     }
   }
 
@@ -281,12 +254,12 @@ public class FoodStorage {
    * @param requiredQuantity The required quantity of ingredient.
    * @return Will return a boolean, true if available and false if not.
    */
-  public boolean isGroceryAvailable(String name, float quantity, String unit) {
+  public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity, String unitOfMeasurement) {
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
-        if (grocery.getName().equals(name) &&
-            grocery.getQuantity() >= quantity &&
-            grocery.getUnitOfMeasurement().equalsIgnoreCase(unit)) {
+        if (grocery.getName().equals(nameOfIngredient) &&
+            grocery.getQuantity() >= requiredQuantity &&
+            grocery.getUnitOfMeasurement().equalsIgnoreCase(unitOfMeasurement)) {
           return true;
         }
       }
