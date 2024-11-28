@@ -5,8 +5,8 @@ import edu.ntnu.idi.bidata.recipe.Recipe;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-public class RecipeFormatter {
-  RecipeFormatter() {
+public class CookBookFormatter {
+  CookBookFormatter() {
 
   }
 
