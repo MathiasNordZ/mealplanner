@@ -87,8 +87,26 @@ public class UserInputHandler {
       dateOfExpiry = stringReader(prompt);
       if (dateOfExpiry.matches("\\d{4}-\\d{2}-\\d{2}")) { // Will check that it matches the correct format.
         isDateCorrect = true;
+      } else {
+        System.out.println("You provided an invalid date! Pleas use format 'YYYY-MM-DD'.");
       }
     }
     return dateOfExpiry;
+  }
+
+  public String unitReader(String prompt) {
+    String unitOfMeasurement = "";
+    boolean isUnitCorrect = false;
+    while (!isUnitCorrect) {
+      unitOfMeasurement = stringReader(prompt);
+      if (unitOfMeasurement.equalsIgnoreCase("kilogram")
+          || unitOfMeasurement.equalsIgnoreCase("liter")
+          || unitOfMeasurement.equalsIgnoreCase("pcs")) {
+        isUnitCorrect = true;
+      } else {
+        System.out.println("You provided an invalid unit of measurement! Please use (kilogram/liter/pcs).");
+      }
+    }
+    return unitOfMeasurement;
   }
 }
