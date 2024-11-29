@@ -21,7 +21,7 @@ public class Grocery {
   /**
    * Constructor for the Grocery class. Initializes the quantity, name, unitOfMeasurement,
    * and expiry date.
-   * The constructor uses setters and getters for error handling.
+   * The constructor uses setters and getters to reduce duplication.
    *
    * @param quantity This is the quantity of the grocery.
    * @param name This is the name of the grocery.
@@ -42,7 +42,7 @@ public class Grocery {
   /**
    * Accessor method for <code>quantity</code>.
    *
-   * @return Returns the value of the field, quantity.
+   * @return the value of the field, quantity.
    */
   public float getQuantity() {
     return quantity;
@@ -51,7 +51,7 @@ public class Grocery {
   /**
    * Mutator method for <code>quantity</code>.
    *
-   * @param quantity Represents the quantity as the datatype float.
+   * @param quantity Represents the quantity of a grocery.
    *
    * @throws IllegalArgumentException if quantity is less than zero,
    *                                  because a negative quantity is not possible.
@@ -66,7 +66,7 @@ public class Grocery {
   /**
    * Accessor method for <code>name</code>.
    *
-   * @return Returns the value of field, name.
+   * @return The value of name.
    */
   public String getName() {
     return name;
@@ -75,13 +75,13 @@ public class Grocery {
   /**
    * Mutator method for <code>name</code>.
    *
-   * @param name Represents the name of a Grocery.
+   * @param name the name of a Grocery.
    *
-   * @throws IllegalArgumentException if name is blank or empty.
+   * @throws IllegalArgumentException if name is null, blank or empty.
    */
   public void setName(String name) {
-    if (name == null || name.isBlank() || name.isEmpty()) {
-      throw new IllegalArgumentException("Name can not be blank or empty.");
+    if (name == null || name.isBlank()) {
+      throw new IllegalArgumentException("Name can not be null, blank or empty.");
     }
     this.name = name;
   }
@@ -89,7 +89,7 @@ public class Grocery {
   /**
    * Accessor method for <code>expirationDate</code>.
    *
-   * @return Returns the value of field, expirationDate.
+   * @return the value of expirationDate.
    */
   public LocalDate getExpirationDate() {
     return expirationDate;
@@ -99,7 +99,7 @@ public class Grocery {
    * Mutator method for <code>expirationDate</code>.
    *
    * @param dateString String parameter that will represent the
-   *                   expiry date on the format "YYYY-MM-DD".
+   *                   expiry date on the format 'YYYY-MM-DD'.
    *
    * @throws IllegalArgumentException if expiration date is not on the correct format.
    */
@@ -114,7 +114,7 @@ public class Grocery {
   /**
    * Accessor method for <code>unitOfMeasurement</code>.
    *
-   * @return Returns the field unitOfMeasurement.
+   * @return the field unitOfMeasurement.
    */
   public String getUnitOfMeasurement() {
     return unitOfMeasurement;
@@ -123,8 +123,8 @@ public class Grocery {
   /**
    * Mutator method for <code>unitOfMeasurement</code>.
    *
-   * @param unitOfMeasurement Represents the unitOfMeasurement that the quantity is measured in.
-   *                          Either liter or kilogram.
+   * @param unitOfMeasurement the unit of measurement that the quantity is measured in.
+   *                          Either liter, kilogram or pcs.
    *
    * @throws IllegalArgumentException if provided parameter does not match
    *                                     the string value "liter" or "kilogram".
@@ -141,7 +141,7 @@ public class Grocery {
   /**
    * Accessor method for <code>price</code>.
    *
-   * @return Returns the field price.
+   * @return the price of the grocery.
    */
   public float getPrice() {
     return price;
@@ -150,7 +150,7 @@ public class Grocery {
   /**
    * Mutator method for <code>price</code>.
    *
-   * @param price Takes in parameter float price and passes it to the field, price.
+   * @param price parameter price that is passed to the field price.
    *
    * @throws IllegalArgumentException if the provided parameter is less than zero.
    *                                  This is to prevent a negative price.
