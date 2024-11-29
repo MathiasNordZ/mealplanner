@@ -53,6 +53,10 @@ public class FoodStorageValidator {
     }
   }
 
+  /**
+   * Test
+   * @param name
+   */
   public static void validateString(String name) {
     if (name == null || name.isBlank() || name.isEmpty()) {
       throw new IllegalArgumentException("Provided name cannot be null, empty or blank.");
