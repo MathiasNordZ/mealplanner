@@ -3,9 +3,8 @@ package edu.ntnu.idi.bidata.application;
 import java.util.Scanner;
 
 /**
- * <p>The UserInputHandler class handles input and output operations for the user interface.
- * It provides methods to read strings, integers, and floats from the user,
- * and to print messages to the console.</p>
+ * <p>The <code>UserInputHandler</code> class handles input operations for the user.
+ * It provides methods to read strings, integers, and floats from the user.</p>
  *
  * @author <b>Mathias Erik Nord</b>
  * @version <b>0.0.1</b>
@@ -15,17 +14,20 @@ public class UserInputHandler {
 
   /**
    * <p>Constructor for <code>UserInputHandler</code>.
-   * Initializes a scanner instance to read inputs from user.</p>
+   * Initializes a scanner instance to read inputs from user.
+   * Constructor is empty, because there is no additional initialization required.</p>
+   * @since 0.0.1
    */
   public UserInputHandler() {
-    // Empty
+    // The constructor is empty, because there is no additional initialization required.
   }
 
   /**
-   * <p>>Reads a string input from the user.</p>
+   * <p>Reads a string input from the user.</p>
    *
-   * @param prompt the message to display to the user before reading input
-   * @return the string input from the user
+   * @param prompt The message to display to prompt the user before reading input.
+   * @return String input from the user.
+   * @since 0.0.1
    */
   public String stringReader(String prompt) {
     System.out.println(prompt);
@@ -34,10 +36,12 @@ public class UserInputHandler {
 
   /**
    * <p>Reads an integer input from the user.
-   * If the input is not a valid integer, an IllegalArgumentException is thrown.</p>
+   * If the input is not a valid integer,
+   * it will re-prompt until there is a valid input.</p>
    *
-   * @param prompt the message to display to the user before reading input
-   * @return the integer input from the user
+   * @param prompt The message to display to the user before reading input.
+   * @return Integer input from the user.
+   * @since 0.0.1
    */
   public int intReader(String prompt) {
     int value = 0;
@@ -46,11 +50,11 @@ public class UserInputHandler {
       System.out.println(prompt);
       if (scanner.hasNextInt()) {
         value = scanner.nextInt();
-        scanner.nextLine(); // consume the newline character
+        scanner.nextLine();
         validInput = true;
       } else {
         System.out.println("You provided and invalid input! Please enter a valid whole number.");
-        scanner.next(); // consume the invalid input
+        scanner.next();
       }
     }
     return value;
@@ -58,10 +62,12 @@ public class UserInputHandler {
 
   /**
    * <p>Reads a float input from the user.
-   * If the input is not a valid float, an IllegalArgumentException is thrown.</p>
+   * If the input is not a valid float,
+   * it will re-prompt until the input is valid.</p>
    *
-   * @param prompt the message to display to the user before reading input
-   * @return the float input from the user
+   * @param prompt The message to display to the user before reading input.
+   * @return Float input from the user.
+   * @since 0.0.1
    */
   public float floatReader(String prompt) {
     float value = 0;
@@ -70,11 +76,11 @@ public class UserInputHandler {
       System.out.println(prompt);
       if (scanner.hasNextFloat()) {
         value = scanner.nextFloat();
-        scanner.nextLine(); // consume the newline character
+        scanner.nextLine();
         validInput = true;
       } else {
         System.out.println("You provided and invalid input! Please enter a valid number.");
-        scanner.next(); // consume the invalid input
+        scanner.next();
       }
     }
     return value;
@@ -86,6 +92,7 @@ public class UserInputHandler {
    *
    * @param prompt The prompt message.
    * @return Will return the inputted date of expiry.
+   * @since 0.0.1
    */
   public String dateReader(String prompt) {
     String dateOfExpiry = "";
@@ -107,6 +114,7 @@ public class UserInputHandler {
    *
    * @param prompt The prompt message.
    * @return Will return the inputted unit.
+   * @since 0.0.1
    */
   public String unitReader(String prompt) {
     String unitOfMeasurement = "";
