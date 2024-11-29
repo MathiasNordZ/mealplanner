@@ -1,9 +1,9 @@
 package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenu;
 import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
-import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
@@ -12,8 +12,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>This is the <code>UserInterface</code> class. This class will initialize instances required to run the application.
- * It will also initially fill the food storage and cookbook with groceries and recipes by default.</p>
+ * This is the <code>UserInterface</code> class.
+ *
+ * <p>This class will initialize instances required to run the application.</p>
+ *
+ * <p>It will also initially fill the food storage
+ * and cookbook with groceries and recipes by default.</p>
  *
  * @author <b>Mathias Erik Nord</b>
  * @version <b>0.0.1</b>
@@ -23,8 +27,8 @@ public class UserInterface {
   private static final String KILOGRAM = "kilogram";
 
   /**
-   * <p>This is the method that initializes all the instances required to run the application.
-   * It will also fill the cookbook and food storage with some default groceries and recipes.</p>
+   * This is the method that initializes all the instances required to run the application.
+   * It will also fill the cookbook and food storage with some default groceries and recipes.
    *
    * @since 0.0.1
    */
@@ -42,7 +46,7 @@ public class UserInterface {
   }
 
   /**
-   * <p>This is the method that will start the whole application.</p>
+   * This is the method that will start the whole application.
    *
    * @since 0.0.1
    */
@@ -51,7 +55,7 @@ public class UserInterface {
   }
 
   /**
-   * <p>Private method that will initialize an instance of <code>Grocery</code>.</p>
+   * Private method that will initialize an instance of <code>Grocery</code>.
    *
    * @param foodStorage Food storage that grocery will be added to
    * @param quantity Quantity of grocery to add.
@@ -61,15 +65,15 @@ public class UserInterface {
    * @param expiryDate Expiry date of grocery.
    * @since 0.0.1
    */
-  private void initializeGrocery(FoodStorage foodStorage, float quantity, String name, String unit, int price, String expiryDate) {
+  private void initializeGrocery(FoodStorage foodStorage, float quantity,
+                                 String name, String unit, int price, String expiryDate) {
     Grocery grocery = new Grocery(quantity, name, unit, price, expiryDate);
     foodStorage.addGrocery(grocery);
   }
 
   /**
-   * <p>Method that will call <code>initializeGrocery</code>.
+   * Method that will call <code>initializeGrocery</code>.
    * This is to initialize a given set of groceries to start the application with.
-   * </p>
    *
    * @param foodStorage Food storage that grocery should be added to.
    * @since 0.0.1
@@ -82,7 +86,7 @@ public class UserInterface {
   }
 
   /**
-   * <p>Method that will initialize an instance of <code>Recipe</code>.</p>
+   * Method that will initialize an instance of <code>Recipe</code>.
    *
    * @param cookBook Cookbook to add the recipe to.
    * @param recipeName Name of the recipe.
@@ -92,14 +96,18 @@ public class UserInterface {
    * @param amountOfServings Amount of servings.
    * @since 0.0.1
    */
-  private void initializeRecipe(CookBook cookBook, String recipeName, String recipeDescription, String cookingInstructions, Map<String, SimpleEntry<Float, String>> ingredients, int amountOfServings) {
-    Recipe recipe = new Recipe(recipeName, recipeDescription, cookingInstructions, ingredients, amountOfServings);
+  private void initializeRecipe(CookBook cookBook, String recipeName,
+                                String recipeDescription, String cookingInstructions,
+                                Map<String, SimpleEntry<Float, String>> ingredients,
+                                int amountOfServings) {
+    Recipe recipe = new Recipe(recipeName, recipeDescription,
+        cookingInstructions, ingredients, amountOfServings);
     cookBook.addRecipe(recipe);
   }
 
   /**
-   * <p>Method will call <code>initializeRecipe</code>,
-   * to initialize given recipes by default when starting the program.</p>
+   * Method will call <code>initializeRecipe</code>.
+   * This is to initialize given recipes by default when starting the program.
    *
    * @param cookBook Cookbook to add recipe to.
    * @since 0.0.1
