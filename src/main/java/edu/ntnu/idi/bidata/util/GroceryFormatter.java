@@ -2,20 +2,29 @@ package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Utility class for formatting groceries.
+ * Provides methods to format a list of groceries into a readable table form.
+ *
+ * @author Mathias Erik Nord
+ * @since 23.11.2024
+ * @version 0.0.1
+ */
 public class GroceryFormatter {
-  public GroceryFormatter() {
-
+  private GroceryFormatter() {
+    // Private constructor to avoid instantiation.
   }
 
   /**
-   * This method is the template of how a grocery should look when printed.
+   * Formats a list of groceries into a table format.
    *
    * @param groceries The groceries to add to table.
-   * @return Will return a table according to the given format.
+   * @return A table according to the given format.
+   * @throws IllegalArgumentException if the grocery list is null
+   * @throws NoSuchElementException if the grocery list is empty
    * @since 0.0.1
    */
   public static String formatGroceries(List<Grocery> groceries) {
@@ -35,11 +44,12 @@ public class GroceryFormatter {
   }
 
   /**
-   * Validation method for <code>formatGroceries</code>.
-   * Will validate that the provided Set is not <code>null</code> or empty.
-   * Refactored to a separate method to be less complex and more modular.
+   * Validates the provided list of groceries.
+   * Checks if the list is not null or empty.
    *
-   * @param groceries Grocery list to validate.
+   * @param groceries The grocery list to validate.
+   * @throws IllegalArgumentException if the grocery list is null
+   * @throws NoSuchElementException if the grocery list is empty
    * @since 0.0.1
    */
   private static void groceryValidation(List<Grocery> groceries) {
@@ -53,11 +63,10 @@ public class GroceryFormatter {
   }
 
   /**
-   * This method will format the <code>getSortedList</code>,
-   * according to the <code>formatGroceries</code> template.
+   * Formats the sorted list of groceries from the given food storage.
    *
    * @param foodStorage The foodStorage to check.
-   * @return Will a sorted list, formatted as a table
+   * @return A formatted string of the sorted groceries.
    * @since 0.0.1
    */
   public static String formatSortedGroceries(FoodStorage foodStorage) {
@@ -65,12 +74,11 @@ public class GroceryFormatter {
   }
 
   /**
-   * This method will format the <code>listOfExpiredGroceries</code>,
-   * according to the <code>formatGroceries</code> template.
+   * Formats the list of expired groceries from the given food storage.
    *
    * @param foodStorage The foodStorage to check.
-   * @param providedExpiryDate Expiry date to sort by.
-   * @return Will return list of expired groceries, formatted as table.
+   * @param providedExpiryDate The expiry date to sort by.
+   * @return A list of expired groceries, formatted as table.
    * @since 0.0.1
    */
   public static String formatExpiredGroceries(FoodStorage foodStorage, String providedExpiryDate) {
@@ -78,12 +86,11 @@ public class GroceryFormatter {
   }
 
   /**
-   * This method will format <code>searchGrocery</code>,
-   * according to the <code>formatGroceries</code> template.
+   * Formats the search result of a grocery.
    *
    * @param foodStorage The foodStorage to check.
    * @param groceryToSearch The grocery to search for.
-   * @return Will return the grocery in a formatted table.
+   * @return The grocery in a formatted table.
    * @since 0.0.1
    */
   public static String formatGrocery(FoodStorage foodStorage, String groceryToSearch) {
