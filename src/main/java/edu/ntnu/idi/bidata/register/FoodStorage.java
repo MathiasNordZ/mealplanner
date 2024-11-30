@@ -1,5 +1,10 @@
 package edu.ntnu.idi.bidata.register;
 
+import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateGrocery;
+import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateGroceryList;
+import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateInputs;
+import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateString;
+
 import edu.ntnu.idi.bidata.entity.Grocery;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -11,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static edu.ntnu.idi.bidata.register.FoodStorageValidator.*;
 
 /**
  * This class represents a storage where instances of <code>Grocery</code>> can be stored.
@@ -64,7 +68,8 @@ public class FoodStorage {
    * @param isFound The flag indicating if the grocery is found.
    * @return <code>true</code> if the grocery is found, <code>false</code> if not found.
    */
-  private boolean isFound(Grocery providedGrocery, Iterator<Grocery> groceryIterator, boolean isFound) {
+  private boolean isFound(Grocery providedGrocery, Iterator<Grocery> groceryIterator,
+                          boolean isFound) {
     while (groceryIterator.hasNext() && !isFound) {
       Grocery grocery = groceryIterator.next();
 
@@ -92,7 +97,8 @@ public class FoodStorage {
   private void removeGroceryFromList(String groceryToRemove,
                                      float quantityToRemove, List<Grocery> groceryList) {
     List<Grocery> itemsToRemove = new ArrayList<>();
-    groceryList.forEach(grocery -> removeGroceryLogic(groceryToRemove, quantityToRemove, grocery, itemsToRemove));
+    groceryList.forEach(grocery -> removeGroceryLogic(groceryToRemove, quantityToRemove,
+        grocery, itemsToRemove));
     groceryList.removeAll(itemsToRemove);
   }
 
@@ -105,7 +111,8 @@ public class FoodStorage {
    * @param grocery The grocery instance.
    * @param itemsToRemove The list of items to remove.
    */
-  private void removeGroceryLogic(String groceryToRemove, float quantityToRemove, Grocery grocery, List<Grocery> itemsToRemove) {
+  private void removeGroceryLogic(String groceryToRemove, float quantityToRemove, Grocery grocery,
+                                  List<Grocery> itemsToRemove) {
     if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
       float updatedQuantity = grocery.getQuantity() - quantityToRemove;
       if (updatedQuantity < 0) {
@@ -229,7 +236,7 @@ public class FoodStorage {
           .map(Grocery::getPrice)
           .reduce(0f, Float::sum);
     } catch (Exception e) {
-        return 0;
+      return 0;
     }
   }
 
@@ -261,12 +268,13 @@ public class FoodStorage {
    * @param requiredQuantity The required quantity of ingredient.
    * @return <code>true</code> if the required quantity is available, <code>false</code> otherwise.>
    */
-  public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity, String unitOfMeasurement) {
+  public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity,
+                                    String unitOfMeasurement) {
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
-        if (grocery.getName().equals(nameOfIngredient) &&
-            grocery.getQuantity() >= requiredQuantity &&
-            grocery.getUnitOfMeasurement().equalsIgnoreCase(unitOfMeasurement)) {
+        if (grocery.getName().equals(nameOfIngredient)
+            && grocery.getQuantity() >= requiredQuantity
+            && grocery.getUnitOfMeasurement().equalsIgnoreCase(unitOfMeasurement)) {
           return true;
         }
       }
