@@ -5,6 +5,8 @@ import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 
+import java.util.Scanner;
+
 /**
  * This class represents the cook book menu in the application.
  * In the cook book menu the user should be able to manage the recipes.
@@ -14,13 +16,14 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  * @since <b>22.11.2024</b>
  */
 public class CookBookMenu {
-  private final UserInputHandler uiInputHandler;
+  private final Scanner scanner = new Scanner(System.in);
+  private UserInputHandler uiInputHandler = new UserInputHandler(scanner);
   private final CookBook cookBook;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
-  private final StringMenu stringMenu = new StringMenu();
-  private final CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator();
-  private final CookBookMenuPrinter cookBookMenuPrinter = new CookBookMenuPrinter();
+  private final StringMenu stringMenu;
+  private final CookBookMenuMutator cookBookMenuMutator;
+  private final CookBookMenuPrinter cookBookMenuPrinter;
 
   /**
    * Constructs a new instance of <code>CookBookMenu</code>.
@@ -30,10 +33,13 @@ public class CookBookMenu {
    * @param foodStorage The storage that contains the groceries used in the recipes.
    * @since 0.0.1
    */
-  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage) {
+  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage, StringMenu stringMenu, CookBookMenuMutator cookBookMenuMutator, CookBookMenuPrinter cookBookMenuPrinter) {
     this.uiInputHandler = uiInputHandler;
     this.cookBook = cookBook;
     this.foodStorage = foodStorage;
+    this.stringMenu = stringMenu;
+    this.cookBookMenuMutator = cookBookMenuMutator;
+    this.cookBookMenuPrinter = cookBookMenuPrinter;
   }
 
   /**
