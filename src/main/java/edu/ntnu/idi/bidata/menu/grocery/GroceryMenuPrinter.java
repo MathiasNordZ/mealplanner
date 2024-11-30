@@ -1,22 +1,35 @@
 package edu.ntnu.idi.bidata.menu.grocery;
 
+import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
-import edu.ntnu.idi.bidata.application.UserInputHandler;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * This class provides methods to print information about groceries in the food storage.
+ *
+ * @version 0.0.1
+ * @since 28.11.2024
+ */
 public class GroceryMenuPrinter {
-  private final UserInputHandler uiInputHandler = new UserInputHandler();
+  private final UserInputHandler uiInputHandler;
 
-  public GroceryMenuPrinter() {
-
+  /**
+   * Constructs a new instance of <code>GroceryMenuPrinter</code>.
+   *
+   * @since 0.0.1
+   */
+  public GroceryMenuPrinter(UserInputHandler uiInputHandler) {
+    this.uiInputHandler = uiInputHandler;
   }
 
   /**
-   * This method will prompt the user for a grocery they want to search for.
-   * If the grocery does exist, it will be searched for.
+   * Prompts the user for a grocery to search for and prints the details if found.
+   *
+   * @param foodStorage The food storage to search in.
+   * @since 0.0.1
    */
   public void searchForGrocery(FoodStorage foodStorage) {
     String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
@@ -30,7 +43,11 @@ public class GroceryMenuPrinter {
   }
 
   /**
-   * This method will print a list of all groceries.
+   * Prints a list of all groceries in the food storage.
+   *
+   * @param errorMessage The error message to display in case of an exception.
+   * @param foodStorage The food storage to list the groceries from.
+   * @since 0.0.1
    */
   public void listOfAllGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
@@ -43,9 +60,12 @@ public class GroceryMenuPrinter {
   }
 
   /**
-   * This method will prompt the user for a date.
-   * The method will then search for the groceries that expire before the given date.
-   * The bottom of the list will print the total value of the expired groceries.
+   * Prompts the user for a date and prints the groceries that expires before the given date.
+   * Will also print the total value of the expired groceries.
+   *
+   * @param errorMessage The error message to display in case of an exception.
+   * @param foodStorage The food storage to list the expired groceries from.
+   * @since 0.0.1
    */
   public void listOfExpiredGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
@@ -55,14 +75,19 @@ public class GroceryMenuPrinter {
       String formattedExpiredGroceries = GroceryFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExpiredGroceries);
-      System.out.println("Value of expired groceries: " + foodStorage.valueOfExpiredGroceries(expiredGroceries) + "\n");
-    } catch (IllegalArgumentException | NoSuchElementException e ) {
+      System.out.println("Value of expired groceries: "
+          + foodStorage.valueOfExpiredGroceries(expiredGroceries) + "\n");
+    } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
     }
   }
 
   /**
-   * This method will print the value of all groceries.
+   * Prints the total value of all groceries in the food storage.
+   *
+   * @param errorMessage The error message to display in case of an exception.
+   * @param foodStorage The food storage to print the value from.
+   * @since 0.0.1
    */
   public void valueOfAllGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
