@@ -3,12 +3,29 @@ package edu.ntnu.idi.bidata.recipe;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
+/**
+ * Utility class for validating recipe-related inputs.
+ * Class contains static methods for validating ingredients, strings and number of servings.
+ * The class can not be instantiated, therefore constructor is private.
+ *
+ * @author Mathias Erik Nord
+ * @since 28.11.2024
+ * @version 0.0.1
+ */
 public class RecipeValidator {
-  public RecipeValidator() {
-
+  private RecipeValidator() {
+    // Private constructor to prevent instantiation.
   }
 
-  private static void ingredientValidation(Map<String, SimpleEntry<Float, String>> ingredients, StringBuilder errorMessage) {
+  /**
+   * Validates the ingredients map and appends error messages to the StringBuilder.
+   *
+   * @param ingredients The map of the ingredients to validate.
+   * @param errorMessage The StringBuilder to append messages to.
+   * @since 0.0.1
+   */
+  private static void ingredientValidation(Map<String, SimpleEntry<Float, String>> ingredients,
+                                           StringBuilder errorMessage) {
     if (ingredients == null) {
       errorMessage.append("The inputted ingredients cannot be null\n");
     } else {
@@ -16,23 +33,55 @@ public class RecipeValidator {
         String ingredientName = entry.getKey();
         SimpleEntry<Float, String> quantityAndUnit = entry.getValue();
 
-        if (ingredientName == null || ingredientName.isBlank()) {
-          errorMessage.append("Ingredient name cannot be null or blank.\n");
-        }
-        if (quantityAndUnit == null || quantityAndUnit.getKey() <= 0 || quantityAndUnit.getValue().isBlank()) {
-          errorMessage.append("Quantity cannot be null, equal or less than zero.\n");
-        }
+        validateIngredientName(errorMessage, ingredientName);
+        validateQuantityAndUnit(errorMessage, quantityAndUnit);
       }
     }
   }
 
   /**
-   * Error handling method for the method<code>setIngredients</code>.
+   * Validates the quantity and unit of an ingredient and appends potential.
+   * error message to StringBuilder
    *
-   * @param ingredients The Map to validate.
-   * @throws IllegalArgumentException if the <code>ingredients</code> is null,
-   *                                  if <code>ingredientName</code> is null or blank,
-   *                               or if <code>quantity</code> is null, less than or equal to zero.
+   * @param errorMessage The StringBuilder to append error message to.
+   * @param quantityAndUnit The SimpleEntry containing the quantity and unit to validate.
+   * @since 0.0.1
+   */
+  private static void validateQuantityAndUnit(StringBuilder errorMessage,
+                                              SimpleEntry<Float, String> quantityAndUnit) {
+    if (quantityAndUnit == null) {
+      errorMessage.append("Quantity and unit cannot be null");
+      return;
+    }
+    if (quantityAndUnit.getKey() == null || quantityAndUnit.getKey() <= 0) {
+      errorMessage.append("Quantity cannot be null, less than or equal to zero.");
+    }
+    if (quantityAndUnit.getValue() == null || quantityAndUnit.getValue().isBlank()) {
+      errorMessage.append("Unit of measurement cannot be null, empty or blank.");
+    }
+  }
+
+  /**
+   * Validates the ingredient name and appends potential error message to StringBuilder.
+   *
+   * @param errorMessage The StringBuilder to append error messages to.
+   * @param ingredientName The name of the ingredient to validate.
+   */
+  private static void validateIngredientName(StringBuilder errorMessage, String ingredientName) {
+    if (ingredientName == null || ingredientName.isBlank()) {
+      errorMessage.append("Ingredient name cannot be null or blank.\n");
+    }
+  }
+
+  /**
+   * Validates the ingredients map.
+   *
+   * @param ingredients The map of ingredients to validate.
+   * @throws IllegalArgumentException if the ingredients map is null,
+   *                                  contains null or blank ingredient names,
+   *                                  or contains quantities that are null,
+   *                                  less than or equal to zero.
+   * @since 0.0.1
    */
   public static void mapInputValidation(Map<String, SimpleEntry<Float, String>> ingredients) {
     StringBuilder errorMessage = new StringBuilder();
@@ -43,7 +92,7 @@ public class RecipeValidator {
   }
 
   /**
-   * Validation method for <code>String</code> inputs.
+   * Validates the provided string parameter.
    *
    * @param stringInput input that is passed from outer method.
    * @throws IllegalArgumentException is thrown if string input is null, blank or empty.
@@ -54,9 +103,16 @@ public class RecipeValidator {
     }
   }
 
+  /**
+   * Validates the number of servings.
+   *
+   * @param amountOfServings The number of servings to validate.
+   * @throws IllegalArgumentException if the number of servings is less than, or equal to zero.
+   */
   public static void amountOfServingsValidation(int amountOfServings) {
     if (amountOfServings <= 0) {
-      throw new IllegalArgumentException("The inputted amount of servings cannot be less than zero");
+      throw new
+          IllegalArgumentException("The inputted amount of servings cannot be less than zero");
     }
   }
 }
