@@ -4,6 +4,8 @@ import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.menu.MainMenu;
 import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenu;
+import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenuMutator;
+import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenuPrinter;
 import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
 import edu.ntnu.idi.bidata.menu.grocery.GroceryMenuMutator;
 import edu.ntnu.idi.bidata.recipe.CookBook;
@@ -12,6 +14,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * This is the <code>UserInterface</code> class.
@@ -35,18 +38,37 @@ public class UserInterface {
    * @since 0.0.1
    */
   public void init() {
-    UserInputHandler uiInputHandler = new UserInputHandler();
-    FoodStorage foodStorage = new FoodStorage();
+    Scanner scanner = new Scanner(System.in);
     StringMenu stringMenu = new StringMenu();
-    GroceryMenuMutator groceryMenuMutator = new GroceryMenuMutator();
-    GroceryMenu groceryMenu = new GroceryMenu(foodStorage, uiInputHandler, stringMenu, groceryMenuMutator);
-    CookBook cookBook = new CookBook();
-    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, foodStorage);
+    UserInputHandler uiInputHandler = new UserInputHandler(scanner);
+    FoodStorage foodStorage = initializeFoodStorage();
+    CookBook cookBook = initializeCookBook();
 
     addRecipe(cookBook);
     addGrocery(foodStorage);
 
-    mainMenu = new MainMenu(uiInputHandler, groceryMenu, cookBookMenu);
+    mainMenu = new MainMenu(uiInputHandler, initializeGroceryMenu(uiInputHandler, foodStorage, stringMenu), initializeCookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu));
+  }
+
+  private FoodStorage initializeFoodStorage() {
+    return new FoodStorage();
+  }
+
+  private CookBook initializeCookBook() {
+    return new CookBook();
+  }
+
+  private GroceryMenu initializeGroceryMenu(UserInputHandler uiInputHandler, FoodStorage foodStorage, StringMenu stringMenu) {
+    GroceryMenuMutator groceryMenuMutator = new GroceryMenuMutator(uiInputHandler);
+
+    return new GroceryMenu(foodStorage, uiInputHandler, stringMenu, groceryMenuMutator);
+  }
+
+  private CookBookMenu initializeCookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage, StringMenu stringMenu) {
+    CookBookMenuPrinter cookBookMenuPrinter = new CookBookMenuPrinter();
+    CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator(uiInputHandler);
+
+    return new CookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu, cookBookMenuMutator, cookBookMenuPrinter);
   }
 
   /**
@@ -124,8 +146,8 @@ public class UserInterface {
         "Fry chicken in pan, cook rice, serve.", chickenRiceIngredients, 3);
 
     Map<String, SimpleEntry<Float, String>> pastaSalmonIngredients = new HashMap<>();
-    chickenRiceIngredients.put("Pasta", new SimpleEntry<>(0.5f, KILOGRAM));
-    chickenRiceIngredients.put("Salmon", new SimpleEntry<>(0.35f, KILOGRAM));
+    pastaSalmonIngredients.put("Pasta", new SimpleEntry<>(0.5f, KILOGRAM));
+    pastaSalmonIngredients.put("Salmon", new SimpleEntry<>(0.35f, KILOGRAM));
     initializeRecipe(cookBook, "Pasta and Salmon", "This is a pasta and salmon dish",
         "Boil pasta for 15 minutes, fry salmon in pan.", pastaSalmonIngredients, 2);
   }
