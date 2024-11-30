@@ -22,17 +22,8 @@ public class GroceryMenuMutator {
    * @param foodStorage The food storage the grocery will be added to.
    */
   public void createGrocery(String errorMessage, FoodStorage foodStorage) {
-    String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
-    float quantityOfGrocery = uiInputHandler
-        .floatReader("Please enter quantity of grocery: ");
-    String unitOfMeasurement = uiInputHandler
-        .unitReader("Please enter unit of measurement (kilogram/liter/pcs): ");
-    float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
-    String dateOfExpiry = uiInputHandler.dateReader("Please enter expiry date (YYYY-MM-DD): ");
-
     try {
-      Grocery grocery = new Grocery(quantityOfGrocery,
-          nameOfGrocery, unitOfMeasurement, priceOfGrocery, dateOfExpiry);
+      Grocery grocery = promptGroceryDetails();
       foodStorage.addGrocery(grocery);
       System.out.println("Grocery was created successfully, and added to storage.");
     } catch (IllegalArgumentException e) {
@@ -58,5 +49,25 @@ public class GroceryMenuMutator {
     } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
     }
+  }
+
+  /**
+   * Extracted method from <code>createGrocery</code>.
+   * Prompts the user to enter details for a new grocery and returns the new Grocery object.
+   *
+   * @return The created Grocery object.
+   * @since 0.0.1
+   */
+  private Grocery promptGroceryDetails() {
+    String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
+    float quantityOfGrocery = uiInputHandler
+        .floatReader("Please enter quantity of grocery: ");
+    String unitOfMeasurement = uiInputHandler
+        .unitReader("Please enter unit of measurement (kilogram/liter/pcs): ");
+    float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
+    String dateOfExpiry = uiInputHandler.dateReader("Please enter expiry date (YYYY-MM-DD): ");
+
+    return new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement,
+        priceOfGrocery, dateOfExpiry);
   }
 }
