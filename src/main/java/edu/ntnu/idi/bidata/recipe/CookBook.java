@@ -1,26 +1,26 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.AbstractMap.SimpleEntry;
 
 /**
- * This is a cookbook class that contains a set of recipes.
+ * The <code>CookBook</code> class represents a collection of recipes.
+ * It provides methods to add, remove and retrieve recipes.
  *
- * @author <b>Mathias Erik Nord</b>
- * @version <b>0.0.1</b>
- * @since <b>13.11.2024</b>
+ * @author Mathias Erik Nord
+ * @version 0.0.1
+ * @since 13.11.2024
  */
 public class CookBook {
   private final HashSet<Recipe> recipes;
 
   /**
    * Constructor for the class <code>CookBook</code>.
-   * The constructor is empty, because the idea is to start with an empty book,
-   * and add recipes to the book as you go.
+   * It will initialize and empty set of recipes.
    */
   public CookBook() {
     this.recipes = new HashSet<>();
@@ -29,7 +29,8 @@ public class CookBook {
   /**
    * Accessor method for <code>recipes</code>.
    *
-   * @return Will return all recipes.
+   * @return A set of all recipes.
+   * @throws NoSuchElementException if no recipes are found.
    */
   public Set<Recipe> getAllRecipes() {
     if (recipes.isEmpty()) {
@@ -42,7 +43,7 @@ public class CookBook {
    * Accessor method for <code>recipe</code>.
    *
    * @param recipe The recipe to retrieve.
-   * @return Will return the given recipe, if it does exist.
+   * @return The given recipe, if it does exist.
    * @throws NoSuchElementException will be thrown if the recipe does not exist.
    */
   public Recipe getRecipe(Recipe recipe) {
@@ -57,6 +58,7 @@ public class CookBook {
    * Will add a recipe to the cookbook.
    *
    * @param recipe recipe to be added.
+   * @throws IllegalArgumentException if the recipe provided is null.
    */
   public void addRecipe(Recipe recipe) {
     if (recipe == null) {
@@ -70,6 +72,7 @@ public class CookBook {
    * Will remove the given recipe from the cookbook.
    *
    * @param recipe recipe to be removed.
+   * @throws IllegalArgumentException if the recipe provided is null.
    */
   public void removeRecipe(Recipe recipe) {
     if (recipe == null) {
@@ -84,25 +87,38 @@ public class CookBook {
    *
    * @param foodStorage storage to check for groceries.
    * @return Will return a recipe, if there are enough groceries.
+   * @throws IllegalArgumentException if the provided food storage is null.
+   * @throws NoSuchElementException if there is no recipe to make from the groceries.
    */
   public Recipe recipeRecommendation(FoodStorage foodStorage) {
     if (foodStorage == null) {
       throw new IllegalArgumentException("Food storage cannot be null!");
     }
     for (Recipe recipe : recipes) {
-      boolean isPossibleToCook = true;
-      for (Map.Entry<String, SimpleEntry<Float, String>> ingredient : recipe.getIngredients().entrySet()) {
-        String nameOfIngredient = ingredient.getKey();
-        float requiredQuantity = ingredient.getValue().getKey();
-        String requiredUnit = ingredient.getValue().getValue();
-        if (!foodStorage.isGroceryAvailable(nameOfIngredient, requiredQuantity, requiredUnit)) {
-          isPossibleToCook = false;
-        }
-      }
-      if (isPossibleToCook) {
+      if (matchRecipeToGrocery(foodStorage, recipe)) {
         return recipe;
       }
     }
     throw new NoSuchElementException("There is no recipes that can be made with your groceries.");
+  }
+
+  /**
+   * Method checks if a given recipe can be made with the available groceries in the food storage.
+   *
+   * @param foodStorage The food storage to check for available groceries.
+   * @param recipe The recipe to match with the groceries.
+   * @return <code>true</code> if possible to make, and <code>false</code> if not possible.
+   */
+  private static boolean matchRecipeToGrocery(FoodStorage foodStorage, Recipe recipe) {
+    for (Map.Entry<String, SimpleEntry<Float, String>> ingredient :
+        recipe.getIngredients().entrySet()) {
+      String nameOfIngredient = ingredient.getKey();
+      float requiredQuantity = ingredient.getValue().getKey();
+      String requiredUnit = ingredient.getValue().getValue();
+      if (!foodStorage.isGroceryAvailable(nameOfIngredient, requiredQuantity, requiredUnit)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
