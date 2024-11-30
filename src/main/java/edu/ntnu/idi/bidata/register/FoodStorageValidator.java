@@ -7,6 +7,10 @@ import java.util.NoSuchElementException;
 
 public class FoodStorageValidator {
 
+  public FoodStorageValidator() {
+
+  }
+
   /**
    * Validation method for <code>removeGrocery</code>.
    * Will validate the input, to check if the provided grocery is not null,
@@ -43,7 +47,7 @@ public class FoodStorageValidator {
    */
   static void validateGroceryList(List<Grocery> groceryList) {
     if (groceryList == null || groceryList.isEmpty()) {
-      throw new NoSuchElementException("The grocery list is empty.");
+      throw new NoSuchElementException("The grocery was not found!");
     }
   }
 
@@ -58,7 +62,7 @@ public class FoodStorageValidator {
    * @param name
    */
   public static void validateString(String name) {
-    if (name == null || name.isBlank() || name.isEmpty()) {
+    if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Provided name cannot be null, empty or blank.");
     }
   }
