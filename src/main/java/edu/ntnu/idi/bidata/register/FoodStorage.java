@@ -132,7 +132,12 @@ public class FoodStorage {
   public void removeGrocery(String groceryToRemove, float quantityToRemove) {
     validateInputs(groceryToRemove, quantityToRemove);
 
-    List<Grocery> groceryList = groceries.get(groceryToRemove);
+    List<Grocery> groceryList = groceries.entrySet().stream()
+        .filter(entry -> entry.getKey().equalsIgnoreCase(groceryToRemove))
+        .map(Map.Entry::getValue)
+        .findFirst()
+        .orElseThrow(() -> new NoSuchElementException("Grocery does not exist!"));
+
     validateGroceryList(groceryList);
 
     removeGroceryFromList(groceryToRemove, quantityToRemove, groceryList);
