@@ -14,12 +14,12 @@ import java.util.NoSuchElementException;
 import static edu.ntnu.idi.bidata.register.FoodStorageValidator.*;
 
 /**
- * This class represents a storage where instances of Grocery can be stored.
+ * This class represents a storage where instances of <code>Grocery</code>> can be stored.
  * The storage can represent a fridge, drawer, freezer etc.
  *
- * @author <b>Mathias Erik Nord</b>
- * @since <b>05.11.2024</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @since 05.11.2024
+ * @version 0.0.1
  *
  */
 public class FoodStorage {
@@ -35,9 +35,11 @@ public class FoodStorage {
   }
 
   /**
-   * Mutator method to add an instance of <code>Grocery</code> to <code>FoodStorage</code>.
+   * Adds an instance of <code>Grocery</code> to the storage.
+   * If the grocery already exists with the same expiration date, it updates the quantity and price.
    *
-   * @param providedGrocery Represents the instance of a Grocery.
+   * @param providedGrocery The instance of a <code>Grocery</code> to add.
+   * @throws IllegalArgumentException if the provided grocery is invalid.
    */
   public void addGrocery(Grocery providedGrocery) {
     validateGrocery(providedGrocery);
@@ -46,22 +48,21 @@ public class FoodStorage {
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
     boolean isFound = false;
-    isFound = isFound(providedGrocery, groceryIterator, isFound);
+    boolean found = isFound(providedGrocery, groceryIterator, isFound);
 
-    if (!isFound) {
+    if (!found) {
       groceryList.add(providedGrocery);
     }
     groceries.put(providedGrocery.getName(), groceryList);
   }
 
   /**
-   * Extracted while loop from <code>addGrocery</code>.
-   * This will reduce the complexity of the method, and improve modularity.
+   * Checks if the given grocery is found in the storage.
    *
-   * @param providedGrocery Represents the instance of a Grocery.
-   * @param groceryIterator Will iterate through the grocery list.
-   * @param isFound Will flag if the grocery is found.
-   * @return Will return a boolean if the grocery already exists or not.
+   * @param providedGrocery The instance of <code>Grocery</code> to check.
+   * @param groceryIterator The iterator for the grocery list.
+   * @param isFound The flag indicating if the grocery is found.
+   * @return <code>true</code> if the grocery is found, <code>false</code> if not found.
    */
   private boolean isFound(Grocery providedGrocery, Iterator<Grocery> groceryIterator, boolean isFound) {
     while (groceryIterator.hasNext() && !isFound) {
@@ -78,14 +79,13 @@ public class FoodStorage {
   }
 
   /**
-   * Mutator method for <code>removeGrocery</code>.
-   * Will remove the specified quantity of the provided grocery, from the list.
+   * Removes the specified quantity of the provided grocery, from the list.
    * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
    *                                                                SonarLint was throwing.
    *
    * @param groceryToRemove The grocery to remove.
    * @param quantityToRemove The quantity to remove.
-   * @param groceryList The list of where the grocery lives.
+   * @param groceryList The list of groceries.
    * @throws IllegalArgumentException if the quantity to remove
    *                                  is higher than the available quantity.
    */
@@ -97,13 +97,13 @@ public class FoodStorage {
   }
 
   /**
-   * Extracted from removeFromGroceryList
+   * Extracted from removeFromGroceryList.
+   * Logic for removing a grocery from the list.
    *
-   *
-   * @param groceryToRemove
-   * @param quantityToRemove
-   * @param grocery
-   * @param itemsToRemove
+   * @param groceryToRemove The grocery to remove.
+   * @param quantityToRemove The quantity to remove.
+   * @param grocery The grocery instance.
+   * @param itemsToRemove The list of items to remove.
    */
   private void removeGroceryLogic(String groceryToRemove, float quantityToRemove, Grocery grocery, List<Grocery> itemsToRemove) {
     if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
@@ -122,12 +122,12 @@ public class FoodStorage {
   }
 
   /**
-   * Mutator method that will remove a specified grocery from the groceries HashMap.
-   * This method has been broken into smaller methods to reduce the cognitive complexity.
-   * The concept was inspired by GitHub Copilot.
+   * Removes a specified grocery from the storage.
    *
-   * @param groceryToRemove The grocery to remove.
+   * @param groceryToRemove The name of the grocery to remove.
    * @param quantityToRemove The quantity to remove.
+   * @throws IllegalArgumentException if the inputs are invalid.
+   * @throws NoSuchElementException if the grocery list is empty.
    */
   public void removeGrocery(String groceryToRemove, float quantityToRemove) {
     validateInputs(groceryToRemove, quantityToRemove);
@@ -148,20 +148,18 @@ public class FoodStorage {
   }
 
   /**
-   * Accessor method to search for an instance of Grocery in FoodStorage.
-   * If there are two instances with different expiry dates,
-   * it will be returned as two instances in a list.
-   * If the two instances has the same expiry date, they will be combined.
+   * Method that searches for an instance of <code>Grocery</code> in the storage.
    *
-   * @param name Represents the name of the grocery to search for.
-   * @return Will return the instance(s) that is searched for.
+   * @param nameOfGrocery The name of the grocery to search for.
+   * @return List of groceries that matches the search.
+   * @throws IllegalArgumentException if the input name is invalid.
    */
-  public List<Grocery> searchGrocery(String name) {
-    validateString(name);
+  public List<Grocery> searchGrocery(String nameOfGrocery) {
+    validateString(nameOfGrocery);
     List<Grocery> searchedGrocery = new ArrayList<>();
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
-        if (grocery.getName().equalsIgnoreCase(name)) {
+        if (grocery.getName().equalsIgnoreCase(nameOfGrocery)) {
           searchedGrocery.add(grocery);
         }
       }
@@ -170,9 +168,11 @@ public class FoodStorage {
   }
 
   /**
-   * Accessor method to access the value of expired groceries.
+   * Calculates the total value of expired groceries.
    *
-   * @return Will return the total value of expired groceries.
+   * @param expiredGroceries The list of expired groceries.
+   * @return The total value of expired groceries.
+   * @throws NoSuchElementException the grocery list is empty
    */
   public float valueOfExpiredGroceries(List<Grocery> expiredGroceries) {
     validateGroceryList(expiredGroceries);
@@ -182,11 +182,11 @@ public class FoodStorage {
   }
 
   /**
-   * Accessor method for expired groceries.
-   * Will return a list of groceries that expires before given date.
+   * Lists the groceries that expire before the given date.
    *
-   * @param providedExpiryDate Date to check if grocery expires before.
-   * @return Will return a list of expired groceries.
+   * @param providedExpiryDate The date to check against.
+   * @return List of expired groceries.
+   * @throws IllegalArgumentException if the date format is invalid.
    */
   public List<Grocery> listOfExpiredGroceries(String providedExpiryDate) {
     try {
@@ -201,9 +201,10 @@ public class FoodStorage {
   }
 
   /**
-   * Extracted from listOfExpiredGroceries.
-   * @param expiryDate
-   * @param expiredGroceries
+   * Helper method to find the expired groceries.
+   *
+   * @param expiryDate The expiry date to check against.
+   * @param expiredGroceries The list of expired groceries.
    */
   private void expiredGroceries(LocalDate expiryDate, List<Grocery> expiredGroceries) {
     for (List<Grocery> groceryList : groceries.values()) {
@@ -216,9 +217,9 @@ public class FoodStorage {
   }
 
   /**
-   * Accessor method to access the value of all groceries.
+   * Calculates the total value of all groceries in storage.
    *
-   * @return Will return the total value of all groceries.
+   * @return The total value of all groceries.
    */
   public float valueOfAllGroceries() {
     try {
@@ -233,10 +234,11 @@ public class FoodStorage {
   }
 
   /**
-   * Accessor method to get a sorted list of all groceries.
-   * The groceries are sorted alphabetically by their name.
+   * Get method to get a sorted list of all groceries in storage.
+   * Sorted alphabetically by name
    *
-   * @return Will return a list of all groceries sorted by name.
+   * @return Sorted list of groceries.
+   * @throws NoSuchElementException if the grocery list is empty.
    */
   public List<Grocery> getSortedList() {
     List<Grocery> allGroceries = groceries.values().stream()
@@ -253,11 +255,11 @@ public class FoodStorage {
   }
 
   /**
-   * Accessor method to check if there is enough quantity of a specified grocery.
+   * Checks if there is enough quantity of a specified grocery.
    *
-   * @param nameOfIngredient Name of ingredient to check for.
+   * @param nameOfIngredient The name of the ingredient to check.
    * @param requiredQuantity The required quantity of ingredient.
-   * @return Will return a boolean, true if available and false if not.
+   * @return <code>true</code> if the required quantity is available, <code>false</code> otherwise.>
    */
   public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity, String unitOfMeasurement) {
     for (List<Grocery> groceryList : groceries.values()) {
