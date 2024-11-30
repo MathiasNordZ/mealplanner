@@ -16,20 +16,25 @@ public class GroceryMenu {
   private final UserInputHandler uiInputHandler;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
-  private final StringMenu stringMenu = new StringMenu();
-  private final GroceryMenuMutator groceryMutator = new GroceryMenuMutator();
-  private final GroceryMenuPrinter groceryPrinter = new GroceryMenuPrinter();
+  private final StringMenu stringMenu;
+  private final GroceryMenuMutator groceryMutator;
+  private final GroceryMenuPrinter groceryPrinter;
 
   /**
    * Constructs a new instance of <code>GroceryMenu</code>.
    *
    * @param foodStorage The food storage that contains the groceries.
    * @param uiInputHandler The user input handler.
+   * @param stringMenu The string menu.
+   * @param groceryMutator The grocery menu mutator.
    * @since 0.0.1
    */
-  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler) {
+  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler, StringMenu stringMenu, GroceryMenuMutator groceryMutator) {
     this.foodStorage = foodStorage;
     this.uiInputHandler = uiInputHandler;
+    this.stringMenu = stringMenu;
+    this.groceryMutator = groceryMutator;
+    this.groceryPrinter = new GroceryMenuPrinter(uiInputHandler);
   }
 
   /**
