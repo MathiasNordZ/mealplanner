@@ -6,11 +6,13 @@ import java.util.Map;
 import static edu.ntnu.idi.bidata.recipe.RecipeValidator.*;
 
 /**
- * This class is representing a recipe.
+ * This class represents a recipe.
+ * It includes details such as the name, description, cooking instructions,
+ * ingredients and amount of servings.
  *
- * @author <b>Mathias Erik Nord</b>
- * @since <b>13.11.24</b>
- * @version <b>0.1.1</b>
+ * @author Mathias Erik Nord
+ * @since 13.11.24
+ * @version 0.1.1
  */
 public class Recipe {
   private String recipeName;
@@ -22,10 +24,12 @@ public class Recipe {
   /**
    * Constructor that will create a recipe.
    *
-   * @param recipeName This is the name of the dish.
-   * @param recipeDescription This is a description of the dish.
-   * @param cookingInstructions This is the instructions of how to cook the dish.
-   * @param ingredients This is a map of the ingredients needed and the amount of ingredient.
+   * @param recipeName The name of the dish.
+   * @param recipeDescription A description of the dish.
+   * @param cookingInstructions The instructions on how to cook the dish.
+   * @param ingredients A map of the ingredients needed and the amount of ingredient.
+   * @param amountOfServings The number of servings the recipe is intended for.
+   * @since 0.0.1
    *
    */
   public Recipe(String recipeName, String recipeDescription, String cookingInstructions,
@@ -40,7 +44,8 @@ public class Recipe {
   /**
    * Accessor method for <code>recipeName</code>.
    *
-   * @return Will return name of the recipe.
+   * @return The name of the recipe.
+   * @since 0.0.1
    */
   public String getRecipeName() {
     return recipeName;
@@ -51,6 +56,8 @@ public class Recipe {
    * Will set the name of the recipe.
    *
    * @param recipeName Name of recipe.
+   * @throws IllegalArgumentException if the recipe name is invalid.
+   * @since 0.0.1
    */
   public void setRecipeName(String recipeName) {
     stringInputValidation(recipeName);
@@ -60,7 +67,8 @@ public class Recipe {
   /**
    * Accessor method for <code>recipeDescription</code>.
    *
-   * @return Will return the description of the recipe.
+   * @return The description of the recipe.
+   * @since 0.0.1
    */
   public String getRecipeDescription() {
     return recipeDescription;
@@ -71,6 +79,8 @@ public class Recipe {
    * Will set the description of the recipe.
    *
    * @param recipeDescription Description of recipe.
+   * @throws IllegalArgumentException if the recipe description is invalid.
+   * @since 0.0.1
    */
   public void setRecipeDescription(String recipeDescription) {
     stringInputValidation(recipeDescription);
@@ -80,7 +90,8 @@ public class Recipe {
   /**
    * Accessor method for <code>cookingInstructions</code>.
    *
-   * @return Will return the cooking instructions of the recipe.
+   * @return The cooking instructions of the recipe.
+   * @since 0.0.1
    */
   public String getCookingInstructions() {
     return cookingInstructions;
@@ -88,9 +99,11 @@ public class Recipe {
 
   /**
    * Mutator method for <code>cookingInstructions</code>.
-   * This method will set the cooking instructions of the recipe.
+   * Sets the cooking instructions for the recipe.
    *
    * @param cookingInstructions The cooking instructions of the recipe.
+   * @throws IllegalArgumentException if the cooking instructions are invalid.
+   * @since 0.0.1
    */
   public void setCookingInstructions(String cookingInstructions) {
     stringInputValidation(cookingInstructions);
@@ -100,7 +113,8 @@ public class Recipe {
   /**
    * Accessor method for <code>getIngredients</code>.
    *
-   * @return Will return a map of ingredients, with name as key and quantity as value.
+   * @return A map of ingredients, name is key, key of value is quantity and value of value is unit of measurement.
+   * @since 0.0.1
    */
   public Map<String, SimpleEntry<Float, String>> getIngredients() {
     return ingredients;
@@ -108,12 +122,11 @@ public class Recipe {
 
   /**
    * Mutator method for <code>ingredients</code>.
-   * Will set the ingredients for a recipe.
-   * Takes in the name of the ingredient as a <code>String</code>,
-   * and the quantity of the ingredient as a <code>Float</code>.
-   * Error handling is handled by <code>mapInputValidation</code>.
+   * Sets the ingredients for a recipe.
    *
    * @param ingredients The ingredients that are needed to make the recipe.
+   * @throws IllegalArgumentException if the ingredient map is invalid.
+   * @since 0.0.1
    */
   public void setIngredients(Map<String, SimpleEntry<Float, String>> ingredients) {
     mapInputValidation(ingredients);
@@ -123,7 +136,8 @@ public class Recipe {
   /**
    * Accessor method for <code>amountOfServings</code>.
    *
-   * @return Will return the amount of servings a recipe is intended for.
+   * @return The number of servings.
+   * @since 0.0.1
    */
   public int getAmountOfServings() {
     return amountOfServings;
@@ -131,9 +145,11 @@ public class Recipe {
 
   /**
    * This is a mutator method for <code>amountOfServings</code>.
-   * Will set the amount of servings a recipe is intended for.
+   * Sets the amount of servings a recipe is intended for.
    *
    * @param amountOfServings The amount of servings.
+   * @throws IllegalArgumentException if the number of servings is invalid.
+   * @since 0.0.1
    */
   public void setAmountOfServings(int amountOfServings) {
     amountOfServingsValidation(amountOfServings);
