@@ -1,18 +1,25 @@
 package edu.ntnu.idi.bidata.menu.grocery;
 
-import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
+import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.util.NoSuchElementException;
 
+/**
+ * This class provides methods to mutate groceries in the food storage.
+ *
+ * @version 0.0.1
+ * @since 28.11.2024
+ */
 public class GroceryMenuMutator {
   private final UserInputHandler uiInputHandler = new UserInputHandler();
 
-
   /**
-   * This method will prompt the user to enter details, to create a new grocery.
-   * If the grocery is created successfully, it will be added to the food storage.
+   * Prompts the user to enter details to create a new grocery.
+   * If grocery is created successfully, it will be added to the food storage.
+   *
+   * @param errorMessage The error message to display in case of an exception.
+   * @param foodStorage The food storage the grocery will be added to.
    */
   public void createGrocery(String errorMessage, FoodStorage foodStorage) {
     String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
@@ -34,10 +41,12 @@ public class GroceryMenuMutator {
   }
 
   /**
-   * This method will prompt the user for which grocery the user wants to remove,
-   * and how much quantity to remove.
-   * If the grocery does exist, and the quantity to remove is valid.
-   * It will be removed from the food storage.
+   * Prompts the user for the grocery to remove and the quantity to remove.
+   * If the grocery exists and the quantity to remove is valid,
+   * it will be removed from food storage.
+   *
+   * @param errorMessage The error message to display in case of an exception.
+   * @param foodStorage The food storage where the grocery should be removed from.
    */
   public void removeGrocery(String errorMessage, FoodStorage foodStorage) {
     String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
