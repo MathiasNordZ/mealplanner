@@ -2,8 +2,10 @@ package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.menu.MainMenu;
+import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenu;
 import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
+import edu.ntnu.idi.bidata.menu.grocery.GroceryMenuMutator;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
@@ -35,7 +37,9 @@ public class UserInterface {
   public void init() {
     UserInputHandler uiInputHandler = new UserInputHandler();
     FoodStorage foodStorage = new FoodStorage();
-    GroceryMenu groceryMenu = new GroceryMenu(foodStorage, uiInputHandler);
+    StringMenu stringMenu = new StringMenu();
+    GroceryMenuMutator groceryMenuMutator = new GroceryMenuMutator();
+    GroceryMenu groceryMenu = new GroceryMenu(foodStorage, uiInputHandler, stringMenu, groceryMenuMutator);
     CookBook cookBook = new CookBook();
     CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, foodStorage);
 
