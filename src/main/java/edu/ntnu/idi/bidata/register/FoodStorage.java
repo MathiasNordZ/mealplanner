@@ -136,7 +136,7 @@ public class FoodStorage {
         .filter(entry -> entry.getKey().equalsIgnoreCase(groceryToRemove))
         .map(Map.Entry::getValue)
         .findFirst()
-        .orElseThrow(() -> new NoSuchElementException("Grocery does not exist!"));
+        .orElse(new ArrayList<>());
 
     validateGroceryList(groceryList);
 
