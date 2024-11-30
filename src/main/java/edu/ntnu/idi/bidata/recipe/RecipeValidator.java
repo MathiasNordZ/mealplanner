@@ -96,6 +96,7 @@ public class RecipeValidator {
    *
    * @param stringInput input that is passed from outer method.
    * @throws IllegalArgumentException is thrown if string input is null, blank or empty.
+   * @since 0.0.1
    */
   public static void stringInputValidation(String stringInput) {
     if (stringInput == null || stringInput.isBlank() || stringInput.isEmpty()) {
@@ -108,6 +109,7 @@ public class RecipeValidator {
    *
    * @param amountOfServings The number of servings to validate.
    * @throws IllegalArgumentException if the number of servings is less than, or equal to zero.
+   * @since 0.0.1
    */
   public static void amountOfServingsValidation(int amountOfServings) {
     if (amountOfServings <= 0) {
