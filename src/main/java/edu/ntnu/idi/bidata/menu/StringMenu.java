@@ -21,7 +21,8 @@ public class StringMenu {
 
   /**
    * Prints the main menu to the console.
-   * The main menu includes options to navigate to the grocery menu, cookbook menu, or exit the application.
+   * The main menu includes options to navigate to the grocery menu,
+   * cookbook menu, or exit the application.
    */
   public void printMainMenu() {
     final String mainMenu = """
@@ -34,7 +35,8 @@ public class StringMenu {
 
   /**
    * Prints the cookbook menu to the console.
-   * The cookbook menu includes options to create a recipe, remove a recipe, print recipes, print a specific recipe,
+   * The cookbook menu includes options to create a recipe,
+   * remove a recipe, print recipes, print a specific recipe,
    * get a recipe recommendation, or go back to the previous menu.
    */
   public void printCookbookMenu() {
@@ -45,13 +47,14 @@ public class StringMenu {
       [4] - Print recipe.
       [5] - Recipe recommendation.
       [0] - Go back.
-      """;
-     System.out.println(cookbookMenu);
+        """;
+    System.out.println(cookbookMenu);
   }
 
   /**
    * Prints the grocery menu to the console.
-   * The grocery menu includes options to create a new grocery, remove a grocery, search for a grocery, list all groceries,
+   * The grocery menu includes options to create a new grocery,
+   * remove a grocery, search for a grocery, list all groceries,
    * list expired groceries, get the value of all groceries, or go back to the previous menu.
    */
   public void printGroceryMenu() {
