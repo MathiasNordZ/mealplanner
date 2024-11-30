@@ -12,7 +12,11 @@ import java.util.NoSuchElementException;
  * @since 28.11.2024
  */
 public class GroceryMenuMutator {
-  private final UserInputHandler uiInputHandler = new UserInputHandler();
+  private final UserInputHandler uiInputHandler;
+
+  public GroceryMenuMutator(UserInputHandler uiInputHandler) {
+    this.uiInputHandler = uiInputHandler;
+  }
 
   /**
    * Prompts the user to enter details to create a new grocery.

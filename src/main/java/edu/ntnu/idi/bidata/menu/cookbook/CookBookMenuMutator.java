@@ -7,6 +7,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 /**
  * This class provides the user methods that can mutate the state of the cookbook.
@@ -16,13 +17,13 @@ import java.util.NoSuchElementException;
  * @since 28.11.2024
  */
 public class CookBookMenuMutator {
-  private final UserInputHandler uiInputHandler = new UserInputHandler();
+  private final UserInputHandler uiInputHandler;
 
   /**
    * Constructs a new instance of <code>CookBookMenuMutator</code>.
    */
-  public CookBookMenuMutator() {
-    // Empty because no additional initialization is required.
+  public CookBookMenuMutator(UserInputHandler uiInputHandler) {
+    this.uiInputHandler = uiInputHandler;
   }
 
   /**

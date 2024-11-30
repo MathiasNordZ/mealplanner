@@ -15,7 +15,7 @@ import java.util.AbstractMap.SimpleEntry;
  * @since <b>13.11.2024</b>
  */
 public class CookBook {
-  private final HashSet<Recipe> recipes = new HashSet<>();
+  private final HashSet<Recipe> recipes;
 
   /**
    * Constructor for the class <code>CookBook</code>.
@@ -23,7 +23,7 @@ public class CookBook {
    * and add recipes to the book as you go.
    */
   public CookBook() {
-    // Currently empty
+    this.recipes = new HashSet<>();
   }
 
   /**

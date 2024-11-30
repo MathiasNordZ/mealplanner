@@ -10,16 +10,15 @@ import java.util.Scanner;
  * @version <b>0.0.1</b>
  */
 public class UserInputHandler {
-  private final Scanner scanner = new Scanner(System.in);
+  private final Scanner scanner;
 
   /**
-   * <p>Constructor for <code>UserInputHandler</code>.
+   * Constructor for <code>UserInputHandler</code>.
    * Initializes a scanner instance to read inputs from user.
-   * Constructor is empty, because there is no additional initialization required.</p>
    * @since 0.0.1
    */
-  public UserInputHandler() {
-    // The constructor is empty, because there is no additional initialization required.
+  public UserInputHandler(Scanner scanner) {
+    this.scanner = scanner;
   }
 
   /**
