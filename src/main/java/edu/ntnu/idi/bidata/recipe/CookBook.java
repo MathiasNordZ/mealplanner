@@ -1,11 +1,9 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
+
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
 
 /**
  * The <code>CookBook</code> class represents a collection of recipes.
@@ -36,7 +34,7 @@ public class CookBook {
     if (recipes.isEmpty()) {
       throw new NoSuchElementException("No recipes found.");
     }
-    return recipes;
+    return Set.copyOf(recipes); // Refactoring inspired by CoPilot.
   }
 
   /**

@@ -171,7 +171,7 @@ public class FoodStorage {
         }
       }
     }
-    return searchedGrocery;
+    return List.copyOf(searchedGrocery);
   }
 
   /**
@@ -201,7 +201,7 @@ public class FoodStorage {
       List<Grocery> expiredGroceries = new ArrayList<>();
       expiredGroceries(expiryDate, expiredGroceries);
 
-      return expiredGroceries;
+      return List.copyOf(expiredGroceries);
     } catch (DateTimeException e) {
       throw new IllegalArgumentException("Please enter date on format 'YYYY-MM-DD'.");
     }
@@ -256,9 +256,9 @@ public class FoodStorage {
       throw new NoSuchElementException("The grocery list is empty!");
     }
 
-    return allGroceries.stream()
-        .sorted(Comparator.comparing(Grocery::getName))
-        .toList();
+    return List.copyOf(allGroceries.stream()
+        .sorted(Comparator
+            .comparing(Grocery::getName)).toList());
   }
 
   /**
