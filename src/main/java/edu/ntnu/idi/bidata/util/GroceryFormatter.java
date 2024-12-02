@@ -96,4 +96,9 @@ public class GroceryFormatter {
   public static String formatGrocery(FoodStorage foodStorage, String groceryToSearch) {
     return formatGroceries(foodStorage.searchGrocery(groceryToSearch));
   }
+
+  public static String normalizedString(String input) {
+    input = input.trim().toLowerCase();
+    return Character.toUpperCase(input.charAt(0)) + input.substring(1);
+  }
 }

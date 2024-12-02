@@ -1,5 +1,7 @@
 package edu.ntnu.idi.bidata.entity;
 
+import edu.ntnu.idi.bidata.util.GroceryFormatter;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -83,7 +85,7 @@ public class Grocery {
     if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Name can not be null, blank or empty.");
     }
-    this.name = name;
+    this.name = GroceryFormatter.normalizedString(name);
   }
 
   /**
@@ -135,7 +137,7 @@ public class Grocery {
             && !unitOfMeasurement.equalsIgnoreCase("pcs")) {
       throw new IllegalArgumentException("Unit of measurement must be liter, kilogram or pcs");
     }
-    this.unitOfMeasurement = unitOfMeasurement;
+    this.unitOfMeasurement = GroceryFormatter.normalizedString(unitOfMeasurement);
   }
 
   /**
