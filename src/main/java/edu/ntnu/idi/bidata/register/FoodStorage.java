@@ -6,6 +6,8 @@ import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateInputs;
 import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateString;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+import edu.ntnu.idi.bidata.util.GroceryFormatter;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,7 +49,8 @@ public class FoodStorage {
    */
   public void addGrocery(Grocery providedGrocery) {
     validateGrocery(providedGrocery);
-    List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(),
+    String normalizedGroceryName = GroceryFormatter.normalizedString(providedGrocery.getName());
+    List<Grocery> groceryList = groceries.getOrDefault(normalizedGroceryName,
         new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
@@ -86,46 +89,49 @@ public class FoodStorage {
   /**
    * Removes the specified quantity of the provided grocery, from the list.
    * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
-   *                                                                SonarLint was throwing.
+   *                                                                                                      SonarLint was throwing.
    *
    * @param groceryToRemove The grocery to remove.
    * @param quantityToRemove The quantity to remove.
-   * @param groceryList The list of groceries.
-   * @throws IllegalArgumentException if the quantity to remove
-   *                                  is higher than the available quantity.
+   * @param groceryList The list to remove groceries from.
+   * @throws IllegalArgumentException if the quantity to remove is higher than available quantity.
    */
   private void removeGroceryFromList(String groceryToRemove,
                                      float quantityToRemove, List<Grocery> groceryList) {
-    List<Grocery> itemsToRemove = new ArrayList<>();
-    groceryList.forEach(grocery -> removeGroceryLogic(groceryToRemove, quantityToRemove,
-        grocery, itemsToRemove));
-    groceryList.removeAll(itemsToRemove);
+    float remainingToRemove = quantityToRemove;
+    Iterator<Grocery> groceryIterator = groceryList.iterator();
+    remainingToRemove = removalLogic(groceryToRemove, groceryIterator, remainingToRemove);
+
+    if (remainingToRemove > 0) {
+      throw new IllegalArgumentException("You are trying to remove a higher quantity than available.");
+    }
   }
 
   /**
-   * Extracted from removeFromGroceryList.
-   * Logic for removing a grocery from the list.
+   * The removal logic when removing a grocery.
    *
    * @param groceryToRemove The grocery to remove.
-   * @param quantityToRemove The quantity to remove.
-   * @param grocery The grocery instance.
-   * @param itemsToRemove The list of items to remove.
+   * @param groceryIterator The iterator that iterates the groceries.
+   * @param remainingToRemove The remaining quantity to remove.
+   * @return The remaining quantity.
    */
-  private void removeGroceryLogic(String groceryToRemove, float quantityToRemove, Grocery grocery,
-                                  List<Grocery> itemsToRemove) {
-    if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
-      float updatedQuantity = grocery.getQuantity() - quantityToRemove;
-      if (updatedQuantity < 0) {
-        throw new IllegalArgumentException("You are trying to remove a higher quantity, "
-            + "than what is available.");
-      } else if (updatedQuantity == 0) {
-        itemsToRemove.add(grocery);
-      } else {
-        float pricePerUnit = grocery.getPrice() / grocery.getQuantity();
-        grocery.setQuantity(updatedQuantity);
-        grocery.setPrice(pricePerUnit * updatedQuantity);
+  private float removalLogic(String groceryToRemove, Iterator<Grocery> groceryIterator, float remainingToRemove) {
+    while (groceryIterator.hasNext() && remainingToRemove > 0) {
+      Grocery grocery = groceryIterator.next();
+
+      if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
+        if (grocery.getQuantity() <= remainingToRemove) {
+          remainingToRemove -= grocery.getQuantity();
+          groceryIterator.remove();
+        } else {
+          float pricePerUnit = grocery.getPrice() / grocery.getQuantity();
+          grocery.setQuantity(grocery.getQuantity() - remainingToRemove);
+          grocery.setPrice(pricePerUnit * grocery.getQuantity());
+          remainingToRemove = 0;
+        }
       }
     }
+    return remainingToRemove;
   }
 
   /**
@@ -138,9 +144,10 @@ public class FoodStorage {
    */
   public void removeGrocery(String groceryToRemove, float quantityToRemove) {
     validateInputs(groceryToRemove, quantityToRemove);
+    String normalizedGroceryName = GroceryFormatter.normalizedString(groceryToRemove);
 
     List<Grocery> groceryList = groceries.entrySet().stream()
-        .filter(entry -> entry.getKey().equalsIgnoreCase(groceryToRemove))
+        .filter(entry -> entry.getKey().equalsIgnoreCase(normalizedGroceryName))
         .map(Map.Entry::getValue)
         .findFirst()
         .orElse(new ArrayList<>());
