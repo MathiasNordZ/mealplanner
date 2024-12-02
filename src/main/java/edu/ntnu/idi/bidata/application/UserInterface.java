@@ -2,46 +2,79 @@ package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.menu.MainMenu;
+import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenu;
+import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenuMutator;
+import edu.ntnu.idi.bidata.menu.cookbook.CookBookMenuPrinter;
 import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
+import edu.ntnu.idi.bidata.menu.grocery.GroceryMenuMutator;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import edu.ntnu.idi.bidata.register.GroceryManager;
-
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
- * <p>This is the interface class. This class will initialize instances required to run the application.
- * It will also initially fill the food storage and cookbook with groceries and recipes by default.</p>
+ * This is the <code>UserInterface</code> class.
+ *
+ * <p>This class will initialize instances required to run the application.</p>
+ *
+ * <p>It will also initially fill the food storage
+ * and cookbook with groceries and recipes by default.</p>
  *
  * @author <b>Mathias Erik Nord</b>
  * @version <b>0.0.1</b>
  */
 public class UserInterface {
   private MainMenu mainMenu;
+  private static final String KILOGRAM = "kilogram";
 
   /**
-   * <p>This is the method that initializes instances required to run the application.
-   * It will also fill the cookbook and food storage with some default groceries and recipes.</p>
+   * This is the method that initializes all the instances required to run the application.
+   * It will also fill the cookbook and food storage with some default groceries and recipes.
+   *
+   * @since 0.0.1
    */
   public void init() {
-    UserInputHandler uiInputHandler = new UserInputHandler();
-    GroceryManager groceryManager = new GroceryManager(new FoodStorage());
-    GroceryMenu groceryMenu = new GroceryMenu(groceryManager, uiInputHandler);
-    CookBook cookBook = new CookBook();
-    CookBookMenu cookBookMenu = new CookBookMenu(uiInputHandler, cookBook, groceryManager);
+    Scanner scanner = new Scanner(System.in);
+    StringMenu stringMenu = new StringMenu();
+    UserInputHandler uiInputHandler = new UserInputHandler(scanner);
+    FoodStorage foodStorage = initializeFoodStorage();
+    CookBook cookBook = initializeCookBook();
 
     addRecipe(cookBook);
-    addGrocery(groceryManager);
+    addGrocery(foodStorage);
 
-    mainMenu = new MainMenu(uiInputHandler, groceryMenu, cookBookMenu);
+    mainMenu = new MainMenu(uiInputHandler, initializeGroceryMenu(uiInputHandler, foodStorage, stringMenu), initializeCookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu));
+  }
+
+  private FoodStorage initializeFoodStorage() {
+    return new FoodStorage();
+  }
+
+  private CookBook initializeCookBook() {
+    return new CookBook();
+  }
+
+  private GroceryMenu initializeGroceryMenu(UserInputHandler uiInputHandler, FoodStorage foodStorage, StringMenu stringMenu) {
+    GroceryMenuMutator groceryMenuMutator = new GroceryMenuMutator(uiInputHandler);
+
+    return new GroceryMenu(foodStorage, uiInputHandler, stringMenu, groceryMenuMutator);
+  }
+
+  private CookBookMenu initializeCookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage, StringMenu stringMenu) {
+    CookBookMenuPrinter cookBookMenuPrinter = new CookBookMenuPrinter();
+    CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator(uiInputHandler);
+
+    return new CookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu, cookBookMenuMutator, cookBookMenuPrinter);
   }
 
   /**
-   * This is the method that will start the program.
+   * This is the method that will start the whole application.
+   *
+   * @since 0.0.1
    */
   public void start() {
     mainMenu.mainMenu();
@@ -56,25 +89,30 @@ public class UserInterface {
    * @param unit Unit of measurement of grocery.
    * @param price Price of grocery.
    * @param expiryDate Expiry date of grocery.
+   * @since 0.0.1
    */
-  private void initializeGrocery(GroceryManager groceryManager, float quantity, String name, String unit, int price, String expiryDate) {
+  private void initializeGrocery(FoodStorage foodStorage, float quantity,
+                                 String name, String unit, int price, String expiryDate) {
     Grocery grocery = new Grocery(quantity, name, unit, price, expiryDate);
-    groceryManager.addGrocery(grocery);
+    foodStorage.addGrocery(grocery);
   }
 
   /**
-   * Method will call <code>initializeGrocery</code>.
+   * Method that will call <code>initializeGrocery</code>.
+   * This is to initialize a given set of groceries to start the application with.
+   *
    * @param foodStorage Food storage that grocery should be added to.
+   * @since 0.0.1
    */
-  private void addGrocery(GroceryManager groceryManager) {
-    initializeGrocery(groceryManager, 1f, "Milk", "liter", 25, "2024-12-31");
-    initializeGrocery(groceryManager, 1.25f, "Chicken", "kilogram", 125, "2024-12-10");
-    initializeGrocery(groceryManager, 2f, "Rice", "kilogram", 45, "2025-10-30");
-    initializeGrocery(groceryManager, 1.5f, "Cola", "liter", 37, "2025-08-20");
+  private void addGrocery(FoodStorage foodStorage) {
+    initializeGrocery(foodStorage, 1f, "Milk", "liter", 25, "2024-12-31");
+    initializeGrocery(foodStorage, 1.25f, "Chicken", KILOGRAM, 125, "2024-12-10");
+    initializeGrocery(foodStorage, 2f, "Rice", KILOGRAM, 45, "2025-10-30");
+    initializeGrocery(foodStorage, 1.5f, "Cola", "liter", 37, "2025-08-20");
   }
 
   /**
-   * Private method that will initialize an instance of <code>Recipe</code>>.
+   * Method that will initialize an instance of <code>Recipe</code>.
    *
    * @param cookBook Cookbook to add the recipe to.
    * @param recipeName Name of the recipe.
@@ -82,22 +120,35 @@ public class UserInterface {
    * @param cookingInstructions Instructions for the recipe.
    * @param ingredients Ingredients of the recipe.
    * @param amountOfServings Amount of servings.
+   * @since 0.0.1
    */
-  private void initializeRecipe(CookBook cookBook, String recipeName, String recipeDescription, String cookingInstructions, Map<String, SimpleEntry<Float, String>> ingredients, int amountOfServings) {
-    Recipe recipe = new Recipe(recipeName, recipeDescription, cookingInstructions, ingredients, amountOfServings);
+  private void initializeRecipe(CookBook cookBook, String recipeName,
+                                String recipeDescription, String cookingInstructions,
+                                Map<String, SimpleEntry<Float, String>> ingredients,
+                                int amountOfServings) {
+    Recipe recipe = new Recipe(recipeName, recipeDescription,
+        cookingInstructions, ingredients, amountOfServings);
     cookBook.addRecipe(recipe);
   }
 
   /**
    * Method will call <code>initializeRecipe</code>.
+   * This is to initialize given recipes by default when starting the program.
    *
    * @param cookBook Cookbook to add recipe to.
+   * @since 0.0.1
    */
   private void addRecipe(CookBook cookBook) {
-    Map<String, SimpleEntry<Float, String>> ingredients = new HashMap<>();
-    ingredients.put("Chicken", new SimpleEntry<>(0.75f, "kilogram"));
-    ingredients.put("Rice", new SimpleEntry<>(0.5f, "kilogram"));
+    Map<String, SimpleEntry<Float, String>> chickenRiceIngredients = new HashMap<>();
+    chickenRiceIngredients.put("Chicken", new SimpleEntry<>(0.75f, KILOGRAM));
+    chickenRiceIngredients.put("Rice", new SimpleEntry<>(0.5f, KILOGRAM));
     initializeRecipe(cookBook, "Chicken and Rice", "This is a chicken and rice dish",
-        "Fry chicken in pan, cook rice, serve.", ingredients, 3);
+        "Fry chicken in pan, cook rice, serve.", chickenRiceIngredients, 3);
+
+    Map<String, SimpleEntry<Float, String>> pastaSalmonIngredients = new HashMap<>();
+    pastaSalmonIngredients.put("Pasta", new SimpleEntry<>(0.5f, KILOGRAM));
+    pastaSalmonIngredients.put("Salmon", new SimpleEntry<>(0.35f, KILOGRAM));
+    initializeRecipe(cookBook, "Pasta and Salmon", "This is a pasta and salmon dish",
+        "Boil pasta for 15 minutes, fry salmon in pan.", pastaSalmonIngredients, 2);
   }
 }

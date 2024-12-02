@@ -1,20 +1,29 @@
 package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.recipe.Recipe;
-
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+/**
+ * Utility class for formatting the cookbook.
+ * Provides methods to format a list of recipes, or a single recipe into a readable format.
+ *
+ * @author Mathias Erik Nord
+ * @since 23.11.2024
+ * @version 0.0.1
+ */
 public class CookBookFormatter {
-  CookBookFormatter() {
-
+  private CookBookFormatter() {
+    // Private constructor to prevent instantiation.
   }
 
   /**
-   * This method is the template of how a list of recipes should look when printed.
+   * Formats a set of recipes into table format.
    *
    * @param recipes The recipes to add to table.
-   * @return Will return a table according to the given format.
+   * @return String table according to the given format.
+   * @throws IllegalArgumentException if the recipe set is null
+   * @throws NoSuchElementException if the recipe set is empty
    * @since 0.0.1
    */
   public static String formatRecipes(Set<Recipe> recipes) {
@@ -35,10 +44,12 @@ public class CookBookFormatter {
   }
 
   /**
-   * This method is the template of how a specific recipe should look when printed.
+   * Format a set of recipes into a table format.
    *
-   * @param recipe Recipe to add to table.
-   * @return Will return a table according to the given format.
+   * @param recipe The recipe to add to table.
+   * @return A table string according to the given format.
+   * @throws IllegalArgumentException if the recipe set is null
+   * @throws NoSuchElementException if the recipe set is empty
    * @since 0.0.1
    */
   public static String formatRecipe(Set<Recipe> recipe) {
@@ -59,11 +70,24 @@ public class CookBookFormatter {
   }
 
   /**
-   * Validation method for <code>formatRecipes</code>.
-   * Will validate that the provided Set is not <code>null</code> or empty.
-   * Refactored to a separate method to be less complex and more modular.
+   * Formats a single recipe into a table format.
+   *
+   * @param recipe The recipe to format.
+   * @return A formatted string representation of the recipe.
+   * @since 0.0.1
+   */
+  public static String formatRecipe(Recipe recipe) {
+    return formatRecipe(Set.of(recipe));
+  }
+
+  /**
+   * Validates the provided set of recipes.
+   * Checks if the set is not null or empty.
    *
    * @param recipes The recipe set to validate.
+   * @throws IllegalArgumentException if the recipe set is null
+   * @throws NoSuchElementException if the recipe set is empty
+   * @since 0.0.1
    */
   private static void recipeValidation(Set<Recipe> recipes) {
     if (recipes == null || recipes.isEmpty()) {
@@ -73,16 +97,5 @@ public class CookBookFormatter {
         throw new NoSuchElementException("Recipe list has no elements!");
       }
     }
-  }
-
-  /**
-   * This method will format a recipe according to the <code>formatReicpe</code> template.
-   *
-   * @param recipe The recipe to format.
-   * @return A formatted string representation of the recipe.
-   * @since 0.0.1
-   */
-  public static String formatRecipe(Recipe recipe) {
-    return formatRecipe(Set.of(recipe));
   }
 }

@@ -72,15 +72,17 @@ public class MainMenu {
         System.out.println("Invalid command." + e.getMessage());
         continue;
       }
-
-      switch (command) {
-        case MainCommands.GROCERY_MENU -> groceryMenu.groceryMenu();
-        case MainCommands.COOKBOOK_MENU -> cookBookMenu.cookBookMenu();
-        case MainCommands.EXIT -> System.out.println("Exiting application.");
-        default -> System.out.println("Invalid command.");
-      }
-
+      commandHandler(command);
     } while (command != MainCommands.EXIT);
+  }
+
+  private void commandHandler(MainCommands command) {
+    switch (command) {
+      case MainCommands.GROCERY_MENU -> groceryMenu.groceryMenu();
+      case MainCommands.COOKBOOK_MENU -> cookBookMenu.cookBookMenu();
+      case MainCommands.EXIT -> System.out.println("Exiting application.");
+      default -> System.out.println("Invalid command.");
+    }
   }
 
 }

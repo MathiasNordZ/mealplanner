@@ -4,7 +4,8 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-import edu.ntnu.idi.bidata.register.GroceryManager;
+
+import java.util.Scanner;
 
 /**
  * This class represents the cook book menu in the application.
@@ -15,27 +16,35 @@ import edu.ntnu.idi.bidata.register.GroceryManager;
  * @since <b>22.11.2024</b>
  */
 public class CookBookMenu {
-  private final UserInputHandler uiInputHandler;
+  private final Scanner scanner = new Scanner(System.in);
+  private UserInputHandler uiInputHandler = new UserInputHandler(scanner);
   private final CookBook cookBook;
-  private GroceryManager groceryManager = new GroceryManager(new FoodStorage());
+  private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
-  private final StringMenu stringMenu = new StringMenu();
-  private final CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator();
-  private final CookBookMenuPrinter cookBookMenuPrinter = new CookBookMenuPrinter();
+  private final StringMenu stringMenu;
+  private final CookBookMenuMutator cookBookMenuMutator;
+  private final CookBookMenuPrinter cookBookMenuPrinter;
 
   /**
-   * Constructor for the <code>CookBookMeny</code> class.
+   * Constructs a new instance of <code>CookBookMenu</code>.
    *
-   * @param uiInputHandler The user input handler.
-   * @param cookBook The cookbook containing recipes.
-   * @param foodStorage The food storage containing groceries.
+   * @param uiInputHandler The handler for user input, used to read commands and data from user.
+   * @param cookBook The cookbook that contains the collection of recipes to be managed.
+   * @param foodStorage The storage that contains the groceries used in the recipes.
+   * @since 0.0.1
    */
-  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, GroceryManager groceryManager) {
+  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage, StringMenu stringMenu, CookBookMenuMutator cookBookMenuMutator, CookBookMenuPrinter cookBookMenuPrinter) {
     this.uiInputHandler = uiInputHandler;
     this.cookBook = cookBook;
-    this.groceryManager = groceryManager;
+    this.foodStorage = foodStorage;
+    this.stringMenu = stringMenu;
+    this.cookBookMenuMutator = cookBookMenuMutator;
+    this.cookBookMenuPrinter = cookBookMenuPrinter;
   }
 
+  /**
+   * Enum that is representing the command available in the cook book menu.
+   */
   private enum CookBookCommand {
     CREATE_RECIPE(1),
     REMOVE_RECIPE(2),
@@ -50,6 +59,14 @@ public class CookBookMenu {
       this.value = value;
     }
 
+    /**
+     * Method that will return the command based on the given value.
+     *
+     * @param value The value of the given command.
+     * @return The command corresponding to the value.
+     * @throws IllegalArgumentException if the value does not correspond to any command.
+     * @since 0.0.1
+     */
     private static CookBookCommand fromValue(int value) {
       for (CookBookCommand command : CookBookCommand.values()) {
         if (command.value == value) {
@@ -61,8 +78,7 @@ public class CookBookMenu {
   }
 
   /**
-   * The display of the cook book menu.
-   * Interacts with the user by taking the inputs.
+   * The display of the cook book menu where the user is interacting.
    */
   public void cookBookMenu() {
     CookBookCommand command = null;
@@ -78,15 +94,30 @@ public class CookBookMenu {
         continue;
       }
 
-      switch (command) {
-        case CookBookCommand.CREATE_RECIPE -> cookBookMenuMutator.createRecipe(ERRORMESSAGE, cookBook);
-        case CookBookCommand.REMOVE_RECIPE -> cookBookMenuMutator.removeRecipe(ERRORMESSAGE, cookBook);
-        case CookBookCommand.PRINT_RECIPES -> cookBookMenuPrinter.printRecipes(ERRORMESSAGE, cookBook);
-        case CookBookCommand.PRINT_RECIPE -> cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
-        case CookBookCommand.RECIPE_RECOMMENDATION -> cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, groceryManager);
-        case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
-        default -> System.out.println("Invalid command.");
-      }
+      commandHandler(command);
     } while (command != CookBookCommand.BACK);
+  }
+
+  /**
+   * Handles the given command by executing the action linked to the command.
+   *
+   * @param command The command to handle.
+   * @since 0.0.1
+   */
+  private void commandHandler(CookBookCommand command) {
+    switch (command) {
+      case CookBookCommand.CREATE_RECIPE ->
+          cookBookMenuMutator.createRecipe(ERRORMESSAGE, cookBook);
+      case CookBookCommand.REMOVE_RECIPE ->
+          cookBookMenuMutator.removeRecipe(ERRORMESSAGE, cookBook);
+      case CookBookCommand.PRINT_RECIPES ->
+          cookBookMenuPrinter.printRecipes(ERRORMESSAGE, cookBook);
+      case CookBookCommand.PRINT_RECIPE ->
+          cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
+      case CookBookCommand.RECIPE_RECOMMENDATION ->
+          cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
+      case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
+      default -> System.out.println("Invalid command.");
+    }
   }
 }
