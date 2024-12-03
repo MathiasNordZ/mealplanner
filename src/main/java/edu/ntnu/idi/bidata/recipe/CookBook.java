@@ -14,7 +14,7 @@ import java.util.AbstractMap.SimpleEntry;
  * @since 13.11.2024
  */
 public class CookBook {
-  private final HashSet<Recipe> recipes;
+  private final Set<Recipe> recipes;
 
   /**
    * Constructor for the class <code>CookBook</code>.
@@ -40,15 +40,17 @@ public class CookBook {
   /**
    * Accessor method for <code>recipe</code>.
    *
-   * @param recipe The recipe to retrieve.
+   * @param recipeName The name of the recipe to retrieve.
    * @return The given recipe, if it does exist.
    * @throws NoSuchElementException will be thrown if the recipe does not exist.
    */
-  public Recipe getRecipe(Recipe recipe) {
-    if (!recipes.contains(recipe)) {
-      throw new NoSuchElementException("There is no such element.");
+  public Recipe getRecipe(String recipeName) {
+    for (Recipe recipe : recipes) {
+      if(recipe.getRecipeName().equalsIgnoreCase(recipeName)) {
+        return recipe;
+      }
     }
-    return recipe;
+    throw new NoSuchElementException("The recipe does not exist!");
   }
 
   /**
@@ -71,10 +73,14 @@ public class CookBook {
    *
    * @param recipe recipe to be removed.
    * @throws IllegalArgumentException if the recipe provided is null.
+   * @throws NoSuchElementException if the recipe to remove does not exist.
    */
   public void removeRecipe(Recipe recipe) {
     if (recipe == null) {
       throw new IllegalArgumentException("Recipe to remove cannot be null.");
+    }
+    if (!recipes.contains(recipe)) {
+      throw new NoSuchElementException("The recipe to remove does not exist!");
     }
     recipes.remove(recipe);
   }
@@ -82,6 +88,7 @@ public class CookBook {
   /**
    * Accessor method that will recommend a recipe,
    * based on what is already in the given foodStorage.
+   * Improvement inspired by CoPilot.
    *
    * @param foodStorage storage to check for groceries.
    * @return Will return a recipe, if there are enough groceries.
@@ -92,12 +99,11 @@ public class CookBook {
     if (foodStorage == null) {
       throw new IllegalArgumentException("Food storage cannot be null!");
     }
-    for (Recipe recipe : recipes) {
-      if (matchRecipeToGrocery(foodStorage, recipe)) {
-        return recipe;
-      }
-    }
-    throw new NoSuchElementException("There is no recipes that can be made with your groceries.");
+    return recipes.stream()
+        .filter(recipe -> matchRecipeToGrocery(foodStorage, recipe))
+        .findFirst()
+        .orElseThrow(() ->
+            new NoSuchElementException("There is no recipes that can be made with your groceries."));
   }
 
   /**
@@ -107,7 +113,7 @@ public class CookBook {
    * @param recipe The recipe to match with the groceries.
    * @return <code>true</code> if possible to make, and <code>false</code> if not possible.
    */
-  private static boolean matchRecipeToGrocery(FoodStorage foodStorage, Recipe recipe) {
+  private boolean matchRecipeToGrocery(FoodStorage foodStorage, Recipe recipe) {
     for (Map.Entry<String, SimpleEntry<Float, String>> ingredient :
         recipe.getIngredients().entrySet()) {
       String nameOfIngredient = ingredient.getKey();
