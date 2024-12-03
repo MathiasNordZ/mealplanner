@@ -1,5 +1,7 @@
 package edu.ntnu.idi.bidata.application;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -17,8 +19,8 @@ public class UserInputHandler {
    * Initializes a scanner instance to read inputs from user.
    * @since 0.0.1
    */
-  public UserInputHandler(Scanner scanner) {
-    this.scanner = scanner;
+  public UserInputHandler() {
+    this.scanner = new Scanner(System.in);
   }
 
   /**
@@ -88,23 +90,25 @@ public class UserInputHandler {
   /**
    * <p>Reads the date input from user.
    * Will re-prompt if user enters an invalid input.</p>
+   * Refactored to be more versatile than regex, helped by CoPilot.
    *
    * @param prompt The prompt message.
    * @return Will return the inputted date of expiry.
    * @since 0.0.1
    */
   public String dateReader(String prompt) {
-    String dateOfExpiry = "";
+    LocalDate dateOfExpiry = null;
     boolean isDateCorrect = false;
     while (!isDateCorrect) {
-      dateOfExpiry = stringReader(prompt);
-      if (dateOfExpiry.matches("\\d{4}-\\d{2}-\\d{2}")) { // Will check that it matches the correct format.
+      String input = stringReader(prompt);
+      try {
+        dateOfExpiry = LocalDate.parse(input);
         isDateCorrect = true;
-      } else {
-        System.out.println("You provided an invalid date! Pleas use format 'YYYY-MM-DD'.");
+      } catch (DateTimeParseException e) {
+        System.out.println("You provided an invalid date! Please use format 'YYYY-MM-DD'.");
       }
     }
-    return dateOfExpiry;
+    return dateOfExpiry.toString();
   }
 
   /**
