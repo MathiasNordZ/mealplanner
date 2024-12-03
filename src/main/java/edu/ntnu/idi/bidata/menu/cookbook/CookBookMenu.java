@@ -16,8 +16,7 @@ import java.util.Scanner;
  * @since <b>22.11.2024</b>
  */
 public class CookBookMenu {
-  private final Scanner scanner = new Scanner(System.in);
-  private UserInputHandler uiInputHandler = new UserInputHandler(scanner);
+  private final UserInputHandler uiInputHandler;
   private final CookBook cookBook;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
@@ -90,7 +89,7 @@ public class CookBookMenu {
       try {
         command = CookBookCommand.fromValue(commandValue);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid command." + e.getMessage());
+        System.out.println("Invalid command. " + e.getMessage());
         continue;
       }
 
@@ -116,8 +115,8 @@ public class CookBookMenu {
           cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
       case CookBookCommand.RECIPE_RECOMMENDATION ->
           cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
-      case CookBookCommand.BACK -> System.out.println("Going back to main menu.");
-      default -> System.out.println("Invalid command.");
+      case CookBookCommand.BACK -> System.out.println("Going back to main menu. ");
+      default -> System.out.println("Invalid command. ");
     }
   }
 }
