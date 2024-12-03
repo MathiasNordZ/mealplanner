@@ -66,6 +66,11 @@ public class CookBook {
     if (recipe == null) {
       throw new IllegalArgumentException("Recipe to add cannot be null.");
     }
+    for (Recipe existingRecipe : recipes) {
+      if (existingRecipe.getRecipeName().equalsIgnoreCase(recipe.getRecipeName())) {
+        throw new IllegalArgumentException("There is already a recipe with the same name!");
+      }
+    }
     recipes.add(recipe);
   }
 
