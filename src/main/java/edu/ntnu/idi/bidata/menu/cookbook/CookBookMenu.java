@@ -5,8 +5,6 @@ import edu.ntnu.idi.bidata.menu.StringMenu;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 
-import java.util.Scanner;
-
 /**
  * This class represents the cook book menu in the application.
  * In the cook book menu the user should be able to manage the recipes.
@@ -32,7 +30,9 @@ public class CookBookMenu {
    * @param foodStorage The storage that contains the groceries used in the recipes.
    * @since 0.0.1
    */
-  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage, StringMenu stringMenu, CookBookMenuMutator cookBookMenuMutator, CookBookMenuPrinter cookBookMenuPrinter) {
+  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage,
+                      StringMenu stringMenu, CookBookMenuMutator cookBookMenuMutator,
+                      CookBookMenuPrinter cookBookMenuPrinter) {
     this.uiInputHandler = uiInputHandler;
     this.cookBook = cookBook;
     this.foodStorage = foodStorage;
