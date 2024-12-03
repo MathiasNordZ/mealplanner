@@ -98,24 +98,27 @@ public class FoodStorage {
    */
   private void removeGroceryFromList(String groceryToRemove,
                                      float quantityToRemove, List<Grocery> groceryList) {
-    float remainingToRemove = quantityToRemove;
-    Iterator<Grocery> groceryIterator = groceryList.iterator();
-    remainingToRemove = removalLogic(groceryToRemove, groceryIterator, remainingToRemove);
+    float availableQuantity = groceryList.stream()
+        .filter(grocery -> grocery.getName()
+            .equalsIgnoreCase(groceryToRemove))
+        .map(Grocery::getQuantity)
+        .reduce(0f, Float::sum);
 
-    if (remainingToRemove > 0) {
-      throw new IllegalArgumentException("You are trying to remove a higher quantity than available.");
+    if(quantityToRemove > availableQuantity) {
+      throw new IllegalArgumentException("You are trying to remove a higher quantity, than available.");
     }
+    Iterator<Grocery> groceryIterator = groceryList.iterator();
+    removalLogic(groceryToRemove, groceryIterator, quantityToRemove);
   }
 
   /**
-   * The removal logic when removing a grocery.
+   * The removal logic used when removing a grocery.
    *
    * @param groceryToRemove The grocery to remove.
    * @param groceryIterator The iterator that iterates the groceries.
    * @param remainingToRemove The remaining quantity to remove.
-   * @return The remaining quantity.
    */
-  private float removalLogic(String groceryToRemove, Iterator<Grocery> groceryIterator, float remainingToRemove) {
+  private void removalLogic(String groceryToRemove, Iterator<Grocery> groceryIterator, float remainingToRemove) {
     while (groceryIterator.hasNext() && remainingToRemove > 0) {
       Grocery grocery = groceryIterator.next();
 
@@ -131,7 +134,6 @@ public class FoodStorage {
         }
       }
     }
-    return remainingToRemove;
   }
 
   /**
@@ -153,7 +155,6 @@ public class FoodStorage {
         .orElse(new ArrayList<>());
 
     validateGroceryList(groceryList);
-
     removeGroceryFromList(groceryToRemove, quantityToRemove, groceryList);
 
     if (groceryList.isEmpty()) {
