@@ -1,9 +1,11 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * The <code>CookBook</code> class represents a collection of recipes.
@@ -46,7 +48,7 @@ public class CookBook {
    */
   public Recipe getRecipe(String recipeName) {
     for (Recipe recipe : recipes) {
-      if(recipe.getRecipeName().equalsIgnoreCase(recipeName)) {
+      if (recipe.getRecipeName().equalsIgnoreCase(recipeName)) {
         return recipe;
       }
     }
@@ -103,7 +105,8 @@ public class CookBook {
         .filter(recipe -> matchRecipeToGrocery(foodStorage, recipe))
         .findFirst()
         .orElseThrow(() ->
-            new NoSuchElementException("There is no recipes that can be made with your groceries."));
+            new NoSuchElementException("There is no recipes that"
+                + " can be made with your groceries."));
   }
 
   /**
