@@ -3,12 +3,10 @@ package edu.ntnu.idi.bidata.menu.cookbook;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
-
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 /**
  * This class provides the user methods that can mutate the state of the cookbook.
@@ -74,9 +72,9 @@ public class CookBookMenuMutator {
         isUserDone = true;
       } else {
         float quantityOfIngredient = uiInputHandler
-            .intReader("Please enter required quantity of ingredient: ");
+            .floatReader("Please enter required quantity of ingredient: ");
         String unitOfMeasurement = uiInputHandler
-            .stringReader("Please enter unit of measurement.");
+            .unitReader("Please enter unit of measurement.");
         ingredients.put(nameOfIngredient,
             new SimpleEntry<>(quantityOfIngredient, unitOfMeasurement));
       }
@@ -99,7 +97,7 @@ public class CookBookMenuMutator {
           .findFirst()
           .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
       cookBook.removeRecipe(recipe);
-      System.out.println(recipe + " was removed!");
+      System.out.println(recipe.getRecipeName() + " was removed!");
     } catch (NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
     }
