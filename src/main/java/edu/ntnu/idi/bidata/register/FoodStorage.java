@@ -59,7 +59,7 @@ public class FoodStorage {
     if (!found) {
       groceryList.add(providedGrocery);
     }
-    groceries.put(providedGrocery.getName(), groceryList);
+    groceries.put(normalizedGroceryName, groceryList);
   }
 
   /**
@@ -149,11 +149,7 @@ public class FoodStorage {
     validateInputs(groceryToRemove, quantityToRemove);
     String normalizedGroceryName = GroceryFormatter.normalizedString(groceryToRemove);
 
-    List<Grocery> groceryList = groceries.entrySet().stream()
-        .filter(entry -> entry.getKey().equalsIgnoreCase(normalizedGroceryName))
-        .map(Map.Entry::getValue)
-        .findFirst()
-        .orElse(new ArrayList<>());
+    List<Grocery> groceryList = groceries.getOrDefault(normalizedGroceryName, new ArrayList<>());
 
     validateGroceryList(groceryList);
     removeGroceryFromList(groceryToRemove, quantityToRemove, groceryList);
@@ -238,15 +234,11 @@ public class FoodStorage {
    * @return The total value of all groceries.
    */
   public float valueOfAllGroceries() {
-    try {
-      return groceries.values().stream()
-          .filter(groceryList -> groceryList != null && !groceryList.isEmpty())
-          .flatMap(List::stream)
-          .map(Grocery::getPrice)
-          .reduce(0f, Float::sum);
-    } catch (Exception e) {
-      return 0;
-    }
+    return groceries.values().stream()
+        .filter(groceryList -> groceryList != null && !groceryList.isEmpty())
+        .flatMap(List::stream)
+        .map(Grocery::getPrice)
+        .reduce(0f, Float::sum);
   }
 
   /**
@@ -257,17 +249,15 @@ public class FoodStorage {
    * @throws NoSuchElementException if the grocery list is empty.
    */
   public List<Grocery> getSortedList() {
-    List<Grocery> allGroceries = groceries.values().stream()
+    List<Grocery> sortedList = groceries.values().stream()
         .flatMap(List::stream)
+        .sorted(Comparator.comparing(Grocery::getName))
         .toList();
 
-    if (allGroceries.isEmpty()) {
+    if (sortedList.isEmpty()) {
       throw new NoSuchElementException("The grocery list is empty!");
     }
-
-    return List.copyOf(allGroceries.stream()
-        .sorted(Comparator
-            .comparing(Grocery::getName)).toList());
+    return List.copyOf(sortedList);
   }
 
   /**
