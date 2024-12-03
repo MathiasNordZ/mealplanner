@@ -5,8 +5,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * <p>The <code>UserInputHandler</code> class handles input operations for the user.
- * It provides methods to read strings, integers, and floats from the user.</p>
+ * The <code>UserInputHandler</code> class handles input operations for the user.
+ * It provides methods to read strings, integers, and floats from the user.
  *
  * @author <b>Mathias Erik Nord</b>
  * @version <b>0.0.1</b>
@@ -17,6 +17,7 @@ public class UserInputHandler {
   /**
    * Constructor for <code>UserInputHandler</code>.
    * Initializes a scanner instance to read inputs from user.
+   *
    * @since 0.0.1
    */
   public UserInputHandler() {
@@ -24,7 +25,7 @@ public class UserInputHandler {
   }
 
   /**
-   * <p>Reads a string input from the user.</p>
+   * Reads a string input from the user.
    *
    * @param prompt The message to display to prompt the user before reading input.
    * @return String input from the user.
@@ -36,9 +37,9 @@ public class UserInputHandler {
   }
 
   /**
-   * <p>Reads an integer input from the user.
+   * Reads an integer input from the user.
    * If the input is not a valid integer,
-   * it will re-prompt until there is a valid input.</p>
+   * it will re-prompt until there is a valid input.
    *
    * @param prompt The message to display to the user before reading input.
    * @return Integer input from the user.
@@ -54,7 +55,7 @@ public class UserInputHandler {
         scanner.nextLine();
         validInput = true;
       } else {
-        System.out.println("You provided and invalid input! Please enter a valid whole number.");
+        System.out.println("You provided an invalid input! Please enter a valid whole number.");
         scanner.next();
       }
     }
@@ -62,9 +63,9 @@ public class UserInputHandler {
   }
 
   /**
-   * <p>Reads a float input from the user.
+   * Reads a float input from the user.
    * If the input is not a valid float,
-   * it will re-prompt until the input is valid.</p>
+   * it will re-prompt until the input is valid.
    *
    * @param prompt The message to display to the user before reading input.
    * @return Float input from the user.
@@ -80,7 +81,7 @@ public class UserInputHandler {
         scanner.nextLine();
         validInput = true;
       } else {
-        System.out.println("You provided and invalid input! Please enter a valid number.");
+        System.out.println("You provided an invalid input! Please enter a valid number.");
         scanner.next();
       }
     }
@@ -88,8 +89,8 @@ public class UserInputHandler {
   }
 
   /**
-   * <p>Reads the date input from user.
-   * Will re-prompt if user enters an invalid input.</p>
+   * Reads the date input from user.
+   * Will re-prompt if user enters an invalid input.
    * Refactored to be more versatile than regex, helped by CoPilot.
    *
    * @param prompt The prompt message.
@@ -112,8 +113,8 @@ public class UserInputHandler {
   }
 
   /**
-   * <p>Reads the unit of measurement input from user.
-   * Will re-prompt is user enters wrong unit format.</p>
+   * Reads the unit of measurement input from user.
+   * Will re-prompt is user enters wrong unit format.
    *
    * @param prompt The prompt message.
    * @return Will return the inputted unit.
@@ -129,7 +130,8 @@ public class UserInputHandler {
           || unitOfMeasurement.equalsIgnoreCase("pcs")) {
         isUnitCorrect = true;
       } else {
-        System.out.println("You provided an invalid unit of measurement! Please use (kilogram/liter/pcs).");
+        System.out.println("You provided an invalid unit of measurement! "
+            + "Please use (kilogram/liter/pcs).");
       }
     }
     return unitOfMeasurement;
