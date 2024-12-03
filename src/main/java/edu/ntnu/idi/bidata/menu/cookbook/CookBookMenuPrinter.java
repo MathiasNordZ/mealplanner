@@ -49,10 +49,7 @@ public class CookBookMenuPrinter {
   public void printRecipe(String errorMessage, UserInputHandler uiInputHandler, CookBook cookBook) {
     try {
       String recipeToPrint = uiInputHandler.stringReader("Please enter recipe to print: ");
-      Recipe recipe = cookBook.getAllRecipes().stream()
-          .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToPrint))
-          .findFirst()
-          .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
+      Recipe recipe = cookBook.getRecipe(recipeToPrint);
       String formattedRecipe = CookBookFormatter.formatRecipe(recipe);
       System.out.println(formattedRecipe);
     } catch (NoSuchElementException e) {
