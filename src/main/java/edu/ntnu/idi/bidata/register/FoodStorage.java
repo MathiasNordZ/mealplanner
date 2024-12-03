@@ -7,7 +7,6 @@ import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateString;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -89,7 +88,7 @@ public class FoodStorage {
   /**
    * Removes the specified quantity of the provided grocery, from the list.
    * This method was inspired by GitHub Copilot, to help reduce the cognitive complexity that
-   *                                                                                                      SonarLint was throwing.
+   *                                                                   SonarLint was throwing.
    *
    * @param groceryToRemove The grocery to remove.
    * @param quantityToRemove The quantity to remove.
@@ -104,8 +103,9 @@ public class FoodStorage {
         .map(Grocery::getQuantity)
         .reduce(0f, Float::sum);
 
-    if(quantityToRemove > availableQuantity) {
-      throw new IllegalArgumentException("You are trying to remove a higher quantity, than available.");
+    if (quantityToRemove > availableQuantity) {
+      throw new
+          IllegalArgumentException("You are trying to remove a higher quantity, than available.");
     }
     Iterator<Grocery> groceryIterator = groceryList.iterator();
     removalLogic(groceryToRemove, groceryIterator, quantityToRemove);
@@ -118,7 +118,8 @@ public class FoodStorage {
    * @param groceryIterator The iterator that iterates the groceries.
    * @param remainingToRemove The remaining quantity to remove.
    */
-  private void removalLogic(String groceryToRemove, Iterator<Grocery> groceryIterator, float remainingToRemove) {
+  private void removalLogic(String groceryToRemove, Iterator<Grocery> groceryIterator,
+                            float remainingToRemove) {
     while (groceryIterator.hasNext() && remainingToRemove > 0) {
       Grocery grocery = groceryIterator.next();
 
