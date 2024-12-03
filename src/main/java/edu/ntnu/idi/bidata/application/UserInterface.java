@@ -14,7 +14,6 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * This is the <code>UserInterface</code> class.
@@ -38,9 +37,8 @@ public class UserInterface {
    * @since 0.0.1
    */
   public void init() {
-    Scanner scanner = new Scanner(System.in);
     StringMenu stringMenu = new StringMenu();
-    UserInputHandler uiInputHandler = new UserInputHandler(scanner);
+    UserInputHandler uiInputHandler = new UserInputHandler();
     FoodStorage foodStorage = initializeFoodStorage();
     CookBook cookBook = initializeCookBook();
 
