@@ -82,7 +82,6 @@ public class CookBookMenuMutator {
   }
 
   /**
-   * Stream part inspired by copilot.
    * Allow the user to remove a recipe from the cookbook.
    *
    * @param errorMessage The error message to display, in case of an exception.
@@ -92,13 +91,9 @@ public class CookBookMenuMutator {
   public void removeRecipe(String errorMessage, CookBook cookBook) {
     try {
       String recipeToRemove = uiInputHandler.stringReader("Please enter recipe to remove: ");
-      Recipe recipe = cookBook.getAllRecipes().stream()
-          .filter(r -> r.getRecipeName().equalsIgnoreCase(recipeToRemove))
-          .findFirst()
-          .orElseThrow(() -> new NoSuchElementException("Recipe was not found!"));
-      cookBook.removeRecipe(recipe);
-      System.out.println(recipe.getRecipeName() + " was removed!");
-    } catch (NoSuchElementException e) {
+      cookBook.removeRecipe(recipeToRemove);
+      System.out.println(recipeToRemove + " was removed!");
+    } catch (NoSuchElementException | IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
     }
   }
