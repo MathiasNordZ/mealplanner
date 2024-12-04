@@ -78,18 +78,16 @@ public class CookBook {
    * Mutator method for <code>recipe</code>.
    * Will remove the given recipe from the cookbook.
    *
-   * @param recipe recipe to be removed.
-   * @throws IllegalArgumentException if the recipe provided is null.
+   * @param recipeName Name of recipe to be removed.
+   * @throws IllegalArgumentException if the provided recipe name is null or empty.
    * @throws NoSuchElementException if the recipe to remove does not exist.
    */
-  public void removeRecipe(Recipe recipe) {
-    if (recipe == null) {
-      throw new IllegalArgumentException("Recipe to remove cannot be null.");
+  public void removeRecipe(String recipeName) {
+    if (recipeName == null || recipeName.trim().isEmpty()) {
+      throw new IllegalArgumentException("Recipe name cannot be null or empty.");
     }
-    if (!recipes.contains(recipe)) {
-      throw new NoSuchElementException("The recipe to remove does not exist!");
-    }
-    recipes.remove(recipe);
+    Recipe recipeToRemove = getRecipe(recipeName);
+    recipes.remove(recipeToRemove);
   }
 
   /**
