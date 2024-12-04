@@ -36,7 +36,7 @@ public class CookBook {
     if (recipes.isEmpty()) {
       throw new NoSuchElementException("No recipes found.");
     }
-    return Set.copyOf(recipes); // Refactoring inspired by CoPilot.
+    return Set.copyOf(recipes); // Use of copyOf inspired by CoPilot.
   }
 
   /**

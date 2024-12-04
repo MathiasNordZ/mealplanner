@@ -176,7 +176,7 @@ public class FoodStorage {
         }
       }
     }
-    return List.copyOf(searchedGrocery);
+    return List.copyOf(searchedGrocery); // Use of copyOf inspired by CoPilot.
   }
 
   /**
@@ -206,7 +206,7 @@ public class FoodStorage {
       List<Grocery> expiredGroceries = new ArrayList<>();
       expiredGroceries(expiryDate, expiredGroceries);
 
-      return List.copyOf(expiredGroceries);
+      return List.copyOf(expiredGroceries); // Use of copyOf inspired by CoPilot.
     } catch (DateTimeException e) {
       throw new IllegalArgumentException("Please enter date on format 'YYYY-MM-DD'.");
     }
@@ -257,7 +257,7 @@ public class FoodStorage {
     if (sortedList.isEmpty()) {
       throw new NoSuchElementException("The grocery list is empty!");
     }
-    return List.copyOf(sortedList);
+    return List.copyOf(sortedList); // Use of copyOf inspired by CoPilot.
   }
 
   /**

@@ -117,7 +117,7 @@ public class Recipe {
    * @since 0.0.1
    */
   public Map<String, SimpleEntry<Float, String>> getIngredients() {
-    return Map.copyOf(ingredients);
+    return Map.copyOf(ingredients); // Use of copyOf inspired by CoPilot.
   }
 
   /**
