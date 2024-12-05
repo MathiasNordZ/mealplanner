@@ -77,13 +77,14 @@ public class UserInputHandler {
     boolean validInput = false;
     while (!validInput) {
       System.out.println(prompt);
-      if (scanner.hasNextFloat()) {
+      if (scanner.hasNextBigDecimal()) {
         value = scanner.nextBigDecimal();
         scanner.nextLine();
-        validInput = true;
-      } else {
-        System.out.println("You provided an invalid input! Please enter a valid number.");
-        scanner.next();
+        if(value.compareTo(BigDecimal.ZERO) > 0) {
+          validInput = true;
+        } else {
+          System.out.println("Input must be greater than 0! Please try again.");
+        }
       }
     }
     return value;
