@@ -32,8 +32,11 @@ public class GroceryMenuPrinter {
    * @since 0.0.1
    */
   public void searchForGrocery(FoodStorage foodStorage, String errorMessage) {
-    String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
+    System.out.println("Available groceries to search for: ");
+    foodStorage.getSortedList().forEach(grocery -> System.out.println(grocery.getName()));
+    System.out.println();
 
+    String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
     try {
       String formattedGrocery = GroceryFormatter.formatGrocery(foodStorage, groceryToSearch);
       System.out.println(formattedGrocery);
