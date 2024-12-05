@@ -84,16 +84,14 @@ public class CookBookMenu {
 
     do {
       stringMenu.printCookbookMenu();
-      int commandValue = uiInputHandler.intReader("Enter your command: ");
-
+      int commandValue;
       try {
+        commandValue = uiInputHandler.intReader("Enter your command: ");
         command = CookBookCommand.fromValue(commandValue);
+        commandHandler(command);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid command. " + e.getMessage());
-        continue;
+        System.out.println(e.getMessage());
       }
-
-      commandHandler(command);
     } while (command != CookBookCommand.BACK);
   }
 
@@ -115,8 +113,8 @@ public class CookBookMenu {
           cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook, foodStorage);
       case CookBookCommand.RECIPE_RECOMMENDATION ->
           cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
-      case CookBookCommand.BACK -> System.out.println("Going back to main menu. ");
-      default -> System.out.println("Invalid command. ");
+      case CookBookCommand.BACK -> System.out.println("Going back to main menu.\n");
+      default -> System.out.println("Invalid command.\n");
     }
   }
 }

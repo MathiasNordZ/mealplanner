@@ -86,16 +86,14 @@ public class GroceryMenu {
 
     do {
       stringMenu.printGroceryMenu();
-      int commandValue = uiInputHandler.intReader("Enter your command: ");
-
+      int commandValue;
       try {
+        commandValue = uiInputHandler.intReader("Enter your command: ");
         command = GroceryCommand.fromValue(commandValue);
+        commandHandler(command);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid command." + e.getMessage());
-        continue;
+        System.out.println(e.getMessage());
       }
-
-      commandHandler(command);
     } while (command != GroceryCommand.BACK);
   }
 
@@ -113,15 +111,15 @@ public class GroceryMenu {
       case GroceryCommand.REMOVE_GROCERY ->
           groceryMutator.removeGrocery(ERRORMESSAGE, foodStorage);
       case GroceryCommand.SEARCH_FOR_GROCERY ->
-          groceryPrinter.searchForGrocery(foodStorage);
+          groceryPrinter.searchForGrocery(foodStorage, ERRORMESSAGE);
       case GroceryCommand.LIST_OF_ALL_GROCERIES ->
           groceryPrinter.listOfAllGroceries(ERRORMESSAGE, foodStorage);
       case GroceryCommand.LIST_OF_EXPIRED_GROCERIES ->
           groceryPrinter.listOfExpiredGroceries(ERRORMESSAGE, foodStorage);
       case GroceryCommand.VALUE_OF_ALL_GROCERIES ->
           groceryPrinter.valueOfAllGroceries(ERRORMESSAGE, foodStorage);
-      case GroceryCommand.BACK -> System.out.println("Exiting");
-      default -> System.out.println("Invalid command.");
+      case GroceryCommand.BACK -> System.out.println("Going back to main menu.\n");
+      default -> System.out.println("Invalid command.\n");
     }
   }
 }

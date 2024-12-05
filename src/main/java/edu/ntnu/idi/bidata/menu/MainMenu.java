@@ -64,15 +64,15 @@ public class MainMenu {
 
     do {
       stringMenu.printMainMenu();
-      int commandValue = uiInputHandler.intReader("Enter command: ");
+      int commandValue;
 
       try {
+        commandValue = uiInputHandler.intReader("Enter command: ");
         command = MainCommands.fromValue(commandValue);
+        commandHandler(command);
       } catch (IllegalArgumentException e) {
-        System.out.println("Invalid command." + e.getMessage());
-        continue;
+        System.out.println(e.getMessage());
       }
-      commandHandler(command);
     } while (command != MainCommands.EXIT);
   }
 
@@ -80,8 +80,8 @@ public class MainMenu {
     switch (command) {
       case MainCommands.GROCERY_MENU -> groceryMenu.groceryMenu();
       case MainCommands.COOKBOOK_MENU -> cookBookMenu.cookBookMenu();
-      case MainCommands.EXIT -> System.out.println("Exiting application.");
-      default -> System.out.println("Invalid command.");
+      case MainCommands.EXIT -> System.out.println("Exiting application.\n");
+      default -> System.out.println("Invalid command.\n");
     }
   }
 
