@@ -26,6 +26,9 @@ public class StringMenu {
    */
   public void printMainMenu() {
     final String mainMenu = """
+          
+          You may cancel an operation at any time, by typing 'cancel'.
+          
           [1] - Grocery Menu.
           [2] - Cookbook Menu.
           [0] - Exit.
@@ -41,13 +44,16 @@ public class StringMenu {
    */
   public void printCookbookMenu() {
     final String cookbookMenu = """
+      
+      You may cancel an operation at any time, by typing 'cancel'.
+      
       [1] - Create recipe.
       [2] - Remove recipe.
       [3] - Print recipes.
       [4] - Print recipe.
       [5] - Recipe recommendation.
       [0] - Go back.
-        """;
+      """;
     System.out.println(cookbookMenu);
   }
 
@@ -59,6 +65,9 @@ public class StringMenu {
    */
   public void printGroceryMenu() {
     final String groceryMenu = """
+          
+          You may cancel an operation at any time, by typing 'cancel'.
+          
           [1] - Create a new grocery.
           [2] - Remove grocery.
           [3] - Search for grocery.
