@@ -49,6 +49,9 @@ public class CookBookMenuPrinter {
   public void printRecipe(String errorMessage, UserInputHandler uiInputHandler, CookBook cookBook,
                           FoodStorage foodStorage) {
     try {
+      System.out.println("Printable recipes: ");
+      cookBook.getAllRecipes().forEach((s, recipe) -> System.out.println(recipe.getRecipeName()));
+      System.out.println();
       String recipeToPrint = uiInputHandler.stringReader("Please enter recipe to print: ");
       Recipe recipe = cookBook.getRecipe(recipeToPrint);
       boolean isAvailable = cookBook.matchRecipeToGrocery(foodStorage, recipe);
