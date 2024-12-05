@@ -179,6 +179,9 @@ public class FoodStorage {
         }
       }
     }
+    if (searchedGrocery.isEmpty()) {
+      throw new NoSuchElementException("No grocery with the given name was found.");
+    }
     return List.copyOf(searchedGrocery); // Use of copyOf inspired by CoPilot.
   }
 
