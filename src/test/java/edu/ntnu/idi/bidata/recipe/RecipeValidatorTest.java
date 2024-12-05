@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.recipe;
 
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
@@ -15,8 +16,8 @@ class RecipeValidatorTest {
    */
   @Test
   void mapInputValidationPositiveTest() {
-    Map<String, SimpleEntry<Float, String>> validIngredients = new HashMap<>();
-    validIngredients.put("Tomato Sauce", new SimpleEntry<>(0.25f, "kilogram"));
+    Map<String, SimpleEntry<BigDecimal, String>> validIngredients = new HashMap<>();
+    validIngredients.put("Tomato Sauce", new SimpleEntry<>(BigDecimal.valueOf(0.25), "kilogram"));
 
     assertDoesNotThrow(() -> RecipeValidator.mapInputValidation(validIngredients));
   }
@@ -27,8 +28,8 @@ class RecipeValidatorTest {
    */
   @Test
   void mapInputValidationNegativeTest() {
-    Map<String, SimpleEntry<Float, String>> invalidIngredients = new HashMap<>();
-    invalidIngredients.put(null, new SimpleEntry<>(0.25f, "kilogram"));
+    Map<String, SimpleEntry<BigDecimal, String>> invalidIngredients = new HashMap<>();
+    invalidIngredients.put(null, new SimpleEntry<>(BigDecimal.valueOf(0.25), "kilogram"));
 
     assertThrows(IllegalArgumentException.class, () -> RecipeValidator.mapInputValidation(invalidIngredients));
   }

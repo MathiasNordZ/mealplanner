@@ -4,6 +4,7 @@ import edu.ntnu.idi.bidata.entity.Grocery;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class FoodStorageTest {
   private FoodStorage foodStorage;
   private Grocery milk;
-  private Grocery expiredMilk;
   private Grocery chicken;
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   private final LocalDate today = LocalDate.now();
@@ -43,8 +43,8 @@ class FoodStorageTest {
     final String KILOGRAM = "liter";
 
     foodStorage = new FoodStorage();
-    milk = new Grocery(1f, "Milk", LITER, 20, formattedToday);
-    chicken = new Grocery(1.2f, "Chicken", KILOGRAM, 120, formattedToday);
+    milk = new Grocery(BigDecimal.valueOf(1), "Milk", LITER, BigDecimal.valueOf(20), formattedToday);
+    chicken = new Grocery(BigDecimal.valueOf(1.2), "Chicken", KILOGRAM, BigDecimal.valueOf(120), formattedToday);
 
     foodStorage.addGrocery(chicken);
     foodStorage.addGrocery(milk);
@@ -79,12 +79,12 @@ class FoodStorageTest {
    */
   @Test
   void removeGroceryPositiveTest() {
-    foodStorage.removeGrocery("Chicken", 0.6f);
+    foodStorage.removeGrocery("Chicken", BigDecimal.valueOf(0.6));
     List<Grocery> groceries = foodStorage.searchGrocery("Chicken");
     assertFalse(groceries.isEmpty());
-    assertEquals(0.6f, groceries.getFirst().getQuantity());
+    assertEquals(0, BigDecimal.valueOf(0.6).compareTo(groceries.getFirst().getQuantity()));
 
-    foodStorage.removeGrocery("Chicken", 0.6f);
+    foodStorage.removeGrocery("Chicken", BigDecimal.valueOf(0.6));
     groceries = foodStorage.searchGrocery("Chicken");
     assertTrue(groceries.isEmpty());
   }
@@ -97,10 +97,12 @@ class FoodStorageTest {
    */
   @Test
   void removeGroceryNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", 10f));
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(null, 10));
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("", 10));
-    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", -1));
+    BigDecimal quantity = BigDecimal.valueOf(10);
+    BigDecimal negativeValue = BigDecimal.valueOf(-1);
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", quantity));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery(null, quantity));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("", quantity));
+    assertThrows(IllegalArgumentException.class, () -> foodStorage.removeGrocery("Chicken", negativeValue));
   }
 
   /**
@@ -129,7 +131,7 @@ class FoodStorageTest {
   void listOfExpiredGroceriesPositiveTest() {
     String expiredDate = "2023-10-10";
     LocalDate date = LocalDate.parse(expiredDate, formatter);
-    expiredMilk = new Grocery(2f, "Milk", "liter", 40,
+    Grocery expiredMilk = new Grocery(BigDecimal.valueOf(2), "Milk", "liter", BigDecimal.valueOf(40),
         expiredDate);
 
     foodStorage.addGrocery(expiredMilk);
@@ -159,7 +161,7 @@ class FoodStorageTest {
    */
   @Test
   void valueOfAllGroceriesPositiveTest() {
-    assertEquals(140, foodStorage.valueOfAllGroceries());
+    assertEquals(0, BigDecimal.valueOf(140).compareTo(foodStorage.valueOfAllGroceries()));
   }
 
   /**
@@ -168,10 +170,10 @@ class FoodStorageTest {
   @Test
   void valueOfAllGroceriesNegativeTest() {
     formattedToday = today.format(formatter);
-    Grocery ham = new Grocery(0.25f, "Ham", "kilogram", 25, formattedToday);
+    Grocery ham = new Grocery(BigDecimal.valueOf(0.25), "Ham", "kilogram", BigDecimal.valueOf(25), formattedToday);
     foodStorage.addGrocery(ham);
 
-    assertNotEquals(140, foodStorage.valueOfAllGroceries());
+    assertNotEquals(BigDecimal.valueOf(140), foodStorage.valueOfAllGroceries());
   }
 
   /**
@@ -188,12 +190,12 @@ class FoodStorageTest {
   @Test
   void valueOfExpiredGroceriesPositiveTest() {
     List<Grocery> expiredGroceries = List.of(
-        new Grocery(2f, "Salmon", "kilogram", 150f, "2023-12-10"),
-        new Grocery(1f, "Salad", "kilogram", 25f, "2023-12-10")
+        new Grocery(BigDecimal.valueOf(2), "Salmon", "kilogram", BigDecimal.valueOf(150), "2023-12-10"),
+        new Grocery(BigDecimal.valueOf(1), "Salad", "kilogram", BigDecimal.valueOf(25), "2023-12-10")
     );
-    float totalValue = foodStorage.valueOfExpiredGroceries(expiredGroceries);
+    BigDecimal totalValue = foodStorage.valueOfExpiredGroceries(expiredGroceries);
 
-    assertEquals(175f, totalValue);
+    assertEquals(0, BigDecimal.valueOf(175).compareTo(totalValue));
   }
 
   @Test

@@ -2,6 +2,8 @@ package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,12 +33,12 @@ class CookBookTest {
     void setUp() {
         LocalDate today = LocalDate.now();
         String formattedToday = today.format(formatter);
-        chicken = new Grocery(0.25f, "Chicken", "kilogram", 85, formattedToday);
-        rice = new Grocery(1f, "Rice", "kilogram", 53, formattedToday);
+        chicken = new Grocery(BigDecimal.valueOf(0.25), "Chicken", "kilogram", BigDecimal.valueOf(85), formattedToday);
+        rice = new Grocery(BigDecimal.valueOf(1), "Rice", "kilogram", BigDecimal.valueOf(53), formattedToday);
 
-        Map<String, SimpleEntry<Float, String>> ingredients = new HashMap<>();
-        ingredients.put("Chicken", new SimpleEntry<>(0.25f, "kilogram"));
-        ingredients.put("Rice", new SimpleEntry<>(0.25f, "kilogram"));
+        Map<String, SimpleEntry<BigDecimal, String>> ingredients = new HashMap<>();
+        ingredients.put("Chicken", new SimpleEntry<>(BigDecimal.valueOf(0.25), "kilogram"));
+        ingredients.put("Rice", new SimpleEntry<>(BigDecimal.valueOf(0.25), "kilogram"));
 
         String cookingInstructions =
                 """
@@ -45,7 +47,7 @@ class CookBookTest {
                 3. Cook chicken.
                 """;
 
-        chickenAndRice = new Recipe("Chicken & Rice",
+        chickenAndRice = new Recipe("Chicken and Rice",
                 "This is a plain chicken & recipe", cookingInstructions,
                 ingredients, 2);
 
@@ -68,7 +70,7 @@ class CookBookTest {
      */
     @Test
     void getRecipePositiveTest() {
-        assertEquals(chickenAndRice, cookBook.getRecipe(chickenAndRice));
+        assertEquals(chickenAndRice, cookBook.getRecipe(chickenAndRice.getRecipeName()));
     }
 
     /**
@@ -77,8 +79,7 @@ class CookBookTest {
      */
     @Test
     void getRecipeNegativeTest() {
-        Recipe invalidRecipe = null;
-        assertThrows(NoSuchElementException.class, () -> cookBook.getRecipe(invalidRecipe));
+        assertThrows(NoSuchElementException.class, () -> cookBook.getRecipe(null));
     }
 
     /**
@@ -87,8 +88,8 @@ class CookBookTest {
      */
     @Test
     void addRecipePositiveTest() {
-        Map<String, SimpleEntry<Float, String>> ingredients = new HashMap<>();
-        ingredients.put("rice", new SimpleEntry<>(0.2f, "kilogram"));
+        Map<String, SimpleEntry<BigDecimal, String>> ingredients = new HashMap<>();
+        ingredients.put("rice", new SimpleEntry<>(BigDecimal.valueOf(0.2), "kilogram"));
         Recipe friedRice = new Recipe("Fried rice", "This is a fried rice recipe", "1. Fry rice", ingredients, 1);
 
         cookBook.addRecipe(friedRice);
@@ -112,9 +113,9 @@ class CookBookTest {
      */
     @Test
     void removeRecipePositiveTest() {
-        cookBook.addRecipe(chickenAndRice);
-        cookBook.removeRecipe(chickenAndRice);
-        assertThrows(NoSuchElementException.class, () -> cookBook.getAllRecipes());
+        cookBook.removeRecipe(chickenAndRice.getRecipeName());
+        String groceryName = chickenAndRice.getRecipeName();
+        assertThrows(NoSuchElementException.class, ()-> cookBook.getRecipe(groceryName));
     }
 
     /**

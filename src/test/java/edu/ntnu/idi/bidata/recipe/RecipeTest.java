@@ -2,6 +2,8 @@ package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class RecipeTest {
     private Recipe recipe;
-    private Map<String, SimpleEntry<Float, String>> ingredients;
+    private Map<String, SimpleEntry<BigDecimal, String>> ingredients;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     FoodStorage foodStorage;
 
@@ -40,9 +42,9 @@ class RecipeTest {
         String formattedToday = today.format(formatter);
         foodStorage = new FoodStorage();
 
-        Grocery tomatoSauce = new Grocery(0.25f, "Tomato Sauce", "liter", 25, formattedToday);
-        Grocery pizzaCrust = new Grocery(0.75f, "Pizza Crust", "kilogram", 75, formattedToday);
-        Grocery topping = new Grocery(0.35f, "Topping", "kilogram", 45, formattedToday);
+        Grocery tomatoSauce = new Grocery(BigDecimal.valueOf(0.25), "Tomato Sauce", "liter", BigDecimal.valueOf(25), formattedToday);
+        Grocery pizzaCrust = new Grocery(BigDecimal.valueOf(0.75), "Pizza Crust", "kilogram", BigDecimal.valueOf(75), formattedToday);
+        Grocery topping = new Grocery(BigDecimal.valueOf(35), "Topping", "kilogram", BigDecimal.valueOf(45), formattedToday);
 
         foodStorage.addGrocery(tomatoSauce);
         foodStorage.addGrocery(pizzaCrust);
@@ -50,9 +52,9 @@ class RecipeTest {
 
         ingredients = new HashMap<>();
 
-        ingredients.put("Tomato Sauce", new SimpleEntry<>(0.25f, "liter"));
-        ingredients.put("Pizza Crust", new SimpleEntry<>(0.75f, "kilogram"));
-        ingredients.put("Topping", new SimpleEntry<>(0.35f, "kilogram"));
+        ingredients.put("Tomato Sauce", new SimpleEntry<>(BigDecimal.valueOf(0.25), "liter"));
+        ingredients.put("Pizza Crust", new SimpleEntry<>(BigDecimal.valueOf(0.75), "kilogram"));
+        ingredients.put("Topping", new SimpleEntry<>(BigDecimal.valueOf(0.35), "kilogram"));
 
         recipe = new Recipe("Pizza", "This is a pizza recipe", "Bake pizza crust, add tomato sauce & topping, bake at 200 deg for 20 min.", ingredients, 2);
     }
@@ -147,8 +149,8 @@ class RecipeTest {
      */
     @Test
     void setIngredientsPositiveTest() {
-        Map<String, SimpleEntry<Float, String>> testIngredients = new HashMap<>();
-        testIngredients.put("Cheese", new SimpleEntry<>(0.25f, "kilogram"));
+        Map<String, SimpleEntry<BigDecimal, String>> testIngredients = new HashMap<>();
+        testIngredients.put("Cheese", new SimpleEntry<>(BigDecimal.valueOf(0.25), "kilogram"));
         recipe.setIngredients(testIngredients);
 
         assertEquals(testIngredients, recipe.getIngredients());
@@ -160,8 +162,8 @@ class RecipeTest {
      */
     @Test
     void setIngredientsNegativeTest() {
-        Map<String, SimpleEntry<Float, String>> testIngredients = new HashMap<>();
-        testIngredients.put("", new SimpleEntry<>(0.25f, "kilogram"));
+        Map<String, SimpleEntry<BigDecimal, String>> testIngredients = new HashMap<>();
+        testIngredients.put("", new SimpleEntry<>(BigDecimal.valueOf(0.25), "kilogram"));
 
         assertThrows(IllegalArgumentException.class, () -> recipe.setIngredients(testIngredients));
     }

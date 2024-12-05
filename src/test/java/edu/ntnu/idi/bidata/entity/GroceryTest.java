@@ -1,6 +1,8 @@
 package edu.ntnu.idi.bidata.entity;
 
 import org.junit.jupiter.api.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,10 +25,10 @@ class GroceryTest {
 
   @BeforeEach
   void setUp() {
-    float quantity = 3f;
+    final BigDecimal quantity = BigDecimal.valueOf(3);
     String name = "Beef";
     String unitOfMeasurement = "kilogram";
-    float price = 750f;
+    BigDecimal price = BigDecimal.valueOf(750);
     LocalDate today = LocalDate.now();
     String formattedToday = today.format(formatter);
 
@@ -39,10 +41,11 @@ class GroceryTest {
    */
   @Test
   void setQuantityPositiveTest() {
+    BigDecimal value = BigDecimal.valueOf(5);
 
-    grocery.setQuantity(5);
+    grocery.setQuantity(value);
 
-    assertEquals(5, grocery.getQuantity());
+    assertEquals(0, value.compareTo(grocery.getQuantity()));
   }
 
   /**
@@ -51,7 +54,9 @@ class GroceryTest {
    */
   @Test
   void setQuantityNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> grocery.setQuantity(-5));
+    BigDecimal value = BigDecimal.valueOf(-5);
+
+    assertThrows(IllegalArgumentException.class, ()-> grocery.setQuantity(value));
   }
 
   /**
@@ -106,7 +111,7 @@ class GroceryTest {
   void setUnitOfMeasurementPositiveTest() {
     grocery.setUnitOfMeasurement("kilogram");
 
-    assertEquals("kilogram", grocery.getUnitOfMeasurement());
+    assertEquals("Kilogram", grocery.getUnitOfMeasurement());
   }
 
   /**
@@ -124,9 +129,9 @@ class GroceryTest {
    */
   @Test
   void setPricePositiveTest() {
-    grocery.setPrice(1250);
+    grocery.setPrice(BigDecimal.valueOf(1250));
 
-    assertEquals(1250, grocery.getPrice());
+    assertEquals(0, grocery.getPrice().compareTo(BigDecimal.valueOf(1250.00)));
   }
 
   /**
@@ -135,6 +140,7 @@ class GroceryTest {
    */
   @Test
   void setPriceNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> grocery.setPrice(-100));
+    BigDecimal negativeValue = BigDecimal.ZERO.subtract(BigDecimal.valueOf(100));
+    assertThrows(IllegalArgumentException.class, () -> grocery.setPrice(negativeValue));
   }
 }
