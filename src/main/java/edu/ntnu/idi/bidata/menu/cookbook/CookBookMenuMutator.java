@@ -76,7 +76,7 @@ public class CookBookMenuMutator {
         BigDecimal quantityOfIngredient = uiInputHandler
             .decimalReader("Please enter required quantity of ingredient: ");
         String unitOfMeasurement = uiInputHandler
-            .unitReader("Please enter unit of measurement.");
+            .unitReader("Please enter unit of measurement. (kilogram/liter/pcs).");
         ingredients.put(nameOfIngredient,
             new SimpleEntry<>(quantityOfIngredient, unitOfMeasurement));
       }
