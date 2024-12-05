@@ -30,7 +30,9 @@ import java.util.Map;
  */
 public class UserInterface {
   private MainMenu mainMenu;
-  private static final String KILOGRAM = "kilogram";
+  private static final String KILOGRAM = "Kilogram";
+  private static final String LITER = "Liter";
+
 
   /**
    * This is the method that initializes all the instances required to run the application.
@@ -105,10 +107,10 @@ public class UserInterface {
    * @since 0.0.1
    */
   private void addGrocery(FoodStorage foodStorage) {
-    initializeGrocery(foodStorage, BigDecimal.valueOf(1), "Milk", "liter", BigDecimal.valueOf(25), "2024-12-31");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1), "Milk", LITER, BigDecimal.valueOf(25), "2024-12-31");
     initializeGrocery(foodStorage, BigDecimal.valueOf(1.25), "Chicken", KILOGRAM, BigDecimal.valueOf(125), "2024-12-10");
     initializeGrocery(foodStorage, BigDecimal.valueOf(2), "Rice", KILOGRAM, BigDecimal.valueOf(45), "2025-10-30");
-    initializeGrocery(foodStorage, BigDecimal.valueOf(1.5), "Cola", "liter", BigDecimal.valueOf(37), "2025-08-20");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1.5), "Cola", LITER, BigDecimal.valueOf(37), "2025-08-20");
   }
 
   /**
@@ -142,13 +144,13 @@ public class UserInterface {
     Map<String, SimpleEntry<BigDecimal, String>> chickenRiceIngredients = new HashMap<>();
     chickenRiceIngredients.put("Chicken", new SimpleEntry<>(BigDecimal.valueOf(0.75), KILOGRAM));
     chickenRiceIngredients.put("Rice", new SimpleEntry<>(BigDecimal.valueOf(0.5), KILOGRAM));
-    initializeRecipe(cookBook, "Chicken and Rice", "This is a chicken and rice dish",
+    initializeRecipe(cookBook, "Chicken and rice", "This is a chicken and rice dish",
         "Fry chicken in pan, cook rice, serve.", chickenRiceIngredients, 3);
 
     Map<String, SimpleEntry<BigDecimal, String>> pastaSalmonIngredients = new HashMap<>();
     pastaSalmonIngredients.put("Pasta", new SimpleEntry<>(BigDecimal.valueOf(0.5), KILOGRAM));
     pastaSalmonIngredients.put("Salmon", new SimpleEntry<>(BigDecimal.valueOf(0.35), KILOGRAM));
-    initializeRecipe(cookBook, "Pasta and Salmon", "This is a pasta and salmon dish",
+    initializeRecipe(cookBook, "Pasta and salmon", "This is a pasta and salmon dish",
         "Boil pasta for 15 minutes, fry salmon in pan.", pastaSalmonIngredients, 2);
   }
 }
