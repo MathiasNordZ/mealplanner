@@ -119,7 +119,7 @@ public class CookBook {
    * @param recipe The recipe to match with the groceries.
    * @return <code>true</code> if possible to make, and <code>false</code> if not possible.
    */
-  private boolean matchRecipeToGrocery(FoodStorage foodStorage, Recipe recipe) {
+  public boolean matchRecipeToGrocery(FoodStorage foodStorage, Recipe recipe) {
     for (Map.Entry<String, SimpleEntry<Float, String>> ingredient :
         recipe.getIngredients().entrySet()) {
       String nameOfIngredient = ingredient.getKey();
