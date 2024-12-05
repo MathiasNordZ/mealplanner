@@ -1,6 +1,7 @@
 package edu.ntnu.idi.bidata.entity;
 
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
+import edu.ntnu.idi.bidata.util.StringFormatter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -87,7 +88,7 @@ public class Grocery {
     if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Name can not be null, blank or empty.");
     }
-    this.name = GroceryFormatter.normalizedString(name);
+    this.name = name;
   }
 
   /**
@@ -139,7 +140,7 @@ public class Grocery {
             && !unitOfMeasurement.equalsIgnoreCase("pcs")) {
       throw new IllegalArgumentException("Unit of measurement must be liter, kilogram or pcs");
     }
-    this.unitOfMeasurement = GroceryFormatter.normalizedString(unitOfMeasurement);
+    this.unitOfMeasurement = unitOfMeasurement;
   }
 
   /**

@@ -1,5 +1,7 @@
 package edu.ntnu.idi.bidata.recipe;
 
+import edu.ntnu.idi.bidata.util.StringFormatter;
+
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;

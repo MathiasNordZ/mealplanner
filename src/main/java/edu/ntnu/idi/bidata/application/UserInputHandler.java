@@ -1,5 +1,7 @@
 package edu.ntnu.idi.bidata.application;
 
+import edu.ntnu.idi.bidata.util.StringFormatter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -36,7 +38,7 @@ public class UserInputHandler {
     System.out.println(prompt);
     String input = scanner.nextLine();
     cancelOperation(input);
-    return input;
+    return StringFormatter.normalizedString(input);
   }
 
   /**
@@ -147,7 +149,7 @@ public class UserInputHandler {
             + "Please use (kilogram/liter/pcs).");
       }
     }
-    return unitOfMeasurement;
+    return StringFormatter.normalizedString(unitOfMeasurement);
   }
 
   private void cancelOperation(String input) {

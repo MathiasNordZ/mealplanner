@@ -7,6 +7,7 @@ import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateString;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
+import edu.ntnu.idi.bidata.util.StringFormatter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -51,8 +52,7 @@ public class FoodStorage {
    */
   public void addGrocery(Grocery providedGrocery) {
     validateGrocery(providedGrocery);
-    String normalizedGroceryName = GroceryFormatter.normalizedString(providedGrocery.getName());
-    List<Grocery> groceryList = groceries.getOrDefault(normalizedGroceryName,
+    List<Grocery> groceryList = groceries.getOrDefault(providedGrocery.getName(),
         new ArrayList<>());
     Iterator<Grocery> groceryIterator = groceryList.iterator();
 
@@ -62,7 +62,7 @@ public class FoodStorage {
     if (!found) {
       groceryList.add(providedGrocery);
     }
-    groceries.put(normalizedGroceryName, groceryList);
+    groceries.put(providedGrocery.getName(), groceryList);
   }
 
   /**
@@ -150,9 +150,8 @@ public class FoodStorage {
    */
   public void removeGrocery(String groceryToRemove, BigDecimal quantityToRemove) {
     validateInputs(groceryToRemove, quantityToRemove);
-    String normalizedGroceryName = GroceryFormatter.normalizedString(groceryToRemove);
 
-    List<Grocery> groceryList = groceries.getOrDefault(normalizedGroceryName, new ArrayList<>());
+    List<Grocery> groceryList = groceries.getOrDefault(groceryToRemove, new ArrayList<>());
 
     validateGroceryList(groceryList);
     removeGroceryFromList(groceryToRemove, quantityToRemove, groceryList);
