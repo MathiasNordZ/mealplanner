@@ -34,7 +34,9 @@ public class UserInputHandler {
    */
   public String stringReader(String prompt) {
     System.out.println(prompt);
-    return scanner.nextLine();
+    String input = scanner.nextLine();
+    cancelOperation(input);
+    return input;
   }
 
   /**
@@ -51,13 +53,17 @@ public class UserInputHandler {
     boolean validInput = false;
     while (!validInput) {
       System.out.println(prompt);
-      if (scanner.hasNextInt()) {
-        value = scanner.nextInt();
-        scanner.nextLine();
-        validInput = true;
-      } else {
+      String input = scanner.nextLine();
+      cancelOperation(input);
+      try {
+        value = Integer.parseInt(input);
+        if (value >= 0) {
+          validInput = true;
+        } else {
+          System.out.println("Input must be 0 or greater.");
+        }
+      } catch (NumberFormatException e) {
         System.out.println("You provided an invalid input! Please enter a valid whole number.");
-        scanner.next();
       }
     }
     return value;
@@ -77,14 +83,17 @@ public class UserInputHandler {
     boolean validInput = false;
     while (!validInput) {
       System.out.println(prompt);
-      if (scanner.hasNextBigDecimal()) {
-        value = scanner.nextBigDecimal();
-        scanner.nextLine();
-        if(value.compareTo(BigDecimal.ZERO) > 0) {
-          validInput = true;
-        } else {
-          System.out.println("Input must be greater than 0! Please try again.");
-        }
+      String input = scanner.nextLine();
+      cancelOperation(input);
+      try {
+        value = new BigDecimal(input);
+          if(value.compareTo(BigDecimal.ZERO) > 0) {
+            validInput = true;
+          } else {
+            System.out.println("Input must be greater than 0! Please try again.");
+          }
+      } catch (NumberFormatException e) {
+        System.out.println("Invalid input! Please enter a valid number.");
       }
     }
     return value;
@@ -104,6 +113,7 @@ public class UserInputHandler {
     boolean isDateCorrect = false;
     while (!isDateCorrect) {
       String input = stringReader(prompt);
+      cancelOperation(input);
       try {
         dateOfExpiry = LocalDate.parse(input);
         isDateCorrect = true;
@@ -127,6 +137,7 @@ public class UserInputHandler {
     boolean isUnitCorrect = false;
     while (!isUnitCorrect) {
       unitOfMeasurement = stringReader(prompt);
+      cancelOperation(unitOfMeasurement);
       if (unitOfMeasurement.equalsIgnoreCase("kilogram")
           || unitOfMeasurement.equalsIgnoreCase("liter")
           || unitOfMeasurement.equalsIgnoreCase("pcs")) {
@@ -137,5 +148,11 @@ public class UserInputHandler {
       }
     }
     return unitOfMeasurement;
+  }
+
+  private void cancelOperation(String input) {
+    if (input.equalsIgnoreCase("Cancel")) {
+      throw new IllegalArgumentException("Operation cancelled!");
+    }
   }
 }
