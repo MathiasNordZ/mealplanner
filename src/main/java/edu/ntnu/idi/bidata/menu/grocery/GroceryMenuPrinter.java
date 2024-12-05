@@ -31,14 +31,14 @@ public class GroceryMenuPrinter {
    * @param foodStorage The food storage to search in.
    * @since 0.0.1
    */
-  public void searchForGrocery(FoodStorage foodStorage) {
+  public void searchForGrocery(FoodStorage foodStorage, String errorMessage) {
     String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
 
     try {
       String formattedGrocery = GroceryFormatter.formatGrocery(foodStorage, groceryToSearch);
       System.out.println(formattedGrocery);
     } catch (NoSuchElementException e) {
-      System.out.println("No such grocery was found! " + e.getMessage());
+      System.out.println(errorMessage + e.getMessage());
     }
   }
 
@@ -69,7 +69,7 @@ public class GroceryMenuPrinter {
   public void listOfExpiredGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
       String dateOfExpiry = uiInputHandler
-          .stringReader("Please enter date to check which groceries expires before given date ('YYYY-MM-DD'): ");
+          .dateReader("Please enter date to check which groceries expires before given date ('YYYY-MM-DD'): ");
       List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(dateOfExpiry);
       String formattedExpiredGroceries = GroceryFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
