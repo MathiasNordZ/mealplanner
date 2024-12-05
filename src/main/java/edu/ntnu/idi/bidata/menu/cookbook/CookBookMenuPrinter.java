@@ -46,12 +46,17 @@ public class CookBookMenuPrinter {
    * @param cookBook The cookbook containing the recipe to print.
    * @since 0.0.1
    */
-  public void printRecipe(String errorMessage, UserInputHandler uiInputHandler, CookBook cookBook) {
+  public void printRecipe(String errorMessage, UserInputHandler uiInputHandler, CookBook cookBook,
+                          FoodStorage foodStorage) {
     try {
       String recipeToPrint = uiInputHandler.stringReader("Please enter recipe to print: ");
       Recipe recipe = cookBook.getRecipe(recipeToPrint);
+      boolean isAvailable = cookBook.matchRecipeToGrocery(foodStorage, recipe);
+      String availability = isAvailable ? "You have all ingredients for this recipe.\n"
+          : "You do not have enough ingredients for this recipe.\n";
       String formattedRecipe = CookBookFormatter.formatRecipe(recipe);
       System.out.println(formattedRecipe);
+      System.out.println(availability);
     } catch (NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
     }

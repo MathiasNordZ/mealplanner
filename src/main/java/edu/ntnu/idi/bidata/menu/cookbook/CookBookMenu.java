@@ -112,7 +112,7 @@ public class CookBookMenu {
       case CookBookCommand.PRINT_RECIPES ->
           cookBookMenuPrinter.printRecipes(ERRORMESSAGE, cookBook);
       case CookBookCommand.PRINT_RECIPE ->
-          cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook);
+          cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook, foodStorage);
       case CookBookCommand.RECIPE_RECOMMENDATION ->
           cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
       case CookBookCommand.BACK -> System.out.println("Going back to main menu. ");
