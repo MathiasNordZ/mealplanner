@@ -3,6 +3,8 @@ package edu.ntnu.idi.bidata.menu.grocery;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
 /**
@@ -45,7 +47,7 @@ public class GroceryMenuMutator {
    */
   public void removeGrocery(String errorMessage, FoodStorage foodStorage) {
     String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
-    float quantityToRemove = uiInputHandler.floatReader("Quantity to remove: ");
+    BigDecimal quantityToRemove = uiInputHandler.decimalReader("Quantity to remove: ");
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
@@ -64,11 +66,11 @@ public class GroceryMenuMutator {
    */
   private Grocery promptGroceryDetails() {
     String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
-    float quantityOfGrocery = uiInputHandler
-        .floatReader("Please enter quantity of grocery: ");
+    BigDecimal quantityOfGrocery = uiInputHandler
+        .decimalReader("Please enter quantity of grocery: ");
     String unitOfMeasurement = uiInputHandler
         .unitReader("Please enter unit of measurement (kilogram/liter/pcs): ");
-    float priceOfGrocery = uiInputHandler.floatReader("Please enter price of grocery: ");
+    BigDecimal priceOfGrocery = uiInputHandler.decimalReader("Please enter price of grocery: ");
     String dateOfExpiry = uiInputHandler.dateReader("Please enter expiry date (YYYY-MM-DD): ");
 
     return new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement,

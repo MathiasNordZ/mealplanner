@@ -1,11 +1,10 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
+
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
 
 /**
  * The <code>CookBook</code> class represents a collection of recipes.
@@ -16,14 +15,14 @@ import java.util.Set;
  * @since 13.11.2024
  */
 public class CookBook {
-  private final Set<Recipe> recipes;
+  private final Map<String, Recipe> recipes;
 
   /**
    * Constructor for the class <code>CookBook</code>.
    * It will initialize and empty set of recipes.
    */
   public CookBook() {
-    this.recipes = new HashSet<>();
+    this.recipes = new HashMap<>();
   }
 
   /**
@@ -32,11 +31,11 @@ public class CookBook {
    * @return A set of all recipes.
    * @throws NoSuchElementException if no recipes are found.
    */
-  public Set<Recipe> getAllRecipes() {
+  public Map<String, Recipe> getAllRecipes() {
     if (recipes.isEmpty()) {
       throw new NoSuchElementException("No recipes found.");
     }
-    return Set.copyOf(recipes); // Use of copyOf inspired by CoPilot.
+    return Map.copyOf(recipes); // Use of copyOf inspired by CoPilot.
   }
 
   /**
@@ -47,12 +46,11 @@ public class CookBook {
    * @throws NoSuchElementException will be thrown if the recipe does not exist.
    */
   public Recipe getRecipe(String recipeName) {
-    for (Recipe recipe : recipes) {
-      if (recipe.getRecipeName().equalsIgnoreCase(recipeName)) {
-        return recipe;
-      }
+    Recipe recipe = recipes.get(recipeName);
+    if (recipe == null) {
+      throw new NoSuchElementException("The recipe does not exist!");
     }
-    throw new NoSuchElementException("The recipe does not exist!");
+    return recipe;
   }
 
   /**
@@ -65,13 +63,10 @@ public class CookBook {
   public void addRecipe(Recipe recipe) {
     if (recipe == null) {
       throw new IllegalArgumentException("Recipe to add cannot be null.");
+    } else if (recipes.containsKey(recipe.getRecipeName())) {
+      throw new IllegalArgumentException("There is already a recipe with the same name!");
     }
-    for (Recipe existingRecipe : recipes) {
-      if (existingRecipe.getRecipeName().equalsIgnoreCase(recipe.getRecipeName())) {
-        throw new IllegalArgumentException("There is already a recipe with the same name!");
-      }
-    }
-    recipes.add(recipe);
+    recipes.put(recipe.getRecipeName(), recipe);
   }
 
   /**
@@ -85,9 +80,10 @@ public class CookBook {
   public void removeRecipe(String recipeName) {
     if (recipeName == null || recipeName.trim().isEmpty()) {
       throw new IllegalArgumentException("Recipe name cannot be null or empty.");
+    } else if (!recipes.containsKey(recipeName)) {
+      throw new NoSuchElementException("The recipe does not exist!");
     }
-    Recipe recipeToRemove = getRecipe(recipeName);
-    recipes.remove(recipeToRemove);
+    recipes.remove(recipeName);
   }
 
   /**
@@ -104,7 +100,7 @@ public class CookBook {
     if (foodStorage == null) {
       throw new IllegalArgumentException("Food storage cannot be null!");
     }
-    return recipes.stream()
+    return recipes.values().stream()
         .filter(recipe -> matchRecipeToGrocery(foodStorage, recipe))
         .findFirst()
         .orElseThrow(() ->
@@ -120,10 +116,10 @@ public class CookBook {
    * @return <code>true</code> if possible to make, and <code>false</code> if not possible.
    */
   public boolean matchRecipeToGrocery(FoodStorage foodStorage, Recipe recipe) {
-    for (Map.Entry<String, SimpleEntry<Float, String>> ingredient :
+    for (Map.Entry<String, SimpleEntry<BigDecimal, String>> ingredient :
         recipe.getIngredients().entrySet()) {
       String nameOfIngredient = ingredient.getKey();
-      float requiredQuantity = ingredient.getValue().getKey();
+      BigDecimal requiredQuantity = ingredient.getValue().getKey();
       String requiredUnit = ingredient.getValue().getValue();
       if (!foodStorage.isGroceryAvailable(nameOfIngredient, requiredQuantity, requiredUnit)) {
         return false;

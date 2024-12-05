@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.recipe;
 
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class Recipe {
   private String recipeName;
   private String recipeDescription;
   private String cookingInstructions;
-  private Map<String, SimpleEntry<Float, String>> ingredients; // Refactor inspired by CoPilot.
+  private Map<String, SimpleEntry<BigDecimal, String>> ingredients; // Refactor inspired by CoPilot.
   private int amountOfServings;
 
   /**
@@ -33,7 +34,7 @@ public class Recipe {
    *
    */
   public Recipe(String recipeName, String recipeDescription, String cookingInstructions,
-                Map<String, SimpleEntry<Float, String>> ingredients, int amountOfServings) {
+                Map<String, SimpleEntry<BigDecimal, String>> ingredients, int amountOfServings) {
     setRecipeName(recipeName);
     setRecipeDescription(recipeDescription);
     setCookingInstructions(cookingInstructions);
@@ -116,7 +117,7 @@ public class Recipe {
    * @return A map of ingredients, name is key, key of value is quantity and value of value is unit of measurement.
    * @since 0.0.1
    */
-  public Map<String, SimpleEntry<Float, String>> getIngredients() {
+  public Map<String, SimpleEntry<BigDecimal, String>> getIngredients() {
     return Map.copyOf(ingredients); // Use of copyOf inspired by CoPilot.
   }
 
@@ -128,7 +129,7 @@ public class Recipe {
    * @throws IllegalArgumentException if the ingredient map is invalid.
    * @since 0.0.1
    */
-  public void setIngredients(Map<String, SimpleEntry<Float, String>> ingredients) {
+  public void setIngredients(Map<String, SimpleEntry<BigDecimal, String>> ingredients) {
     mapInputValidation(ingredients);
     this.ingredients = ingredients;
   }

@@ -11,6 +11,8 @@ import edu.ntnu.idi.bidata.menu.grocery.GroceryMenuMutator;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
+
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,8 +91,8 @@ public class UserInterface {
    * @param expiryDate Expiry date of grocery.
    * @since 0.0.1
    */
-  private void initializeGrocery(FoodStorage foodStorage, float quantity,
-                                 String name, String unit, int price, String expiryDate) {
+  private void initializeGrocery(FoodStorage foodStorage, BigDecimal quantity,
+                                 String name, String unit, BigDecimal price, String expiryDate) {
     Grocery grocery = new Grocery(quantity, name, unit, price, expiryDate);
     foodStorage.addGrocery(grocery);
   }
@@ -103,10 +105,10 @@ public class UserInterface {
    * @since 0.0.1
    */
   private void addGrocery(FoodStorage foodStorage) {
-    initializeGrocery(foodStorage, 1f, "Milk", "liter", 25, "2024-12-31");
-    initializeGrocery(foodStorage, 1.25f, "Chicken", KILOGRAM, 125, "2024-12-10");
-    initializeGrocery(foodStorage, 2f, "Rice", KILOGRAM, 45, "2025-10-30");
-    initializeGrocery(foodStorage, 1.5f, "Cola", "liter", 37, "2025-08-20");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1), "Milk", "liter", BigDecimal.valueOf(25), "2024-12-31");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1.25), "Chicken", KILOGRAM, BigDecimal.valueOf(125), "2024-12-10");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(2), "Rice", KILOGRAM, BigDecimal.valueOf(45), "2025-10-30");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1.5), "Cola", "liter", BigDecimal.valueOf(37), "2025-08-20");
   }
 
   /**
@@ -122,7 +124,7 @@ public class UserInterface {
    */
   private void initializeRecipe(CookBook cookBook, String recipeName,
                                 String recipeDescription, String cookingInstructions,
-                                Map<String, SimpleEntry<Float, String>> ingredients,
+                                Map<String, SimpleEntry<BigDecimal, String>> ingredients,
                                 int amountOfServings) {
     Recipe recipe = new Recipe(recipeName, recipeDescription,
         cookingInstructions, ingredients, amountOfServings);
@@ -137,15 +139,15 @@ public class UserInterface {
    * @since 0.0.1
    */
   private void addRecipe(CookBook cookBook) {
-    Map<String, SimpleEntry<Float, String>> chickenRiceIngredients = new HashMap<>();
-    chickenRiceIngredients.put("Chicken", new SimpleEntry<>(0.75f, KILOGRAM));
-    chickenRiceIngredients.put("Rice", new SimpleEntry<>(0.5f, KILOGRAM));
+    Map<String, SimpleEntry<BigDecimal, String>> chickenRiceIngredients = new HashMap<>();
+    chickenRiceIngredients.put("Chicken", new SimpleEntry<>(BigDecimal.valueOf(0.75), KILOGRAM));
+    chickenRiceIngredients.put("Rice", new SimpleEntry<>(BigDecimal.valueOf(0.5), KILOGRAM));
     initializeRecipe(cookBook, "Chicken and Rice", "This is a chicken and rice dish",
         "Fry chicken in pan, cook rice, serve.", chickenRiceIngredients, 3);
 
-    Map<String, SimpleEntry<Float, String>> pastaSalmonIngredients = new HashMap<>();
-    pastaSalmonIngredients.put("Pasta", new SimpleEntry<>(0.5f, KILOGRAM));
-    pastaSalmonIngredients.put("Salmon", new SimpleEntry<>(0.35f, KILOGRAM));
+    Map<String, SimpleEntry<BigDecimal, String>> pastaSalmonIngredients = new HashMap<>();
+    pastaSalmonIngredients.put("Pasta", new SimpleEntry<>(BigDecimal.valueOf(0.5), KILOGRAM));
+    pastaSalmonIngredients.put("Salmon", new SimpleEntry<>(BigDecimal.valueOf(0.35), KILOGRAM));
     initializeRecipe(cookBook, "Pasta and Salmon", "This is a pasta and salmon dish",
         "Boil pasta for 15 minutes, fry salmon in pan.", pastaSalmonIngredients, 2);
   }

@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.recipe;
 
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
@@ -24,14 +25,14 @@ public class RecipeValidator {
    * @param errorMessage The StringBuilder to append messages to.
    * @since 0.0.1
    */
-  private static void ingredientValidation(Map<String, SimpleEntry<Float, String>> ingredients,
+  private static void ingredientValidation(Map<String, SimpleEntry<BigDecimal, String>> ingredients,
                                            StringBuilder errorMessage) {
     if (ingredients == null) {
       errorMessage.append("The inputted ingredients cannot be null\n");
     } else {
-      for (Map.Entry<String, SimpleEntry<Float, String>> entry : ingredients.entrySet()) {
+      for (Map.Entry<String, SimpleEntry<BigDecimal, String>> entry : ingredients.entrySet()) {
         String ingredientName = entry.getKey();
-        SimpleEntry<Float, String> quantityAndUnit = entry.getValue();
+        SimpleEntry<BigDecimal, String> quantityAndUnit = entry.getValue();
 
         validateIngredientName(errorMessage, ingredientName);
         validateQuantityAndUnit(errorMessage, quantityAndUnit);
@@ -48,12 +49,12 @@ public class RecipeValidator {
    * @since 0.0.1
    */
   private static void validateQuantityAndUnit(StringBuilder errorMessage,
-                                              SimpleEntry<Float, String> quantityAndUnit) {
+                                              SimpleEntry<BigDecimal, String> quantityAndUnit) {
     if (quantityAndUnit == null) {
       errorMessage.append("Quantity and unit cannot be null");
       return;
     }
-    if (quantityAndUnit.getKey() == null || quantityAndUnit.getKey() <= 0) {
+    if (quantityAndUnit.getKey() == null || quantityAndUnit.getKey().compareTo(BigDecimal.ZERO) <= 0) {
       errorMessage.append("Quantity cannot be null, less than or equal to zero.");
     }
     if (quantityAndUnit.getValue() == null || quantityAndUnit.getValue().isBlank()) {
@@ -83,7 +84,7 @@ public class RecipeValidator {
    *                                  less than or equal to zero.
    * @since 0.0.1
    */
-  public static void mapInputValidation(Map<String, SimpleEntry<Float, String>> ingredients) {
+  public static void mapInputValidation(Map<String, SimpleEntry<BigDecimal, String>> ingredients) {
     StringBuilder errorMessage = new StringBuilder();
     ingredientValidation(ingredients, errorMessage);
     if (!errorMessage.isEmpty()) {

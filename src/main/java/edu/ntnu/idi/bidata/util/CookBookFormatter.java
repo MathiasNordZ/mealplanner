@@ -1,6 +1,8 @@
 package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.recipe.Recipe;
+
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -26,7 +28,7 @@ public class CookBookFormatter {
    * @throws NoSuchElementException if the recipe set is empty
    * @since 0.0.1
    */
-  public static String formatRecipes(Set<Recipe> recipes) {
+  public static String formatRecipes(Map<String, Recipe> recipes) {
     recipeValidation(recipes);
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-50s | %-30s | %-15s |\n";
@@ -35,7 +37,7 @@ public class CookBookFormatter {
     table.append("---------------------------------------------------------------------------------"
         + "-------------------------------------------------------------------\n");
 
-    for (Recipe recipe : recipes) {
+    for (Recipe recipe : recipes.values()) {
       table.append(String.format(format, recipe.getRecipeName(),
           recipe.getRecipeDescription(), recipe.getIngredients(),
           recipe.getAmountOfServings()));
@@ -52,7 +54,7 @@ public class CookBookFormatter {
    * @throws NoSuchElementException if the recipe set is empty
    * @since 0.0.1
    */
-  public static String formatRecipe(Set<Recipe> recipe) {
+  public static String formatRecipe(Map<String, Recipe> recipe) {
     recipeValidation(recipe);
     StringBuilder table = new StringBuilder();
     String format = "| %-20s | %-50s | %-50s | %-30s | %-15s |\n";
@@ -61,7 +63,7 @@ public class CookBookFormatter {
     table.append("---------------------------------------------------------------------------------"
         + "-------------------------------------------------------------------\n");
 
-    for (Recipe recipeElement : recipe) {
+    for (Recipe recipeElement : recipe.values()) {
       table.append(String.format(format, recipeElement.getRecipeName(),
           recipeElement.getRecipeDescription(), recipeElement.getCookingInstructions(),
           recipeElement.getIngredients(), recipeElement.getAmountOfServings()));
@@ -77,7 +79,7 @@ public class CookBookFormatter {
    * @since 0.0.1
    */
   public static String formatRecipe(Recipe recipe) {
-    return formatRecipe(Set.of(recipe));
+    return formatRecipe(Map.of(recipe.getRecipeName(), recipe));
   }
 
   /**
@@ -89,7 +91,7 @@ public class CookBookFormatter {
    * @throws NoSuchElementException if the recipe set is empty
    * @since 0.0.1
    */
-  private static void recipeValidation(Set<Recipe> recipes) {
+  private static void recipeValidation(Map<String, Recipe> recipes) {
     if (recipes == null || recipes.isEmpty()) {
       if (recipes == null) {
         throw new IllegalArgumentException("Recipe list cannot be null!");

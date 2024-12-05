@@ -3,6 +3,8 @@ package edu.ntnu.idi.bidata.menu.cookbook;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
+
+import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class CookBookMenuMutator {
           .stringReader("Please enter cooking instructions: ");
       int amountOfServings = uiInputHandler.intReader("Please enter amount of servings");
 
-      Map<String, SimpleEntry<Float, String>> ingredients = new HashMap<>();
+      Map<String, SimpleEntry<BigDecimal, String>> ingredients = new HashMap<>();
       boolean isUserDone = false;
 
       promptForIngredient(isUserDone, ingredients);
@@ -64,15 +66,15 @@ public class CookBookMenuMutator {
    * @since 0.0.1
    */
   private void promptForIngredient(boolean isUserDone,
-                                   Map<String, SimpleEntry<Float, String>> ingredients) {
+                                   Map<String, SimpleEntry<BigDecimal, String>> ingredients) {
     while (!isUserDone) {
       String nameOfIngredient = uiInputHandler
           .stringReader("Please enter name of ingredient (type 'done' if finished): ");
       if (nameOfIngredient.equalsIgnoreCase("Done")) {
         isUserDone = true;
       } else {
-        float quantityOfIngredient = uiInputHandler
-            .floatReader("Please enter required quantity of ingredient: ");
+        BigDecimal quantityOfIngredient = uiInputHandler
+            .decimalReader("Please enter required quantity of ingredient: ");
         String unitOfMeasurement = uiInputHandler
             .unitReader("Please enter unit of measurement.");
         ingredients.put(nameOfIngredient,

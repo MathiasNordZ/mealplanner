@@ -2,6 +2,8 @@ package edu.ntnu.idi.bidata.entity;
 
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -14,8 +16,8 @@ import java.time.LocalDate;
  * @version <b>0.0.1</b>
  */
 public class Grocery {
-  private float quantity;
-  private float price;
+  private BigDecimal quantity;
+  private BigDecimal price;
   private String name;
   private LocalDate expirationDate; // 'YYYY-MM-DD'
   private String unitOfMeasurement; // kilogram, liter, pcs
@@ -32,8 +34,8 @@ public class Grocery {
    * @param expirationDate This is the expiration date of the grocery. Format: 'YYYY-MM-DD'.
    *
    */
-  public Grocery(float quantity, String name, String unitOfMeasurement,
-                 float price, String expirationDate) {
+  public Grocery(BigDecimal quantity, String name, String unitOfMeasurement,
+                 BigDecimal price, String expirationDate) {
     setQuantity(quantity);
     setName(name);
     setExpirationDate(expirationDate);
@@ -46,7 +48,7 @@ public class Grocery {
    *
    * @return the value of the field, quantity.
    */
-  public float getQuantity() {
+  public BigDecimal getQuantity() {
     return quantity;
   }
 
@@ -58,11 +60,11 @@ public class Grocery {
    * @throws IllegalArgumentException if quantity is less than zero,
    *                                  because a negative quantity is not possible.
    */
-  public void setQuantity(float quantity) {
-    if (quantity < 0) {
+  public void setQuantity(BigDecimal quantity) {
+    if (quantity.compareTo(BigDecimal.ZERO) < 0) {
       throw new IllegalArgumentException("Quantity can not have a negative value.");
     }
-    this.quantity = quantity;
+    this.quantity = quantity.setScale(2, RoundingMode.HALF_UP);
   }
 
   /**
@@ -145,7 +147,7 @@ public class Grocery {
    *
    * @return the price of the grocery.
    */
-  public float getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
@@ -157,10 +159,10 @@ public class Grocery {
    * @throws IllegalArgumentException if the provided parameter is less than zero.
    *                                  This is to prevent a negative price.
    */
-  public void setPrice(float price) {
-    if (price < 0) {
+  public void setPrice(BigDecimal price) {
+    if (price.compareTo(BigDecimal.ZERO) < 0) {
       throw new IllegalArgumentException("The price can not be less than zero.");
     }
-    this.price = price;
+    this.price = price.setScale(2, RoundingMode.HALF_UP);
   }
 }

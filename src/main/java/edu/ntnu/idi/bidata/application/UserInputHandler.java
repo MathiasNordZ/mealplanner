@@ -1,5 +1,6 @@
 package edu.ntnu.idi.bidata.application;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -71,13 +72,13 @@ public class UserInputHandler {
    * @return Float input from the user.
    * @since 0.0.1
    */
-  public float floatReader(String prompt) {
-    float value = 0;
+  public BigDecimal decimalReader(String prompt) {
+    BigDecimal value = BigDecimal.ZERO;
     boolean validInput = false;
     while (!validInput) {
       System.out.println(prompt);
       if (scanner.hasNextFloat()) {
-        value = scanner.nextFloat();
+        value = scanner.nextBigDecimal();
         scanner.nextLine();
         validInput = true;
       } else {

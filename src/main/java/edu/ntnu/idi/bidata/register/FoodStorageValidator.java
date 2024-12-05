@@ -1,6 +1,8 @@
 package edu.ntnu.idi.bidata.register;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -26,9 +28,9 @@ public class FoodStorageValidator {
    * @throws IllegalArgumentException if the grocery name is null or empty,
    *                                  or if the quantity to remove is less than or equal to zero.
    */
-  static void validateInputs(String groceryToRemove, float quantityToRemove) {
+  static void validateInputs(String groceryToRemove, BigDecimal quantityToRemove) {
     String errorMessage;
-    if (groceryToRemove == null || groceryToRemove.isBlank() || quantityToRemove <= 0) {
+    if (groceryToRemove == null || groceryToRemove.isBlank() || quantityToRemove.compareTo(BigDecimal.ZERO) <= 0) {
       if (groceryToRemove == null || groceryToRemove.isBlank()) {
         errorMessage = "The provided grocery cannot be null or empty.";
       } else {

@@ -7,6 +7,9 @@ import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateString;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -76,8 +79,8 @@ public class FoodStorage {
       Grocery grocery = groceryIterator.next();
 
       if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
-        grocery.setQuantity(grocery.getQuantity() + providedGrocery.getQuantity());
-        grocery.setPrice(grocery.getPrice() + providedGrocery.getPrice());
+        grocery.setQuantity(grocery.getQuantity().add(providedGrocery.getQuantity()));
+        grocery.setPrice(grocery.getPrice().add(providedGrocery.getPrice()));
 
         isFound = true;
       }
@@ -96,14 +99,14 @@ public class FoodStorage {
    * @throws IllegalArgumentException if the quantity to remove is higher than available quantity.
    */
   private void removeGroceryFromList(String groceryToRemove,
-                                     float quantityToRemove, List<Grocery> groceryList) {
-    float availableQuantity = groceryList.stream()
+                                     BigDecimal quantityToRemove, List<Grocery> groceryList) {
+    BigDecimal availableQuantity = groceryList.stream()
         .filter(grocery -> grocery.getName()
             .equalsIgnoreCase(groceryToRemove))
         .map(Grocery::getQuantity)
-        .reduce(0f, Float::sum);
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-    if (quantityToRemove > availableQuantity) {
+    if (quantityToRemove.compareTo(availableQuantity) > 0) {
       throw new
           IllegalArgumentException("You are trying to remove a higher quantity, than available.");
     }
@@ -119,19 +122,19 @@ public class FoodStorage {
    * @param remainingToRemove The remaining quantity to remove.
    */
   private void removalLogic(String groceryToRemove, Iterator<Grocery> groceryIterator,
-                            float remainingToRemove) {
-    while (groceryIterator.hasNext() && remainingToRemove > 0) {
+                            BigDecimal remainingToRemove) {
+    while (groceryIterator.hasNext() && remainingToRemove.compareTo(BigDecimal.ZERO) > 0) {
       Grocery grocery = groceryIterator.next();
 
       if (grocery.getName().equalsIgnoreCase(groceryToRemove)) {
-        if (grocery.getQuantity() <= remainingToRemove) {
-          remainingToRemove -= grocery.getQuantity();
+        if (grocery.getQuantity().compareTo(remainingToRemove) <= 0) {
+          remainingToRemove = remainingToRemove.subtract(grocery.getQuantity());
           groceryIterator.remove();
         } else {
-          float pricePerUnit = grocery.getPrice() / grocery.getQuantity();
-          grocery.setQuantity(grocery.getQuantity() - remainingToRemove);
-          grocery.setPrice(pricePerUnit * grocery.getQuantity());
-          remainingToRemove = 0;
+          BigDecimal pricePerUnit = grocery.getPrice().divide(grocery.getQuantity(), RoundingMode.HALF_UP);
+          grocery.setQuantity(grocery.getQuantity().subtract(remainingToRemove));
+          grocery.setPrice(pricePerUnit.multiply(grocery.getQuantity()));
+          remainingToRemove = BigDecimal.ZERO;
         }
       }
     }
@@ -145,7 +148,7 @@ public class FoodStorage {
    * @throws IllegalArgumentException if the inputs are invalid.
    * @throws NoSuchElementException if the grocery list is empty.
    */
-  public void removeGrocery(String groceryToRemove, float quantityToRemove) {
+  public void removeGrocery(String groceryToRemove, BigDecimal quantityToRemove) {
     validateInputs(groceryToRemove, quantityToRemove);
     String normalizedGroceryName = GroceryFormatter.normalizedString(groceryToRemove);
 
@@ -186,11 +189,11 @@ public class FoodStorage {
    * @return The total value of expired groceries.
    * @throws NoSuchElementException the grocery list is empty
    */
-  public float valueOfExpiredGroceries(List<Grocery> expiredGroceries) {
+  public BigDecimal valueOfExpiredGroceries(List<Grocery> expiredGroceries) {
     validateGroceryList(expiredGroceries);
     return expiredGroceries.stream()
         .map(Grocery::getPrice)
-        .reduce(0f, Float::sum);
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
   /**
@@ -233,12 +236,12 @@ public class FoodStorage {
    *
    * @return The total value of all groceries.
    */
-  public float valueOfAllGroceries() {
+  public BigDecimal valueOfAllGroceries() {
     return groceries.values().stream()
         .filter(groceryList -> groceryList != null && !groceryList.isEmpty())
         .flatMap(List::stream)
         .map(Grocery::getPrice)
-        .reduce(0f, Float::sum);
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
   /**
@@ -267,12 +270,12 @@ public class FoodStorage {
    * @param requiredQuantity The required quantity of ingredient.
    * @return <code>true</code> if the required quantity is available, <code>false</code> otherwise.>
    */
-  public boolean isGroceryAvailable(String nameOfIngredient, float requiredQuantity,
+  public boolean isGroceryAvailable(String nameOfIngredient, BigDecimal requiredQuantity,
                                     String unitOfMeasurement) {
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
         if (grocery.getName().equals(nameOfIngredient)
-            && grocery.getQuantity() >= requiredQuantity
+            && grocery.getQuantity().compareTo(requiredQuantity) >= 0
             && grocery.getUnitOfMeasurement().equalsIgnoreCase(unitOfMeasurement)) {
           return true;
         }
