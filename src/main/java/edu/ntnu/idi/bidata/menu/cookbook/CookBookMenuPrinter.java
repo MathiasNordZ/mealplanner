@@ -5,6 +5,7 @@ import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import edu.ntnu.idi.bidata.util.CookBookFormatter;
+import edu.ntnu.idi.bidata.util.StringFormatter;
 import java.util.NoSuchElementException;
 
 /**
@@ -55,8 +56,11 @@ public class CookBookMenuPrinter {
       String recipeToPrint = uiInputHandler.stringReader("Please enter recipe to print: ");
       Recipe recipe = cookBook.getRecipe(recipeToPrint);
       boolean isAvailable = cookBook.matchRecipeToGrocery(foodStorage, recipe);
-      String availability = isAvailable ? "You have all ingredients for this recipe.\n"
-          : "You do not have enough ingredients for this recipe.\n";
+      String availability = isAvailable ? StringFormatter.GREEN
+          + "You have all ingredients for this recipe.\n"
+          + StringFormatter.RESET
+          : StringFormatter.RED + "You do not have enough ingredients for this recipe.\n"
+          + StringFormatter.RESET;
       String formattedRecipe = CookBookFormatter.formatRecipe(recipe);
       System.out.println(formattedRecipe);
       System.out.println(availability);
@@ -77,7 +81,8 @@ public class CookBookMenuPrinter {
                                    FoodStorage foodStorage) {
     try {
       Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
-      System.out.println("Recommended recipe: " + recommendedRecipe.getRecipeName());
+      System.out.println(StringFormatter.GREEN + "Recommended recipe: "
+          + StringFormatter.RESET + recommendedRecipe.getRecipeName());
     } catch (NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
     }

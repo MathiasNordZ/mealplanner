@@ -4,6 +4,7 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import edu.ntnu.idi.bidata.util.GroceryFormatter;
+import edu.ntnu.idi.bidata.util.StringFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -78,7 +79,8 @@ public class GroceryMenuPrinter {
       String formattedExpiredGroceries = GroceryFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);
       System.out.println(formattedExpiredGroceries);
-      System.out.println("Value of expired groceries: "
+      System.out.println(StringFormatter.GREEN + "Value of expired groceries: "
+          + StringFormatter.RESET
           + foodStorage.valueOfExpiredGroceries(expiredGroceries) + "\n");
     } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
@@ -94,7 +96,8 @@ public class GroceryMenuPrinter {
    */
   public void valueOfAllGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
-      System.out.println("Value of all groceries: " + foodStorage.valueOfAllGroceries());
+      System.out.println(StringFormatter.GREEN + "Value of all groceries: "
+          + StringFormatter.RESET + foodStorage.valueOfAllGroceries());
     } catch (Exception e) {
       System.out.println(errorMessage + e.getMessage());
     }

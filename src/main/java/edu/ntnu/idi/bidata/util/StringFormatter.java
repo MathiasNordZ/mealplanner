@@ -6,6 +6,10 @@ package edu.ntnu.idi.bidata.util;
  * converting to lowercase, and capitalizing the first letter.
  */
 public class StringFormatter {
+  public static final String RESET = "\033[0m"; // Reset color to default
+  public static final String RED = "\033[0;31m"; // Set color of string to red.
+  public static final String GREEN = "\033[0;32m"; // Set color of string to green.
+
   private StringFormatter() {
 
   }
@@ -22,4 +26,6 @@ public class StringFormatter {
     input = input.trim().toLowerCase();
     return Character.toUpperCase(input.charAt(0)) + input.substring(1);
   }
+
+
 }

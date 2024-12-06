@@ -1,5 +1,7 @@
 package edu.ntnu.idi.bidata.menu;
 
+import edu.ntnu.idi.bidata.util.StringFormatter;
+
 /**
  * The <code>StringMenu</code> class provides methods to print various menus to the console.
  * This class includes methods to print the main menu, cookbook menu, and grocery menu.
@@ -25,10 +27,11 @@ public class StringMenu {
    * cookbook menu, or exit the application.
    */
   public void printMainMenu() {
-    final String mainMenu = """
+    final String mainMenu = StringFormatter.RED + """
           
           You may cancel an operation at any time, by typing 'cancel'.
-          
+         
+          """ + StringFormatter.RESET + """
           [1] - Grocery Menu.
           [2] - Cookbook Menu.
           [0] - Exit.
@@ -43,10 +46,11 @@ public class StringMenu {
    * get a recipe recommendation, or go back to the previous menu.
    */
   public void printCookbookMenu() {
-    final String cookbookMenu = """
-      
-        You may cancel an operation at any time, by typing 'cancel'.
+    final String cookbookMenu = StringFormatter.RED + """
         
+          You may cancel an operation at any time, by typing 'cancel'.
+        
+        """ + StringFormatter.RESET + """
         [1] - Create recipe.
         [2] - Remove recipe.
         [3] - Print recipes.
@@ -64,10 +68,11 @@ public class StringMenu {
    * list expired groceries, get the value of all groceries, or go back to the previous menu.
    */
   public void printGroceryMenu() {
-    final String groceryMenu = """
+    final String groceryMenu = StringFormatter.RED + """
           
           You may cancel an operation at any time, by typing 'cancel'.
-          
+         
+          """ + StringFormatter.RESET + """
           [1] - Create a new grocery.
           [2] - Remove grocery.
           [3] - Search for grocery.
