@@ -45,15 +45,15 @@ public class StringMenu {
   public void printCookbookMenu() {
     final String cookbookMenu = """
       
-      You may cancel an operation at any time, by typing 'cancel'.
-      
-      [1] - Create recipe.
-      [2] - Remove recipe.
-      [3] - Print recipes.
-      [4] - Print recipe.
-      [5] - Recipe recommendation.
-      [0] - Go back.
-      """;
+        You may cancel an operation at any time, by typing 'cancel'.
+        
+        [1] - Create recipe.
+        [2] - Remove recipe.
+        [3] - Print recipes.
+        [4] - Print recipe.
+        [5] - Recipe recommendation.
+        [0] - Go back.
+        """;
     System.out.println(cookbookMenu);
   }
 

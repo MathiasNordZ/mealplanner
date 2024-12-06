@@ -1,8 +1,5 @@
 package edu.ntnu.idi.bidata.entity;
 
-import edu.ntnu.idi.bidata.util.GroceryFormatter;
-import edu.ntnu.idi.bidata.util.StringFormatter;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.DateTimeException;

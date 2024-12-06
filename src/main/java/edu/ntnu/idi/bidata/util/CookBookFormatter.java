@@ -1,10 +1,8 @@
 package edu.ntnu.idi.bidata.util;
 
 import edu.ntnu.idi.bidata.recipe.Recipe;
-
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 /**
  * Utility class for formatting the cookbook.

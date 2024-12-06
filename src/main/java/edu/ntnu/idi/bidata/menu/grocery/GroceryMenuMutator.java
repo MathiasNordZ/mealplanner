@@ -3,7 +3,6 @@ package edu.ntnu.idi.bidata.menu.grocery;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
@@ -16,6 +15,11 @@ import java.util.NoSuchElementException;
 public class GroceryMenuMutator {
   private final UserInputHandler uiInputHandler;
 
+  /**
+   * Constructor for GroceryMenuMutator.
+   *
+   * @param uiInputHandler The input handler.
+   */
   public GroceryMenuMutator(UserInputHandler uiInputHandler) {
     this.uiInputHandler = uiInputHandler;
   }

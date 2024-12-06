@@ -6,9 +6,6 @@ import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateInputs;
 import static edu.ntnu.idi.bidata.register.FoodStorageValidator.validateString;
 
 import edu.ntnu.idi.bidata.entity.Grocery;
-import edu.ntnu.idi.bidata.util.GroceryFormatter;
-import edu.ntnu.idi.bidata.util.StringFormatter;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.DateTimeException;
@@ -131,7 +128,8 @@ public class FoodStorage {
           remainingToRemove = remainingToRemove.subtract(grocery.getQuantity());
           groceryIterator.remove();
         } else {
-          BigDecimal pricePerUnit = grocery.getPrice().divide(grocery.getQuantity(), RoundingMode.HALF_UP);
+          BigDecimal pricePerUnit = grocery.getPrice()
+              .divide(grocery.getQuantity(), RoundingMode.HALF_UP);
           grocery.setQuantity(grocery.getQuantity().subtract(remainingToRemove));
           grocery.setPrice(pricePerUnit.multiply(grocery.getQuantity()));
           remainingToRemove = BigDecimal.ZERO;

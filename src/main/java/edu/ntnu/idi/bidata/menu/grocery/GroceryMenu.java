@@ -29,7 +29,8 @@ public class GroceryMenu {
    * @param groceryMutator The grocery menu mutator.
    * @since 0.0.1
    */
-  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler, StringMenu stringMenu, GroceryMenuMutator groceryMutator) {
+  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler,
+                     StringMenu stringMenu, GroceryMenuMutator groceryMutator) {
     this.foodStorage = foodStorage;
     this.uiInputHandler = uiInputHandler;
     this.stringMenu = stringMenu;

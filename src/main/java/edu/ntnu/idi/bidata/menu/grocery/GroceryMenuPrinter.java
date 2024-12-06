@@ -72,7 +72,8 @@ public class GroceryMenuPrinter {
   public void listOfExpiredGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
       String dateOfExpiry = uiInputHandler
-          .dateReader("Please enter date to check which groceries expires before given date ('YYYY-MM-DD'): ");
+          .dateReader("Please enter date to check which groceries "
+              + "expires before given date ('YYYY-MM-DD'): ");
       List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(dateOfExpiry);
       String formattedExpiredGroceries = GroceryFormatter
           .formatExpiredGroceries(foodStorage, dateOfExpiry);

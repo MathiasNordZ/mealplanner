@@ -1,10 +1,11 @@
 package edu.ntnu.idi.bidata.recipe;
 
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.math.BigDecimal;
-import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * The <code>CookBook</code> class represents a collection of recipes.

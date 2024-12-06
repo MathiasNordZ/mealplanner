@@ -1,12 +1,12 @@
 package edu.ntnu.idi.bidata.recipe;
 
-import edu.ntnu.idi.bidata.util.StringFormatter;
+import static edu.ntnu.idi.bidata.recipe.RecipeValidator.amountOfServingsValidation;
+import static edu.ntnu.idi.bidata.recipe.RecipeValidator.mapInputValidation;
+import static edu.ntnu.idi.bidata.recipe.RecipeValidator.stringInputValidation;
 
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
-
-import static edu.ntnu.idi.bidata.recipe.RecipeValidator.*;
 
 /**
  * This class represents a recipe.
@@ -116,7 +116,8 @@ public class Recipe {
   /**
    * Accessor method for <code>getIngredients</code>.
    *
-   * @return A map of ingredients, name is key, key of value is quantity and value of value is unit of measurement.
+   * @return A map of ingredients, name is key,
+   *         key of value is quantity and value of value is unit of measurement.
    * @since 0.0.1
    */
   public Map<String, SimpleEntry<BigDecimal, String>> getIngredients() {

@@ -54,7 +54,8 @@ public class RecipeValidator {
       errorMessage.append("Quantity and unit cannot be null");
       return;
     }
-    if (quantityAndUnit.getKey() == null || quantityAndUnit.getKey().compareTo(BigDecimal.ZERO) <= 0) {
+    if (quantityAndUnit.getKey() == null
+        || quantityAndUnit.getKey().compareTo(BigDecimal.ZERO) <= 0) {
       errorMessage.append("Quantity cannot be null, less than or equal to zero.");
     }
     if (quantityAndUnit.getValue() == null || quantityAndUnit.getValue().isBlank()) {

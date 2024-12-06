@@ -1,7 +1,6 @@
 package edu.ntnu.idi.bidata.application;
 
 import edu.ntnu.idi.bidata.util.StringFormatter;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -89,11 +88,11 @@ public class UserInputHandler {
       cancelOperation(input);
       try {
         value = new BigDecimal(input);
-          if(value.compareTo(BigDecimal.ZERO) > 0) {
-            validInput = true;
-          } else {
-            System.out.println("Input must be greater than 0! Please try again.");
-          }
+        if (value.compareTo(BigDecimal.ZERO) > 0) {
+          validInput = true;
+        } else {
+          System.out.println("Input must be greater than 0! Please try again.");
+        }
       } catch (NumberFormatException e) {
         System.out.println("Invalid input! Please enter a valid number.");
       }

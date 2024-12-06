@@ -1,14 +1,15 @@
 package edu.ntnu.idi.bidata.application;
 
 /**
- * <p>This is the starting point of the application.
- * The whole application is initialized and started from this class.</p>
- * @author <b>Mathias Erik Nord</b>
- * @version <b>0.0.1</b>
+ * This is the starting point of the application.
+ * The whole application is initialized and started from this class.
+ *
+ * @author Mathias Erik Nord
+ * @version 0.0.1
  */
 public class Main {
   /**
-   * <p>Where the program is run from.</p>
+   * Where the program is run from.
    *
    * @param args Command line arguments.
    */

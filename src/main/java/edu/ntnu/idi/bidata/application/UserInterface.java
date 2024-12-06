@@ -11,7 +11,6 @@ import edu.ntnu.idi.bidata.menu.grocery.GroceryMenuMutator;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.register.FoodStorage;
-
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
@@ -49,7 +48,9 @@ public class UserInterface {
     addRecipe(cookBook);
     addGrocery(foodStorage);
 
-    mainMenu = new MainMenu(uiInputHandler, initializeGroceryMenu(uiInputHandler, foodStorage, stringMenu), initializeCookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu));
+    mainMenu = new MainMenu(uiInputHandler,
+        initializeGroceryMenu(uiInputHandler, foodStorage, stringMenu),
+        initializeCookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu));
   }
 
   private FoodStorage initializeFoodStorage() {
@@ -60,17 +61,20 @@ public class UserInterface {
     return new CookBook();
   }
 
-  private GroceryMenu initializeGroceryMenu(UserInputHandler uiInputHandler, FoodStorage foodStorage, StringMenu stringMenu) {
+  private GroceryMenu initializeGroceryMenu(UserInputHandler uiInputHandler,
+                                            FoodStorage foodStorage, StringMenu stringMenu) {
     GroceryMenuMutator groceryMenuMutator = new GroceryMenuMutator(uiInputHandler);
 
     return new GroceryMenu(foodStorage, uiInputHandler, stringMenu, groceryMenuMutator);
   }
 
-  private CookBookMenu initializeCookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage, StringMenu stringMenu) {
+  private CookBookMenu initializeCookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook,
+                                              FoodStorage foodStorage, StringMenu stringMenu) {
     CookBookMenuPrinter cookBookMenuPrinter = new CookBookMenuPrinter();
     CookBookMenuMutator cookBookMenuMutator = new CookBookMenuMutator(uiInputHandler);
 
-    return new CookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu, cookBookMenuMutator, cookBookMenuPrinter);
+    return new CookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu,
+        cookBookMenuMutator, cookBookMenuPrinter);
   }
 
   /**
@@ -107,10 +111,14 @@ public class UserInterface {
    * @since 0.0.1
    */
   private void addGrocery(FoodStorage foodStorage) {
-    initializeGrocery(foodStorage, BigDecimal.valueOf(1), "Milk", LITER, BigDecimal.valueOf(25), "2024-12-31");
-    initializeGrocery(foodStorage, BigDecimal.valueOf(1.25), "Chicken", KILOGRAM, BigDecimal.valueOf(125), "2024-12-10");
-    initializeGrocery(foodStorage, BigDecimal.valueOf(2), "Rice", KILOGRAM, BigDecimal.valueOf(45), "2025-10-30");
-    initializeGrocery(foodStorage, BigDecimal.valueOf(1.5), "Cola", LITER, BigDecimal.valueOf(37), "2025-08-20");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1), "Milk", LITER,
+        BigDecimal.valueOf(25), "2024-12-31");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1.25), "Chicken", KILOGRAM,
+        BigDecimal.valueOf(125), "2024-12-10");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(2), "Rice", KILOGRAM,
+        BigDecimal.valueOf(45), "2025-10-30");
+    initializeGrocery(foodStorage, BigDecimal.valueOf(1.5), "Cola", LITER,
+        BigDecimal.valueOf(37), "2025-08-20");
   }
 
   /**
