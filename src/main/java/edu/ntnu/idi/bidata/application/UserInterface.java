@@ -32,6 +32,10 @@ public class UserInterface {
   private static final String KILOGRAM = "Kilogram";
   private static final String LITER = "Liter";
 
+  private UserInterface() {
+
+  }
+
 
   /**
    * This is the method that initializes all the instances required to run the application.
