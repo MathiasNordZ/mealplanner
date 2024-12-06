@@ -85,8 +85,7 @@ class FoodStorageTest {
     assertEquals(0, BigDecimal.valueOf(0.6).compareTo(groceries.getFirst().getQuantity()));
 
     foodStorage.removeGrocery("Chicken", BigDecimal.valueOf(0.6));
-    groceries = foodStorage.searchGrocery("Chicken");
-    assertTrue(groceries.isEmpty());
+    assertThrows(NoSuchElementException.class, () -> foodStorage.searchGrocery("Chicken"));
   }
 
   /**

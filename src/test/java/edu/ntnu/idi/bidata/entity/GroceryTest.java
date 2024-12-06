@@ -1,28 +1,29 @@
 package edu.ntnu.idi.bidata.entity;
 
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
- * <p>
- *   This is the test class for the class Grocery. The test class is supposed to test certain methods of the Grocery class, both with positive and negative values.
- *   The test class does follow the Arrange, Act and Assert philosophy, where an object of the class Grocery is created. It is acted upon, and then asserted.
- * </p>
+ * Test class for <code>Grocery</code>.
+ * This is a unit test class that checks if the <code>Grocery</code> class behaves correctly,
+ * in both positive and negative cases.
  *
- * @author <b>Mathias Erik Nord</b>
- * @since <b>16.10.2024</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @since 16.10.2024
+ * @version 0.0.1
  */
 
 class GroceryTest {
   private Grocery grocery;
   private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+  /**
+   * Setup method, will set up a clean object before each test.
+   */
   @BeforeEach
   void setUp() {
     final BigDecimal quantity = BigDecimal.valueOf(3);
@@ -99,17 +100,19 @@ class GroceryTest {
    */
   @Test
   void setExpirationDateNegativeTest() {
-    String invalidDate = "10/12/2024";
-    assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(invalidDate));
+    String[] invalidDates = {"2024-16-12", "2024/12/12", "2025.10.01"};
+    for (String invalidDate : invalidDates) {
+      assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(invalidDate));
+    }
   }
 
   /**
-   * This is a positive test for <coded>setUnitOfMeasurement</coded> method.
+   * This is a positive test for <code>setUnitOfMeasurement</code> method.
    * Will set a valid input, and is expected to return the correct value when calling <code>getUnitOfMeasurement</code>.
    */
   @Test
   void setUnitOfMeasurementPositiveTest() {
-    grocery.setUnitOfMeasurement("kilogram");
+    grocery.setUnitOfMeasurement("Kilogram");
 
     assertEquals("Kilogram", grocery.getUnitOfMeasurement());
   }
