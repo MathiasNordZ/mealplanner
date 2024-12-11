@@ -21,7 +21,7 @@ public class CookBookMenuMutator {
   private final UserInputHandler inputHandler;
 
   /**
-   * Constructs a new instance of <code>CookBookMenuMutator</code>
+   * Constructs a new instance of <code>CookBookMenuMutator</code>.
    *
    * @param inputHandler The input handler.
    */
