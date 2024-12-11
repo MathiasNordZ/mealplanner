@@ -75,7 +75,7 @@ public class FoodStorage {
     while (groceryIterator.hasNext() && !isFound) {
       Grocery grocery = groceryIterator.next();
 
-      if (grocery.getExpirationDate().equals(providedGrocery.getExpirationDate())) {
+      if (grocery.getExpiryDate().equals(providedGrocery.getExpiryDate())) {
         grocery.setQuantity(grocery.getQuantity().add(providedGrocery.getQuantity()));
         grocery.setPrice(grocery.getPrice().add(providedGrocery.getPrice()));
 
@@ -224,7 +224,7 @@ public class FoodStorage {
   private void expiredGroceries(LocalDate expiryDate, List<Grocery> expiredGroceries) {
     for (List<Grocery> groceryList : groceries.values()) {
       for (Grocery grocery : groceryList) {
-        if (grocery.getExpirationDate().isBefore(expiryDate)) {
+        if (grocery.getExpiryDate().isBefore(expiryDate)) {
           expiredGroceries.add(grocery);
         }
       }
@@ -268,6 +268,7 @@ public class FoodStorage {
    *
    * @param nameOfIngredient The name of the ingredient to check.
    * @param requiredQuantity The required quantity of ingredient.
+   * @param unitOfMeasurement
    * @return <code>true</code> if the required quantity is available, <code>false</code> otherwise.>
    */
   public boolean isGroceryAvailable(String nameOfIngredient, BigDecimal requiredQuantity,
@@ -276,7 +277,7 @@ public class FoodStorage {
       for (Grocery grocery : groceryList) {
         if (grocery.getName().equals(nameOfIngredient)
             && grocery.getQuantity().compareTo(requiredQuantity) >= 0
-            && grocery.getUnitOfMeasurement().equalsIgnoreCase(unitOfMeasurement)) {
+            && grocery.getUnit().equalsIgnoreCase(unitOfMeasurement)) {
           return true;
         }
       }

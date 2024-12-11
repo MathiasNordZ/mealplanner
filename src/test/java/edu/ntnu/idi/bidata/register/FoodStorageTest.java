@@ -138,7 +138,7 @@ class FoodStorageTest {
 
     assertFalse(expiredGroceries.isEmpty());
     assertEquals("Milk", expiredGroceries.getFirst().getName());
-    assertEquals(date, expiredGroceries.getFirst().getExpirationDate());
+    assertEquals(date, expiredGroceries.getFirst().getExpiryDate());
   }
 
 

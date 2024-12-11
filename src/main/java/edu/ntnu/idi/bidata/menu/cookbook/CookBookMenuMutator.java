@@ -36,20 +36,20 @@ public class CookBookMenuMutator {
   public void createRecipe(String errorMessage, CookBook cookBook) {
     try {
       Recipe recipe;
-      String nameOfRecipe = uiInputHandler.stringReader("Please enter name of recipe: ");
+      String recipeName = uiInputHandler.stringReader("Please enter name of recipe: ");
       String recipeDescription = uiInputHandler.stringReader("Please enter a recipe description: ");
       String cookingInstructions = uiInputHandler
           .stringReader("Please enter cooking instructions: ");
-      int amountOfServings = uiInputHandler.intReader("Please enter amount of servings");
+      int servings = uiInputHandler.intReader("Please enter amount of servings");
 
       Map<String, SimpleEntry<BigDecimal, String>> ingredients = new HashMap<>();
       boolean isUserDone = false;
 
-      promptForIngredient(isUserDone, ingredients);
-      recipe = new Recipe(nameOfRecipe, recipeDescription,
-          cookingInstructions, ingredients, amountOfServings);
+      ingredientPrompt(isUserDone, ingredients);
+      recipe = new Recipe(recipeName, recipeDescription,
+          cookingInstructions, ingredients, servings);
       cookBook.addRecipe(recipe);
-      System.out.println(nameOfRecipe + " was added successfully!");
+      System.out.println(recipeName + " was added successfully!");
     } catch (IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
     }
@@ -64,20 +64,20 @@ public class CookBookMenuMutator {
    *                    given quantities and unit of measurement.
    * @since 0.0.1
    */
-  private void promptForIngredient(boolean isUserDone,
-                                   Map<String, SimpleEntry<BigDecimal, String>> ingredients) {
+  private void ingredientPrompt(boolean isUserDone,
+                                Map<String, SimpleEntry<BigDecimal, String>> ingredients) {
     while (!isUserDone) {
-      String nameOfIngredient = uiInputHandler
+      String name = uiInputHandler
           .stringReader("Please enter name of ingredient (type 'done' if finished): ");
-      if (nameOfIngredient.equalsIgnoreCase("Done")) {
+      if (name.equalsIgnoreCase("Done")) {
         isUserDone = true;
       } else {
-        BigDecimal quantityOfIngredient = uiInputHandler
+        BigDecimal quantity = uiInputHandler
             .decimalReader("Please enter required quantity of ingredient: ");
-        String unitOfMeasurement = uiInputHandler
+        String unit = uiInputHandler
             .unitReader("Please enter unit of measurement. (kilogram/liter/pcs).");
-        ingredients.put(nameOfIngredient,
-            new SimpleEntry<>(quantityOfIngredient, unitOfMeasurement));
+        ingredients.put(name,
+            new SimpleEntry<>(quantity, unit));
       }
     }
   }

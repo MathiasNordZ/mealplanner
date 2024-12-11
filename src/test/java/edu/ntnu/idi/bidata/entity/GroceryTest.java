@@ -89,9 +89,9 @@ class GroceryTest {
     LocalDate dateInFuture = LocalDate.now().plusDays(1);
     String formattedDateInFuture = dateInFuture.format(formatter);
 
-    grocery.setExpirationDate(formattedDateInFuture);
+    grocery.setExpiryDate(formattedDateInFuture);
 
-    assertEquals(dateInFuture, grocery.getExpirationDate());
+    assertEquals(dateInFuture, grocery.getExpiryDate());
   }
 
   /**
@@ -102,7 +102,7 @@ class GroceryTest {
   void setExpirationDateNegativeTest() {
     String[] invalidDates = {"2024-16-12", "2024/12/12", "2025.10.01"};
     for (String invalidDate : invalidDates) {
-      assertThrows(IllegalArgumentException.class, () -> grocery.setExpirationDate(invalidDate));
+      assertThrows(IllegalArgumentException.class, () -> grocery.setExpiryDate(invalidDate));
     }
   }
 
@@ -112,9 +112,9 @@ class GroceryTest {
    */
   @Test
   void setUnitOfMeasurementPositiveTest() {
-    grocery.setUnitOfMeasurement("Kilogram");
+    grocery.setUnit("Kilogram");
 
-    assertEquals("Kilogram", grocery.getUnitOfMeasurement());
+    assertEquals("Kilogram", grocery.getUnit());
   }
 
   /**
@@ -123,7 +123,7 @@ class GroceryTest {
    */
   @Test
   void setUnitOfMeasurementNegativeTest() {
-    assertThrows(IllegalArgumentException.class, () -> grocery.setUnitOfMeasurement(""));
+    assertThrows(IllegalArgumentException.class, () -> grocery.setUnit(""));
   }
 
   /**

@@ -3,6 +3,7 @@ package edu.ntnu.idi.bidata.application;
 import edu.ntnu.idi.bidata.util.StringFormatter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
@@ -10,8 +11,8 @@ import java.util.Scanner;
  * The <code>UserInputHandler</code> class handles input operations for the user.
  * It provides methods to read strings, integers, and floats from the user.
  *
- * @author <b>Mathias Erik Nord</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @version 0.0.1
  */
 public class UserInputHandler {
   private final Scanner scanner;
@@ -110,19 +111,19 @@ public class UserInputHandler {
    * @since 0.0.1
    */
   public String dateReader(String prompt) {
-    LocalDate dateOfExpiry = null;
+    LocalDate expiryDate = null;
     boolean isDateCorrect = false;
     while (!isDateCorrect) {
       String input = stringReader(prompt);
       cancelOperation(input);
       try {
-        dateOfExpiry = LocalDate.parse(input);
+        expiryDate = LocalDate.parse(input);
         isDateCorrect = true;
       } catch (DateTimeParseException e) {
         System.out.println("You provided an invalid date! Please use format 'YYYY-MM-DD'.");
       }
     }
-    return dateOfExpiry.toString();
+    return expiryDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
   }
 
   /**
@@ -151,6 +152,11 @@ public class UserInputHandler {
     return StringFormatter.normalizedString(unitOfMeasurement);
   }
 
+  /**
+   * Method that will listen for 'cancel'.
+   *
+   * @param input The input to check.
+   */
   private void cancelOperation(String input) {
     if (input.equalsIgnoreCase("Cancel")) {
       throw new IllegalArgumentException("Operation cancelled!");

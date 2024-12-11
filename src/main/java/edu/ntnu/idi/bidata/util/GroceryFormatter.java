@@ -37,8 +37,8 @@ public class GroceryFormatter {
 
     for (Grocery grocery : groceries) {
       table.append(String.format(format, grocery.getName(),
-          grocery.getQuantity(), grocery.getUnitOfMeasurement(),
-          grocery.getPrice(), grocery.getExpirationDate()));
+          grocery.getQuantity(), grocery.getUnit(),
+          grocery.getPrice(), grocery.getExpiryDate()));
     }
     return table.toString();
   }

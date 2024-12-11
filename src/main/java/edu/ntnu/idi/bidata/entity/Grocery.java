@@ -9,35 +9,35 @@ import java.time.LocalDate;
  * This class represents a grocery with the attributes quantity, price, name,
  * expiration date and unit of measurement.
  *
- * @author <b>Mathias Erik Nord</b>
- * @since <b>16.10.2024</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @since 16.10.2024
+ * @version 0.0.1
  */
 public class Grocery {
-  private BigDecimal quantity;
-  private BigDecimal price;
-  private String name;
-  private LocalDate expirationDate; // 'YYYY-MM-DD'
-  private String unitOfMeasurement; // kilogram, liter, pcs
+  private BigDecimal quantity; // Quantity, ex 2.0
+  private BigDecimal price; // Price of grocery
+  private String name; // Name of grocery
+  private LocalDate expiryDate; // 'YYYY-MM-DD'
+  private String unit; // kilogram, liter, pcs
 
   /**
-   * Constructor for the Grocery class. Initializes the quantity, name, unitOfMeasurement,
+   * Constructor for the Grocery class. Initializes the quantity, name, unit,
    * and expiry date.
    * The constructor uses setters and getters to reduce duplication.
    *
    * @param quantity This is the quantity of the grocery.
    * @param name This is the name of the grocery.
-   * @param unitOfMeasurement This is the unit of measurement that the grocery is measured in.
+   * @param unit This is the unit of measurement that the grocery is measured in.
    * @param price This is the price of the grocery.
-   * @param expirationDate This is the expiration date of the grocery. Format: 'YYYY-MM-DD'.
+   * @param expiryDate This is the expiration date of the grocery. Format: 'YYYY-MM-DD'.
    *
    */
-  public Grocery(BigDecimal quantity, String name, String unitOfMeasurement,
-                 BigDecimal price, String expirationDate) {
+  public Grocery(BigDecimal quantity, String name, String unit,
+                 BigDecimal price, String expiryDate) {
     setQuantity(quantity);
     setName(name);
-    setExpirationDate(expirationDate);
-    setUnitOfMeasurement(unitOfMeasurement);
+    setExpiryDate(expiryDate);
+    setUnit(unit);
     setPrice(price);
   }
 
@@ -93,51 +93,51 @@ public class Grocery {
    *
    * @return the value of expirationDate.
    */
-  public LocalDate getExpirationDate() {
-    return expirationDate;
+  public LocalDate getExpiryDate() {
+    return expiryDate;
   }
 
   /**
-   * Mutator method for <code>expirationDate</code>.
+   * Mutator method for <code>expiryDate</code>.
    *
-   * @param dateString String parameter that will represent the
+   * @param dateInput String parameter that will represent the
    *                   expiry date on the format 'YYYY-MM-DD'.
    *
    * @throws IllegalArgumentException if expiration date is not on the correct format.
    */
-  public void setExpirationDate(String dateString) {
+  public void setExpiryDate(String dateInput) {
     try {
-      this.expirationDate = LocalDate.parse(dateString);
+      this.expiryDate = LocalDate.parse(dateInput);
     } catch (DateTimeException e) {
       throw new IllegalArgumentException("You have entered an invalid date!");
     }
   }
 
   /**
-   * Accessor method for <code>unitOfMeasurement</code>.
+   * Accessor method for <code>unit</code>.
    *
-   * @return the field unitOfMeasurement.
+   * @return the value of field unit.
    */
-  public String getUnitOfMeasurement() {
-    return unitOfMeasurement;
+  public String getUnit() {
+    return unit;
   }
 
   /**
-   * Mutator method for <code>unitOfMeasurement</code>.
+   * Mutator method for <code>unit</code>.
    *
-   * @param unitOfMeasurement the unit of measurement that the quantity is measured in.
+   * @param unit the unit of measurement that the quantity is measured in.
    *                          Either liter, kilogram or pcs.
    *
    * @throws IllegalArgumentException if provided parameter does not match
    *                                     the string value "liter" or "kilogram".
    */
-  public void setUnitOfMeasurement(String unitOfMeasurement) {
-    if (!unitOfMeasurement.equalsIgnoreCase("liter")
-            && !unitOfMeasurement.equalsIgnoreCase("kilogram")
-            && !unitOfMeasurement.equalsIgnoreCase("pcs")) {
+  public void setUnit(String unit) {
+    if (!unit.equalsIgnoreCase("liter")
+            && !unit.equalsIgnoreCase("kilogram")
+            && !unit.equalsIgnoreCase("pcs")) {
       throw new IllegalArgumentException("Unit of measurement must be liter, kilogram or pcs");
     }
-    this.unitOfMeasurement = unitOfMeasurement;
+    this.unit = unit;
   }
 
   /**

@@ -18,22 +18,23 @@ import java.util.Map;
 
 /**
  * This is the <code>UserInterface</code> class.
+ * This class will initialize instances required to run the application.
+ * It will also initially fill the food storage
+ * and cookbook with groceries and recipes by default.
  *
- * <p>This class will initialize instances required to run the application.</p>
- *
- * <p>It will also initially fill the food storage
- * and cookbook with groceries and recipes by default.</p>
- *
- * @author <b>Mathias Erik Nord</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @version 0.0.1
  */
 public class UserInterface {
   private MainMenu mainMenu;
   private static final String KILOGRAM = "Kilogram";
   private static final String LITER = "Liter";
 
-  private UserInterface() {
-
+  /**
+   * Empty constructor. Because no further initialization is needed.
+   */
+  public UserInterface() {
+    // Constructor is empty.
   }
 
 

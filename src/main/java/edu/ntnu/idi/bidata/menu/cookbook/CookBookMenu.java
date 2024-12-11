@@ -9,9 +9,9 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  * This class represents the cook book menu in the application.
  * In the cook book menu the user should be able to manage the recipes.
  *
- * @author <b>Mathias Erik Nord</b>
- * @version <b>0.0.1</b>>
- * @since <b>22.11.2024</b>
+ * @author Mathias Erik Nord
+ * @version 0.0.1
+ * @since 22.11.2024
  */
 public class CookBookMenu {
   private final UserInputHandler uiInputHandler;
@@ -28,6 +28,9 @@ public class CookBookMenu {
    * @param uiInputHandler The handler for user input, used to read commands and data from user.
    * @param cookBook The cookbook that contains the collection of recipes to be managed.
    * @param foodStorage The storage that contains the groceries used in the recipes.
+   * @param stringMenu The menu containing the string menus.
+   * @param cookBookMenuMutator The class that handles the operations in cookbook menu.
+   * @param cookBookMenuPrinter The class that handles printing related to cookbook menu.
    * @since 0.0.1
    */
   public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage,

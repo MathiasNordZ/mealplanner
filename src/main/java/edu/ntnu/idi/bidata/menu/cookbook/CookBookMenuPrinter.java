@@ -45,6 +45,7 @@ public class CookBookMenuPrinter {
    * @param errorMessage The error message to display in case of an exception.
    * @param uiInputHandler The handler for user input, used to read input from the user.
    * @param cookBook The cookbook containing the recipe to print.
+   * @param foodStorage The food storage to check.
    * @since 0.0.1
    */
   public void printRecipe(String errorMessage, UserInputHandler uiInputHandler, CookBook cookBook,
