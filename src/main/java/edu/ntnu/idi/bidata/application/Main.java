@@ -13,6 +13,12 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  */
 public class Main {
   /**
+   * Private empty constructor.
+   */
+  private Main() {
+    // Empty constructor
+  }
+  /**
    * Where the program is run from.
    *
    * @param args Command line arguments.
