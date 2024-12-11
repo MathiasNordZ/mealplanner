@@ -35,9 +35,15 @@ public class UserInterface {
   private static final String LITER = "Liter";
 
   /**
-   * Empty constructor. Because no further initialization is needed.
+   * The constructor that constructs the user interface.
+   *
+   * @param stringMenu The menu that contains the string menus.
+   * @param inputHandler Handles the user input
+   * @param foodStorage The food storage to initialize
+   * @param cookBook The cookbook to initialize.
    */
-  public UserInterface(StringMenu stringMenu, UserInputHandler inputHandler, FoodStorage foodStorage, CookBook cookBook) {
+  public UserInterface(StringMenu stringMenu, UserInputHandler inputHandler,
+                       FoodStorage foodStorage, CookBook cookBook) {
     this.stringMenu = stringMenu;
     this.inputHandler = inputHandler;
     this.foodStorage = foodStorage;
