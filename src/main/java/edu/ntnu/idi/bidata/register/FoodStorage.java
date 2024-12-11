@@ -268,7 +268,7 @@ public class FoodStorage {
    *
    * @param nameOfIngredient The name of the ingredient to check.
    * @param requiredQuantity The required quantity of ingredient.
-   * @param unitOfMeasurement
+   * @param unitOfMeasurement The unit of measurement.
    * @return <code>true</code> if the required quantity is available, <code>false</code> otherwise.>
    */
   public boolean isGroceryAvailable(String nameOfIngredient, BigDecimal requiredQuantity,
