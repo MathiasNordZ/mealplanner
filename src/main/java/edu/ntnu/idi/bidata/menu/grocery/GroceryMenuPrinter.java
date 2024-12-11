@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * This class provides methods to print information about groceries in the food storage.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  * @since 28.11.2024
  */
 public class GroceryMenuPrinter {

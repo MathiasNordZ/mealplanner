@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * It provides methods to add, remove and retrieve recipes.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  * @since 13.11.2024
  */
 public class CookBook {

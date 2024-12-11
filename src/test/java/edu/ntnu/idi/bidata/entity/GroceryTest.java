@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Mathias Erik Nord
  * @since 16.10.2024
- * @version 0.0.1
+ * @version 1.0.0
  */
 
 class GroceryTest {

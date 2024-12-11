@@ -9,7 +9,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  * The whole application is initialized and started from this class.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class Main {
   /**

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Test class for the <code>Recipe</code> validators.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  */
 class RecipeValidatorTest {
   /**

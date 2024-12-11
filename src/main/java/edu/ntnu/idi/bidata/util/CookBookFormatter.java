@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  *
  * @author Mathias Erik Nord
  * @since 23.11.2024
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class CookBookFormatter {
   private CookBookFormatter() {

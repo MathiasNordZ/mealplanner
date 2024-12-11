@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author Mathias Erik Nord
  * @since 16.10.2024
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class Grocery {
   private BigDecimal quantity; // Quantity, ex 2.0

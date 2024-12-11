@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Mathias Erik Nord
  * @since 05.11.2024
- * @version 0.0.1
+ * @version 1.0.0
  */
 class FoodStorageTest {
   private FoodStorage foodStorage;

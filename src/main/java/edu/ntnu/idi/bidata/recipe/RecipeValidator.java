@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author Mathias Erik Nord
  * @since 28.11.2024
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class RecipeValidator {
   private RecipeValidator() {

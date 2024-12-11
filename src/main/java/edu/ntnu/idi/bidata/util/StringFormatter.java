@@ -4,6 +4,9 @@ package edu.ntnu.idi.bidata.util;
  * Utility class for string formatting operations.
  * Provides methods to normalize strings by trimming whitespace,
  * converting to lowercase, and capitalizing the first letter.
+ *
+ * @author Mathias Erik Nord
+ * @version 1.0.0
  */
 public class StringFormatter {
   /**

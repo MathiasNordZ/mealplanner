@@ -9,7 +9,7 @@ import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
  * It allows the user to navigate to the grocery menu or the cookbook menu.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  * @since 22.11.2024
  */
 public class MainMenu {

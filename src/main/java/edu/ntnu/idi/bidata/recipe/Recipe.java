@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Mathias Erik Nord
  * @since 13.11.24
- * @version 0.1.1
+ * @version 1.0.0
  */
 public class Recipe {
   private String recipeName;

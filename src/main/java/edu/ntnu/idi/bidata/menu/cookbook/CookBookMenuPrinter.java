@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * This class provides methods to print recipes and recommendations from the cookbook.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  * @since 28.11.2024
  */
 public class CookBookMenuPrinter {

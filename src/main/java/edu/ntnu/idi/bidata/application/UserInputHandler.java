@@ -12,7 +12,7 @@ import java.util.Scanner;
  * It provides methods to read strings, integers, and floats from the user.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class UserInputHandler {
   private final Scanner scanner;

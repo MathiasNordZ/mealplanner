@@ -8,6 +8,9 @@ import java.util.NoSuchElementException;
 /**
  * Utility class for validating inputs related to <code>FoodStorage</code>.
  * The provided methods will be able to validate the groceries and the belonging attributes.
+ *
+ * @author Mathias Erik Nord
+ * @version 1.0.0
  */
 public class FoodStorageValidator {
 

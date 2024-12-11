@@ -8,7 +8,7 @@ import edu.ntnu.idi.bidata.util.StringFormatter;
  * Each method prints a predefined menu structure to the console.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  * @since 27.11.2024
  */
 public class StringMenu {

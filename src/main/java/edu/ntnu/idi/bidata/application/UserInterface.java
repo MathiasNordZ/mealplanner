@@ -23,7 +23,7 @@ import java.util.Map;
  * and cookbook with groceries and recipes by default.
  *
  * @author Mathias Erik Nord
- * @version 0.0.1
+ * @version 1.0.0
  */
 public class UserInterface {
   private MainMenu mainMenu;
