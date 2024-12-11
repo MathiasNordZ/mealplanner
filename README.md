@@ -15,7 +15,7 @@ This project is a meal organization application. The application aims to help pe
 ## Project structure
 
 [//]: # (TODO: Describe the structure of your project here. How have you used packages in your structure. Where are all sourcefiles stored. Where are all JUnit-test classes stored. etc.)
-
+```
 project-root/
 ├── pom.xml
 ├── README.md
@@ -60,7 +60,7 @@ project-root/
 │                       └── util/
 │                           ├── CookBookFormatterTest.java
 │                           └── GroceryFormatterTest.java
-
+```
 ## Link to repository
 
 [//]: # (TODO: Include a link to your GitHub repository here.)
