@@ -3,6 +3,8 @@ package edu.ntnu.idi.bidata.menu.cookbook;
 import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
+import edu.ntnu.idi.bidata.util.StringFormatter;
+
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
@@ -96,7 +98,7 @@ public class CookBookMenuMutator {
     try {
       String recipeToRemove = inputHandler.stringReader("Please enter recipe to remove: ");
       cookBook.removeRecipe(recipeToRemove);
-      System.out.println(recipeToRemove + " was removed!");
+      System.out.println("\n" + recipeToRemove + StringFormatter.GREEN + " was removed!" + StringFormatter.RESET);
     } catch (NoSuchElementException | IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
     }

@@ -20,6 +20,9 @@ public class GroceryMenuPrinter {
 
   /**
    * Constructs a new instance of <code>GroceryMenuPrinter</code>.
+   * Does also initialize the inputHandler.
+   *
+   * @param inputHandler The input handler.
    *
    * @since 0.0.1
    */
@@ -31,6 +34,7 @@ public class GroceryMenuPrinter {
    * Prompts the user for a grocery to search for and prints the details if found.
    *
    * @param foodStorage The food storage to search in.
+   * @param errorMessage Error message to display.
    * @since 0.0.1
    */
   public void searchForGrocery(FoodStorage foodStorage, String errorMessage) {
@@ -97,7 +101,7 @@ public class GroceryMenuPrinter {
    */
   public void valueOfAllGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
-      System.out.println(StringFormatter.GREEN + "Value of all groceries: "
+      System.out.println(StringFormatter.GREEN + "\nValue of all groceries: "
           + StringFormatter.RESET + foodStorage.valueOfAllGroceries());
     } catch (Exception e) {
       System.out.println(errorMessage + e.getMessage());

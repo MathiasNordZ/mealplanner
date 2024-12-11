@@ -82,7 +82,7 @@ public class CookBookMenuPrinter {
                                    FoodStorage foodStorage) {
     try {
       Recipe recommendedRecipe = cookBook.recipeRecommendation(foodStorage);
-      System.out.println(StringFormatter.GREEN + "Recommended recipe: "
+      System.out.println(StringFormatter.GREEN + "\nRecommended recipe: "
           + StringFormatter.RESET + recommendedRecipe.getRecipeName());
     } catch (NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
