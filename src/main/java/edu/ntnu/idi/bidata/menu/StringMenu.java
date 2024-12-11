@@ -5,7 +5,7 @@ import edu.ntnu.idi.bidata.util.StringFormatter;
 /**
  * The <code>StringMenu</code> class provides methods to print various menus to the console.
  * This class includes methods to print the main menu, cookbook menu, and grocery menu.
- * Each method prints a predefined menu structure to the console.</p>
+ * Each method prints a predefined menu structure to the console.
  *
  * @author Mathias Erik Nord
  * @version 0.0.1
