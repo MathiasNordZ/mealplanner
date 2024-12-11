@@ -15,15 +15,15 @@ import java.util.NoSuchElementException;
  * @since 28.11.2024
  */
 public class GroceryMenuPrinter {
-  private final UserInputHandler uiInputHandler;
+  private final UserInputHandler inputHandler;
 
   /**
    * Constructs a new instance of <code>GroceryMenuPrinter</code>.
    *
    * @since 0.0.1
    */
-  public GroceryMenuPrinter(UserInputHandler uiInputHandler) {
-    this.uiInputHandler = uiInputHandler;
+  public GroceryMenuPrinter(UserInputHandler inputHandler) {
+    this.inputHandler = inputHandler;
   }
 
   /**
@@ -37,7 +37,7 @@ public class GroceryMenuPrinter {
     foodStorage.getSortedList().forEach(grocery -> System.out.println(grocery.getName()));
     System.out.println();
 
-    String groceryToSearch = uiInputHandler.stringReader("Please enter grocery to search for: ");
+    String groceryToSearch = inputHandler.stringReader("Please enter grocery to search for: ");
     try {
       String formattedGrocery = GroceryFormatter.formatGrocery(foodStorage, groceryToSearch);
       System.out.println(formattedGrocery);
@@ -72,7 +72,7 @@ public class GroceryMenuPrinter {
    */
   public void listOfExpiredGroceries(String errorMessage, FoodStorage foodStorage) {
     try {
-      String dateOfExpiry = uiInputHandler
+      String dateOfExpiry = inputHandler
           .dateReader("Please enter date to check which groceries "
               + "expires before given date ('YYYY-MM-DD'): ");
       List<Grocery> expiredGroceries = foodStorage.listOfExpiredGroceries(dateOfExpiry);

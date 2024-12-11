@@ -13,15 +13,15 @@ import java.util.NoSuchElementException;
  * @since 28.11.2024
  */
 public class GroceryMenuMutator {
-  private final UserInputHandler uiInputHandler;
+  private final UserInputHandler inputHandler;
 
   /**
    * Constructor for GroceryMenuMutator.
    *
-   * @param uiInputHandler The input handler.
+   * @param inputHandler The input handler.
    */
-  public GroceryMenuMutator(UserInputHandler uiInputHandler) {
-    this.uiInputHandler = uiInputHandler;
+  public GroceryMenuMutator(UserInputHandler inputHandler) {
+    this.inputHandler = inputHandler;
   }
 
   /**
@@ -50,8 +50,8 @@ public class GroceryMenuMutator {
    * @param foodStorage The food storage where the grocery should be removed from.
    */
   public void removeGrocery(String errorMessage, FoodStorage foodStorage) {
-    String groceryToRemove = uiInputHandler.stringReader("Name of grocery to remove: ");
-    BigDecimal quantityToRemove = uiInputHandler.decimalReader("Quantity to remove: ");
+    String groceryToRemove = inputHandler.stringReader("Name of grocery to remove: ");
+    BigDecimal quantityToRemove = inputHandler.decimalReader("Quantity to remove: ");
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
@@ -69,13 +69,13 @@ public class GroceryMenuMutator {
    * @since 0.0.1
    */
   private Grocery promptGroceryDetails() {
-    String nameOfGrocery = uiInputHandler.stringReader("Please enter name of grocery: ");
-    BigDecimal quantityOfGrocery = uiInputHandler
+    String nameOfGrocery = inputHandler.stringReader("Please enter name of grocery: ");
+    BigDecimal quantityOfGrocery = inputHandler
         .decimalReader("Please enter quantity of grocery: ");
-    String unitOfMeasurement = uiInputHandler
+    String unitOfMeasurement = inputHandler
         .unitReader("Please enter unit of measurement (kilogram/liter/pcs): ");
-    BigDecimal priceOfGrocery = uiInputHandler.decimalReader("Please enter price of grocery: ");
-    String dateOfExpiry = uiInputHandler.dateReader("Please enter expiry date (YYYY-MM-DD): ");
+    BigDecimal priceOfGrocery = inputHandler.decimalReader("Please enter price of grocery: ");
+    String dateOfExpiry = inputHandler.dateReader("Please enter expiry date (YYYY-MM-DD): ");
 
     return new Grocery(quantityOfGrocery, nameOfGrocery, unitOfMeasurement,
         priceOfGrocery, dateOfExpiry);

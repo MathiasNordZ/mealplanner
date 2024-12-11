@@ -13,7 +13,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  * @since 22.11.2024
  */
 public class GroceryMenu {
-  private final UserInputHandler uiInputHandler;
+  private final UserInputHandler inputHandler;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
   private final StringMenu stringMenu;
@@ -24,18 +24,18 @@ public class GroceryMenu {
    * Constructs a new instance of <code>GroceryMenu</code>.
    *
    * @param foodStorage The food storage that contains the groceries.
-   * @param uiInputHandler The user input handler.
+   * @param inputHandler The user input handler.
    * @param stringMenu The string menu.
    * @param groceryMutator The grocery menu mutator.
    * @since 0.0.1
    */
-  public GroceryMenu(FoodStorage foodStorage, UserInputHandler uiInputHandler,
+  public GroceryMenu(FoodStorage foodStorage, UserInputHandler inputHandler,
                      StringMenu stringMenu, GroceryMenuMutator groceryMutator) {
     this.foodStorage = foodStorage;
-    this.uiInputHandler = uiInputHandler;
+    this.inputHandler = inputHandler;
     this.stringMenu = stringMenu;
     this.groceryMutator = groceryMutator;
-    this.groceryPrinter = new GroceryMenuPrinter(uiInputHandler);
+    this.groceryPrinter = new GroceryMenuPrinter(inputHandler);
   }
 
   /**
@@ -89,7 +89,7 @@ public class GroceryMenu {
       stringMenu.printGroceryMenu();
       int commandValue;
       try {
-        commandValue = uiInputHandler.intReader("Enter your command: ");
+        commandValue = inputHandler.intReader("Enter your command: ");
         command = GroceryCommand.fromValue(commandValue);
         commandHandler(command);
       } catch (IllegalArgumentException e) {

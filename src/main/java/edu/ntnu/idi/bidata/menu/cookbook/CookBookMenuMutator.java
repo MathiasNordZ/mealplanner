@@ -13,17 +13,20 @@ import java.util.NoSuchElementException;
  * This class provides the user methods that can mutate the state of the cookbook.
  * It allows the user to create and remove recipes from the cookbook.
  *
+ * @author Mathias Erik Nord
  * @version 0.0.1
  * @since 28.11.2024
  */
 public class CookBookMenuMutator {
-  private final UserInputHandler uiInputHandler;
+  private final UserInputHandler inputHandler;
 
   /**
-   * Constructs a new instance of <code>CookBookMenuMutator</code>.
+   * Constructs a new instance of <code>CookBookMenuMutator</code>
+   *
+   * @param inputHandler The input handler.
    */
-  public CookBookMenuMutator(UserInputHandler uiInputHandler) {
-    this.uiInputHandler = uiInputHandler;
+  public CookBookMenuMutator(UserInputHandler inputHandler) {
+    this.inputHandler = inputHandler;
   }
 
   /**
@@ -36,11 +39,11 @@ public class CookBookMenuMutator {
   public void createRecipe(String errorMessage, CookBook cookBook) {
     try {
       Recipe recipe;
-      String recipeName = uiInputHandler.stringReader("Please enter name of recipe: ");
-      String recipeDescription = uiInputHandler.stringReader("Please enter a recipe description: ");
-      String cookingInstructions = uiInputHandler
+      String recipeName = inputHandler.stringReader("Please enter name of recipe: ");
+      String recipeDescription = inputHandler.stringReader("Please enter a recipe description: ");
+      String cookingInstructions = inputHandler
           .stringReader("Please enter cooking instructions: ");
-      int servings = uiInputHandler.intReader("Please enter amount of servings");
+      int servings = inputHandler.intReader("Please enter amount of servings");
 
       Map<String, SimpleEntry<BigDecimal, String>> ingredients = new HashMap<>();
       boolean isUserDone = false;
@@ -67,14 +70,14 @@ public class CookBookMenuMutator {
   private void ingredientPrompt(boolean isUserDone,
                                 Map<String, SimpleEntry<BigDecimal, String>> ingredients) {
     while (!isUserDone) {
-      String name = uiInputHandler
+      String name = inputHandler
           .stringReader("Please enter name of ingredient (type 'done' if finished): ");
       if (name.equalsIgnoreCase("Done")) {
         isUserDone = true;
       } else {
-        BigDecimal quantity = uiInputHandler
+        BigDecimal quantity = inputHandler
             .decimalReader("Please enter required quantity of ingredient: ");
-        String unit = uiInputHandler
+        String unit = inputHandler
             .unitReader("Please enter unit of measurement. (kilogram/liter/pcs).");
         ingredients.put(name,
             new SimpleEntry<>(quantity, unit));
@@ -91,7 +94,7 @@ public class CookBookMenuMutator {
    */
   public void removeRecipe(String errorMessage, CookBook cookBook) {
     try {
-      String recipeToRemove = uiInputHandler.stringReader("Please enter recipe to remove: ");
+      String recipeToRemove = inputHandler.stringReader("Please enter recipe to remove: ");
       cookBook.removeRecipe(recipeToRemove);
       System.out.println(recipeToRemove + " was removed!");
     } catch (NoSuchElementException | IllegalArgumentException e) {

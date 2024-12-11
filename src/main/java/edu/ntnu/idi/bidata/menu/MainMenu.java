@@ -13,7 +13,7 @@ import edu.ntnu.idi.bidata.menu.grocery.GroceryMenu;
  * @since <b>22.11.2024</b>
  */
 public class MainMenu {
-  private final UserInputHandler uiInputHandler;
+  private final UserInputHandler inputHandler;
   private final GroceryMenu groceryMenu;
   private final CookBookMenu cookBookMenu;
   private final StringMenu stringMenu = new StringMenu();
@@ -21,13 +21,13 @@ public class MainMenu {
   /**
    * Constructor for the <code>MainMenu</code> class.
    *
-   * @param uiInputHandler The user input handler.
+   * @param inputHandler The user input handler.
    * @param groceryMenu The grocery menu.
    * @param cookBookMenu The cookbook menu.
    */
-  public MainMenu(UserInputHandler uiInputHandler, GroceryMenu groceryMenu,
+  public MainMenu(UserInputHandler inputHandler, GroceryMenu groceryMenu,
                   CookBookMenu cookBookMenu) {
-    this.uiInputHandler = uiInputHandler;
+    this.inputHandler = inputHandler;
     this.groceryMenu = groceryMenu;
     this.cookBookMenu = cookBookMenu;
   }
@@ -67,7 +67,7 @@ public class MainMenu {
       int commandValue;
 
       try {
-        commandValue = uiInputHandler.intReader("Enter command: ");
+        commandValue = inputHandler.intReader("Enter command: ");
         command = MainCommands.fromValue(commandValue);
         commandHandler(command);
       } catch (IllegalArgumentException e) {

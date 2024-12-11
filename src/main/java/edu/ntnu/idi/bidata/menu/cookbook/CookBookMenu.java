@@ -14,7 +14,7 @@ import edu.ntnu.idi.bidata.register.FoodStorage;
  * @since 22.11.2024
  */
 public class CookBookMenu {
-  private final UserInputHandler uiInputHandler;
+  private final UserInputHandler inputHandler;
   private final CookBook cookBook;
   private final FoodStorage foodStorage;
   private static final String ERRORMESSAGE = "An error occurred: ";
@@ -25,7 +25,7 @@ public class CookBookMenu {
   /**
    * Constructs a new instance of <code>CookBookMenu</code>.
    *
-   * @param uiInputHandler The handler for user input, used to read commands and data from user.
+   * @param inputHandler The handler for user input, used to read commands and data from user.
    * @param cookBook The cookbook that contains the collection of recipes to be managed.
    * @param foodStorage The storage that contains the groceries used in the recipes.
    * @param stringMenu The menu containing the string menus.
@@ -33,10 +33,10 @@ public class CookBookMenu {
    * @param cookBookMenuPrinter The class that handles printing related to cookbook menu.
    * @since 0.0.1
    */
-  public CookBookMenu(UserInputHandler uiInputHandler, CookBook cookBook, FoodStorage foodStorage,
+  public CookBookMenu(UserInputHandler inputHandler, CookBook cookBook, FoodStorage foodStorage,
                       StringMenu stringMenu, CookBookMenuMutator cookBookMenuMutator,
                       CookBookMenuPrinter cookBookMenuPrinter) {
-    this.uiInputHandler = uiInputHandler;
+    this.inputHandler = inputHandler;
     this.cookBook = cookBook;
     this.foodStorage = foodStorage;
     this.stringMenu = stringMenu;
@@ -89,7 +89,7 @@ public class CookBookMenu {
       stringMenu.printCookbookMenu();
       int commandValue;
       try {
-        commandValue = uiInputHandler.intReader("Enter your command: ");
+        commandValue = inputHandler.intReader("Enter your command: ");
         command = CookBookCommand.fromValue(commandValue);
         commandHandler(command);
       } catch (IllegalArgumentException e) {
@@ -113,7 +113,7 @@ public class CookBookMenu {
       case CookBookCommand.PRINT_RECIPES ->
           cookBookMenuPrinter.printRecipes(ERRORMESSAGE, cookBook);
       case CookBookCommand.PRINT_RECIPE ->
-          cookBookMenuPrinter.printRecipe(ERRORMESSAGE, uiInputHandler, cookBook, foodStorage);
+          cookBookMenuPrinter.printRecipe(ERRORMESSAGE, inputHandler, cookBook, foodStorage);
       case CookBookCommand.RECIPE_RECOMMENDATION ->
           cookBookMenuPrinter.recipeRecommendation(ERRORMESSAGE, cookBook, foodStorage);
       case CookBookCommand.BACK -> System.out.println("Going back to main menu.\n");
