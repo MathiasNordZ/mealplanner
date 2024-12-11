@@ -27,14 +27,21 @@ import java.util.Map;
  */
 public class UserInterface {
   private MainMenu mainMenu;
+  private final StringMenu stringMenu;
+  private final UserInputHandler inputHandler;
+  private final FoodStorage foodStorage;
+  private final CookBook cookBook;
   private static final String KILOGRAM = "Kilogram";
   private static final String LITER = "Liter";
 
   /**
    * Empty constructor. Because no further initialization is needed.
    */
-  public UserInterface() {
-    // Constructor is empty.
+  public UserInterface(StringMenu stringMenu, UserInputHandler inputHandler, FoodStorage foodStorage, CookBook cookBook) {
+    this.stringMenu = stringMenu;
+    this.inputHandler = inputHandler;
+    this.foodStorage = foodStorage;
+    this.cookBook = cookBook;
   }
 
 
@@ -45,25 +52,12 @@ public class UserInterface {
    * @since 0.0.1
    */
   public void init() {
-    StringMenu stringMenu = new StringMenu();
-    UserInputHandler uiInputHandler = new UserInputHandler();
-    FoodStorage foodStorage = initializeFoodStorage();
-    CookBook cookBook = initializeCookBook();
-
     addRecipe(cookBook);
     addGrocery(foodStorage);
 
-    mainMenu = new MainMenu(uiInputHandler,
-        initializeGroceryMenu(uiInputHandler, foodStorage, stringMenu),
-        initializeCookBookMenu(uiInputHandler, cookBook, foodStorage, stringMenu));
-  }
-
-  private FoodStorage initializeFoodStorage() {
-    return new FoodStorage();
-  }
-
-  private CookBook initializeCookBook() {
-    return new CookBook();
+    mainMenu = new MainMenu(inputHandler,
+        initializeGroceryMenu(inputHandler, foodStorage, stringMenu),
+        initializeCookBookMenu(inputHandler, cookBook, foodStorage, stringMenu));
   }
 
   private GroceryMenu initializeGroceryMenu(UserInputHandler uiInputHandler,

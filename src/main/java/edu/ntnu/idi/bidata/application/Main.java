@@ -1,5 +1,9 @@
 package edu.ntnu.idi.bidata.application;
 
+import edu.ntnu.idi.bidata.menu.StringMenu;
+import edu.ntnu.idi.bidata.recipe.CookBook;
+import edu.ntnu.idi.bidata.register.FoodStorage;
+
 /**
  * This is the starting point of the application.
  * The whole application is initialized and started from this class.
@@ -14,7 +18,12 @@ public class Main {
    * @param args Command line arguments.
    */
   public static void main(String[] args) {
-    UserInterface ui = new UserInterface();
+    StringMenu stringMenu = new StringMenu();
+    UserInputHandler inputHandler = new UserInputHandler();
+    FoodStorage foodStorage = new FoodStorage();
+    CookBook cookBook = new CookBook();
+
+    UserInterface ui = new UserInterface(stringMenu, inputHandler, foodStorage, cookBook);
 
     ui.init();
     ui.start();
