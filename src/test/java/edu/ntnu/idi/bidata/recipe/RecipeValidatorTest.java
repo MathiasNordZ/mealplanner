@@ -9,6 +9,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test class for the <code>Recipe</code> validators.
+ *
+ * @author Mathias Erik Nord
+ * @version 0.0.1
+ */
 class RecipeValidatorTest {
   /**
    * Positive test method for <code>mapInputValidation</code>.

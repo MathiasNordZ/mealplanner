@@ -14,14 +14,12 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * <p>
  * This is the test class for the class FoodStorage. The test class is supposed to test certain methods of the FoodStorage class.
  * The test class does follow the Arrange, Act and Assert philosophy, where an object of the class FoodStorage is created. It is acted upon, and then asserted.
- * </p>
  *
- * @author <b>Mathias Erik Nord</b>
- * @since <b>05.11.2024</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @since 05.11.2024
+ * @version 0.0.1
  */
 class FoodStorageTest {
   private FoodStorage foodStorage;
@@ -65,8 +63,6 @@ class FoodStorageTest {
 
   /**
    * This is a negative test for the <code>addGrocery</code> method.
-   * @throws IllegalArgumentException should be thrown,
-   * because the grocery that will be added is set to null.
    */
   @Test
   void addGroceryNegativeTest() {
@@ -91,8 +87,6 @@ class FoodStorageTest {
   /**
    * Negative test for the method <code>removeGrocery</code>.
    * Will remove a bigger quantity than the available quantity.
-   * @throws IllegalArgumentException should be thrown,
-   * because the quantity to remove is bigger than existing quantity.
    */
   @Test
   void removeGroceryNegativeTest() {
@@ -118,14 +112,15 @@ class FoodStorageTest {
   /**
    * Negative test for the method <code>searchGrocery</code>.
    * Will search for a grocery that does not exist in <code>foodStorage</code>.
-   * @throws IllegalArgumentException should be thrown,
-   * because the grocery searched for does not exist.
    */
   @Test
   void searchGroceryNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> foodStorage.searchGrocery(""));
   }
 
+  /**
+   * Positive test for <code>List of expired groceries.</code>
+   */
   @Test
   void listOfExpiredGroceriesPositiveTest() {
     String expiredDate = "2023-10-10";
@@ -145,8 +140,6 @@ class FoodStorageTest {
   /**
    * Negative test for method <code>listOfExpiredGroceries</code>.
    * Will test for invalid parameters of year, month and day.
-   * @throws IllegalArgumentException should be thrown,
-   * because the year, day and month is set to illegal values.
    */
   @Test
   void listOfExpiredGroceriesNegativeTest() {// Test if invalid year throws correct exception.
@@ -186,6 +179,9 @@ class FoodStorageTest {
     assertEquals(milk, sortedGroceryList.get(1)); // Check if second item is milk.
   }
 
+  /**
+   * Positive test for value of expired groceries.
+   */
   @Test
   void valueOfExpiredGroceriesPositiveTest() {
     List<Grocery> expiredGroceries = List.of(
@@ -197,6 +193,9 @@ class FoodStorageTest {
     assertEquals(0, BigDecimal.valueOf(175).compareTo(totalValue));
   }
 
+  /**
+   * Negative test for value of expired groceries.
+   */
   @Test
   void valueOfExpiredGroceriesNegativeTest() {
     List<Grocery> expiredGroceries = new ArrayList<>();

@@ -18,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test class for <code>CookBook</code>.
  *
- * @author <b>Mathias Erik Nord</b>
- * @since <b>24.11.2024</b>
- * @version <b>0.0.1</b>
+ * @author Mathias Erik Nord
+ * @since 24.11.2024
+ * @version 0.0.1
  */
 class CookBookTest {
     private CookBook cookBook;

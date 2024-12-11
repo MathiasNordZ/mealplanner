@@ -73,7 +73,6 @@ class GroceryTest {
 
   /**
    * This is a negative test for <code>setName</code> method.
-   * @throws IllegalArgumentException should be thrown, because this test will set an empty string as name.
    */
   @Test
   void setNameNegativeTest() {
@@ -96,7 +95,6 @@ class GroceryTest {
 
   /**
    * This is a negative test for <code>setExpirationDate</code> method.
-   * @throws IllegalArgumentException should be thrown, because this test will set an invalid date format.
    */
   @Test
   void setExpirationDateNegativeTest() {
@@ -139,7 +137,6 @@ class GroceryTest {
 
   /**
    * This is a negative test for <code>setPrice</code> method.
-   * @throws IllegalArgumentException should be thrown, because the price is set to negative.
    */
   @Test
   void setPriceNegativeTest() {
