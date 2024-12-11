@@ -45,7 +45,7 @@ public class CookBookMenu {
   }
 
   /**
-   * Enum that is representing the command available in the cook book menu.
+   * Enum that is representing the commands available in the cook book menu.
    */
   private enum CookBookCommand {
     CREATE_RECIPE(1),
@@ -81,6 +81,8 @@ public class CookBookMenu {
 
   /**
    * The display of the cook book menu where the user is interacting.
+   *
+   * @since 0.0.1
    */
   public void cookBookMenu() {
     CookBookCommand command = null;

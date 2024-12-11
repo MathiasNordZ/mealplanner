@@ -72,12 +72,12 @@ public class UserInputHandler {
   }
 
   /**
-   * Reads a float input from the user.
-   * If the input is not a valid float,
+   * Reads a decimal input from the user.
+   * If the input is not a valid decimal,
    * it will re-prompt until the input is valid.
    *
    * @param prompt The message to display to the user before reading input.
-   * @return Float input from the user.
+   * @return Decimal input from the user.
    * @since 0.0.1
    */
   public BigDecimal decimalReader(String prompt) {
@@ -128,28 +128,28 @@ public class UserInputHandler {
 
   /**
    * Reads the unit of measurement input from user.
-   * Will re-prompt is user enters wrong unit format.
+   * Will re-prompt if user enters wrong unit format.
    *
    * @param prompt The prompt message.
    * @return Will return the inputted unit.
    * @since 0.0.1
    */
   public String unitReader(String prompt) {
-    String unitOfMeasurement = "";
+    String unit = "";
     boolean isUnitCorrect = false;
     while (!isUnitCorrect) {
-      unitOfMeasurement = stringReader(prompt);
-      cancelOperation(unitOfMeasurement);
-      if (unitOfMeasurement.equalsIgnoreCase("kilogram")
-          || unitOfMeasurement.equalsIgnoreCase("liter")
-          || unitOfMeasurement.equalsIgnoreCase("pcs")) {
+      unit = stringReader(prompt);
+      cancelOperation(unit);
+      if (unit.equalsIgnoreCase("kilogram")
+          || unit.equalsIgnoreCase("liter")
+          || unit.equalsIgnoreCase("pcs")) {
         isUnitCorrect = true;
       } else {
         System.out.println("You provided an invalid unit of measurement! "
             + "Please use (kilogram/liter/pcs).");
       }
     }
-    return StringFormatter.normalizedString(unitOfMeasurement);
+    return StringFormatter.normalizedString(unit);
   }
 
   /**

@@ -29,7 +29,7 @@ public class CookBookFormatter {
   public static String formatRecipes(Map<String, Recipe> recipes) {
     recipeValidation(recipes);
     StringBuilder table = new StringBuilder();
-    String format = "| %-20s | %-50s | %-30s | %-15s |\n";
+    String format = "| %-20s | %-50s | %-50s | %-15s |\n";
     table.append(String.format(format, "Name", "Description",
         "Ingredients", "Servings"));
     table.append("---------------------------------------------------------------------------------"
@@ -55,10 +55,11 @@ public class CookBookFormatter {
   public static String formatRecipe(Map<String, Recipe> recipe) {
     recipeValidation(recipe);
     StringBuilder table = new StringBuilder();
-    String format = "| %-20s | %-50s | %-50s | %-30s | %-15s |\n";
+    String format = "| %-20s | %-50s | %-50s | %-50s | %-15s |\n";
     table.append(String.format(format, "Name", "Description", "Instructions",
         "Ingredients", "Servings"));
     table.append("---------------------------------------------------------------------------------"
+        + "--------------------------------------------------------------------"
         + "-------------------------------------------------------------------\n");
 
     for (Recipe recipeElement : recipe.values()) {

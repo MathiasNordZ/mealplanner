@@ -18,6 +18,7 @@ public class Main {
   private Main() {
     // Empty constructor
   }
+
   /**
    * Where the program is run from.
    *

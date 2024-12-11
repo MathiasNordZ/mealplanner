@@ -4,7 +4,6 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.recipe.CookBook;
 import edu.ntnu.idi.bidata.recipe.Recipe;
 import edu.ntnu.idi.bidata.util.StringFormatter;
-
 import java.math.BigDecimal;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
@@ -12,8 +11,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
- * This class provides the user methods that can mutate the state of the cookbook.
- * It allows the user to create and remove recipes from the cookbook.
+ * This class provides the user methods that can interact with the cookbook.
  *
  * @author Mathias Erik Nord
  * @version 0.0.1
@@ -54,7 +52,7 @@ public class CookBookMenuMutator {
       recipe = new Recipe(recipeName, recipeDescription,
           cookingInstructions, ingredients, servings);
       cookBook.addRecipe(recipe);
-      System.out.println(recipeName + " was added successfully!");
+      System.out.println("\n" + recipeName + StringFormatter.GREEN + " was added successfully!");
     } catch (IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
     }
@@ -98,7 +96,8 @@ public class CookBookMenuMutator {
     try {
       String recipeToRemove = inputHandler.stringReader("Please enter recipe to remove: ");
       cookBook.removeRecipe(recipeToRemove);
-      System.out.println("\n" + recipeToRemove + StringFormatter.GREEN + " was removed!" + StringFormatter.RESET);
+      System.out.println("\n" + recipeToRemove
+          + StringFormatter.GREEN + " was removed!" + StringFormatter.RESET);
     } catch (NoSuchElementException | IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
     }

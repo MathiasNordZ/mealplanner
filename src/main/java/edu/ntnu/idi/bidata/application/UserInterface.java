@@ -92,7 +92,7 @@ public class UserInterface {
   }
 
   /**
-   * Private method that will initialize an instance of <code>Grocery</code>.
+   * Method that will initialize an instance of <code>Grocery</code>.
    *
    * @param foodStorage Food storage that grocery will be added to
    * @param quantity Quantity of grocery to add.

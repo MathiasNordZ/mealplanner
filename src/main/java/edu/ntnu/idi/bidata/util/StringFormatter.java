@@ -7,7 +7,7 @@ package edu.ntnu.idi.bidata.util;
  */
 public class StringFormatter {
   /**
-   * Reset color to default
+   * Reset color to default.
    */
   public static final String RESET = "\033[0m";
   /**

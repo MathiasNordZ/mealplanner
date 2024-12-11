@@ -4,7 +4,6 @@ import edu.ntnu.idi.bidata.application.UserInputHandler;
 import edu.ntnu.idi.bidata.entity.Grocery;
 import edu.ntnu.idi.bidata.register.FoodStorage;
 import edu.ntnu.idi.bidata.util.StringFormatter;
-
 import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
@@ -38,7 +37,9 @@ public class GroceryMenuMutator {
     try {
       Grocery grocery = promptGroceryDetails();
       foodStorage.addGrocery(grocery);
-      System.out.println(StringFormatter.GREEN + "\nGrocery was created successfully, and added to storage." + StringFormatter.RESET);
+      System.out.println(StringFormatter.GREEN
+          + "\nGrocery was created successfully, and added to storage."
+          + StringFormatter.RESET);
     } catch (IllegalArgumentException e) {
       System.out.println(errorMessage + e.getMessage());
     }
@@ -58,7 +59,9 @@ public class GroceryMenuMutator {
 
     try {
       foodStorage.removeGrocery(groceryToRemove, quantityToRemove);
-      System.out.println(StringFormatter.GREEN + "\nGrocery was removed successfully!" + StringFormatter.RESET);
+      System.out.println(StringFormatter.GREEN
+          + "\nGrocery was removed successfully!"
+          + StringFormatter.RESET);
     } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(errorMessage + e.getMessage());
     }

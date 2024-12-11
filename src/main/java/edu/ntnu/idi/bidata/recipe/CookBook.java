@@ -20,7 +20,7 @@ public class CookBook {
 
   /**
    * Constructor for the class <code>CookBook</code>.
-   * It will initialize and empty set of recipes.
+   * It will initialize and empty map of recipes.
    */
   public CookBook() {
     this.recipes = new HashMap<>();
