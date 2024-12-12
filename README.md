@@ -12,6 +12,8 @@ STUDENT ID = "129623"
 [//]: # (TODO: Write a short description of your project/product here.)
 This project is a meal organization application. The application aims to help people reduce the waste of food. In the application you can save all you groceries too keep track of what you have, when they expire and much more. You can also create recipes and save them for later use. These recipes can be matched against the food you have, to give recommendations based on that.
 
+- JavaDoc to the project: https://mathiasnordz.github.io/JavaDocMappe/
+
 ## Project structure
 
 [//]: # (TODO: Describe the structure of your project here. How have you used packages in your structure. Where are all sourcefiles stored. Where are all JUnit-test classes stored. etc.)
