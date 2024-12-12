@@ -70,7 +70,7 @@ project-root/
 [//]: # (TODO: Describe how to run your project here. What is the main class? What is the main method?
 What is the input and output of the program? What is the expected behaviour of the program?)
 
-To run the program you have to make sure that you have JDK and Maven installed on your computer. You should then be able to clone the repository. Next you should run _mvn compile_ to compile the project. You should then be able to run the program from the class _Main.java_. This is where the _main_ method lives. This method will run the program.
+To run the program you have to make sure that you have JDK and Maven installed on your computer. You should then be able to clone the repository. Also make sure that you are in the correct directory, or else you will get a _mvn error_. Make sure the Maven dependencies from pom.xml is installed. Next you should run _mvn compile_ to compile the project. You should then be able to run the program from the class _Main.java_. This is where the _main_ method lives. This method will run the program.
 
 ## How to run the tests
 
@@ -81,3 +81,5 @@ To run the tests you have to do _mvn clean_, then _mvn compile_ and finally _mvn
 
 [//]: # (TODO: Include references here, if any. For example, if you have used code from the course book, include a reference to the chapter.
 Or if you have used code from a website or other source, include a link to the source.)
+
+https://docs.oracle.com/en/java/javase/21/docs/api/index.html
