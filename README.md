@@ -65,6 +65,7 @@ project-root/
 
 [//]: # (TODO: Include a link to your GitHub repository here.)
 https://github.com/NTNU-BIDATA-IDATG1003-2024/meal-planning-MathiasNordZ
+https://github.com/MathiasNordZ/mealplanner
 
 ## How to run the project
 
